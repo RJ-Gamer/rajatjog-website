@@ -1,0 +1,119 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="404 — Page Not Found · Rajat Jog"
+      description="This page does not exist."
+    />
+  </head>
+  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+    <Header />
+
+    <main style="flex: 1;">
+      <section class="not-found">
+        <p class="error-code">404</p>
+        <h1 class="error-title">Page not found</h1>
+        <p class="error-message">
+          This page doesn't exist or was moved. Probably a bad link.
+        </p>
+
+        <div class="error-actions">
+          <a href="/rajatjog-website/" class="btn-primary">Go home</a>
+          <a href="/rajatjog-website/projects" class="btn-secondary"
+            >View projects</a
+          >
+        </div>
+
+        <div class="error-links">
+          <p class="error-links-label">Or go directly to:</p>
+          <div class="link-row-group">
+            <a href="/rajatjog-website/about" class="error-link">About →</a>
+            <a href="/rajatjog-website/blog" class="error-link">Writing →</a>
+            <a href="/rajatjog-website/now" class="error-link">Now →</a>
+            <a href="/rajatjog-website/contact" class="error-link">Contact →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 0 3rem;
+    max-width: 480px;
+  }
+
+  .error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--color-border);
+    line-height: 1;
+    margin: 0 0 1rem;
+    letter-spacing: -0.04em;
+  }
+
+  .error-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.75rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 2rem;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .error-links {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+    width: 100%;
+  }
+
+  .error-links-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-secondary);
+    margin: 0 0 0.75rem;
+  }
+
+  .link-row-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .error-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-secondary) !important;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .error-link:hover {
+    color: var(--color-text) !important;
+  }
+</style>
