@@ -1,0 +1,240 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SOCIAL_LINKS } from "../consts";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Contact — Rajat Jog"
+      description="Get in touch with Rajat Jog — Senior Backend Engineer open to remote roles."
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="page-header">
+        <h1>Get in touch</h1>
+        <p class="page-subtitle">I reply within 24 hours.</p>
+      </section>
+
+      <hr />
+
+      <section class="contact-section">
+        <div class="contact-block">
+          <p class="contact-label">Work</p>
+          <p class="contact-text">
+            I'm open to Senior Backend Engineer, Backend Tech Lead, and Staff
+            Engineer roles. Remote-first. Open to international remote
+            opportunities.
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <p class="contact-label">Collaboration</p>
+          <p class="contact-text">
+            Interested in contributing to or building on any of my open source
+            libraries — timeblocks, django-system-audit, or django-ml-audit?
+            Open to pull requests, issues, and conversations.
+          </p>
+        </div>
+
+        <div class="contact-block">
+          <p class="contact-label">Anything else</p>
+          <p class="contact-text">
+            If you're building something interesting in Django, healthtech,
+            fintech, or developer tools — I'm happy to talk.
+          </p>
+        </div>
+      </section>
+
+      <hr />
+
+      <section class="links-section">
+        <p class="contact-label">Links</p>
+
+        <div class="link-list">
+          <a href={SOCIAL_LINKS.email} class="link-row">
+            <span class="link-platform">Email</span>
+            <span class="link-value">rajatjog1294@gmail.com</span>
+            <span class="link-arrow">→</span>
+          </a>
+
+          <a
+            href={SOCIAL_LINKS.linkedin}
+            target="_blank"
+            rel="noopener"
+            class="link-row"
+          >
+            <span class="link-platform">LinkedIn</span>
+            <span class="link-value">linkedin.com/in/rajat-jog</span>
+            <span class="link-arrow">→</span>
+          </a>
+
+          <a
+            href={SOCIAL_LINKS.github}
+            target="_blank"
+            rel="noopener"
+            class="link-row"
+          >
+            <span class="link-platform">GitHub</span>
+            <span class="link-value">github.com/RJ-Gamer</span>
+            <span class="link-arrow">→</span>
+          </a>
+
+          <a
+            href={SOCIAL_LINKS.pypi}
+            target="_blank"
+            rel="noopener"
+            class="link-row"
+          >
+            <span class="link-platform">PyPI</span>
+            <span class="link-value"
+              >timeblocks · django-system-audit · django-ml-audit</span
+            >
+            <span class="link-arrow">→</span>
+          </a>
+
+          <a
+            href="https://yourdomain.com"
+            target="_blank"
+            rel="noopener"
+            class="link-row"
+          >
+            <span class="link-platform">APIHealthHub</span>
+            <span class="link-value">yourdomain.com</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .contact-section {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-block {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    margin: 0;
+    padding-top: 0.15rem;
+  }
+
+  .contact-text {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 480px;
+  }
+
+  .links-section {
+    margin-top: 2.5rem;
+  }
+
+  .link-list {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .link-row:last-child {
+    border-bottom: none;
+  }
+
+  .link-row:hover {
+    background: var(--color-bg-secondary);
+  }
+
+  .link-platform {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+
+  .link-value {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    flex: 1;
+  }
+
+  .link-arrow {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+  }
+
+  .link-row:hover .link-arrow {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .contact-block {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+
+    .link-platform {
+      min-width: 80px;
+    }
+
+    .link-value {
+      font-size: 0.8rem;
+    }
+  }
+</style>

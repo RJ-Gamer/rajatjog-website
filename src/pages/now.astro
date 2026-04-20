@@ -1,0 +1,187 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Now — Rajat Jog"
+      description="What Rajat Jog is currently focused on — updated April 2026."
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <section class="page-header">
+        <h1>Now</h1>
+        <p class="page-subtitle">
+          What I'm currently focused on · Updated April 2026 · Pune, India
+        </p>
+      </section>
+
+      <hr />
+
+      <div class="now-grid">
+        <div class="now-item">
+          <p class="now-label">Building</p>
+          <p class="now-content">
+            APIHealthHub is live. Working on getting the first 10 real users and
+            shipping Phase 2 — Slack alerts, response time charts, and custom
+            domains.
+          </p>
+        </div>
+
+        <div class="now-item">
+          <p class="now-label">Working</p>
+          <p class="now-content">
+            Senior Backend Engineer at Mindbowser, building HIPAA and
+            SOC2-compliant healthcare platforms in Python and Django.
+          </p>
+        </div>
+
+        <div class="now-item">
+          <p class="now-label">Learning</p>
+          <p class="now-content">
+            System design depth, DSA patterns for interviews, and Celery
+            internals from building APIHealthHub in production.
+          </p>
+        </div>
+
+        <div class="now-item">
+          <p class="now-label">Reading</p>
+          <p class="now-content">System Design Interview Vol 2 by Alex Xu.</p>
+        </div>
+
+        <div class="now-item">
+          <p class="now-label">Writing</p>
+          <p class="now-content">
+            Publishing weekly on
+            <a
+              href="https://linkedin.com/in/rajat-jog"
+              target="_blank"
+              rel="noopener"
+            >
+              LinkedIn
+            </a>
+            about Django system design, backend engineering, and building in public.
+          </p>
+        </div>
+
+        <div class="now-item">
+          <p class="now-label">Looking for</p>
+          <p class="now-content">
+            Senior Backend Engineer, Backend Tech Lead, or Staff Engineer roles.
+            Remote-first. Open to international remote.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <p class="now-footer">
+        This is a
+        <a href="https://nownownow.com/about" target="_blank" rel="noopener">
+          /now page
+        </a>
+        — inspired by Derek Sivers. It changes when my focus changes.
+      </p>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .now-grid {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .now-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+
+  .now-item:last-child {
+    border-bottom: none;
+  }
+
+  .now-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    margin: 0;
+    padding-top: 0.15rem;
+  }
+
+  .now-content {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 500px;
+  }
+
+  .now-content a {
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .now-content a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .now-footer {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .now-footer a {
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .now-footer a:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .now-item {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

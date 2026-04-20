@@ -1,49 +1,425 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SOCIAL_LINKS } from "../consts";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const projects = [
+  {
+    title: "APIHealthHub",
+    badgeLabel: "LIVE",
+    badgeClass: "badge badge-live",
+    why: "Because knowing your API is down before your users do shouldn't require a Datadog contract.",
+    description:
+      "Lightweight API monitoring and public status pages for indie developers. Automated pings every 5 minutes, email alerts with smart deduplication, shareable status pages.",
+    stack: ["Django", "Celery", "PostgreSQL", "Redis"],
+    links: [
+      { label: "Live Site", href: "https://yourdomain.com" },
+      { label: "GitHub", href: "https://github.com/RJ-Gamer" },
+    ],
+  },
+  {
+    title: "django-system-audit",
+    badgeLabel: "PyPI",
+    badgeClass: "badge badge-pypi",
+    why: "Signals capture effects. Compliance systems need to capture intent.",
+    description:
+      "Intent-aware audit trail library for Django and DRF. Built for HIPAA and SOC2 environments where audit logs must be legally defensible.",
+    stack: ["Python", "Django", "DRF"],
+    links: [
+      { label: "PyPI", href: "https://pypi.org/project/django-system-audit/" },
+      {
+        label: "GitHub",
+        href: "https://github.com/RJ-Gamer/django-system-audit",
+      },
+    ],
+  },
+  {
+    title: "timeblocks",
+    badgeLabel: "PyPI",
+    badgeClass: "badge badge-pypi",
+    why: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+    description:
+      "Recurring time availability scheduling for Django. Concurrency-safe — changing availability never corrupts booked records.",
+    stack: ["Python", "Django"],
+    links: [
+      { label: "PyPI", href: "https://pypi.org/project/timeblocks/" },
+      { label: "GitHub", href: "https://github.com/RJ-Gamer/timeblocks" },
+    ],
+  },
+];
 ---
 
-<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead
+      title="Rajat Jog — Senior Backend Engineer"
+      description={SITE_DESCRIPTION}
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <p class="hero-eyebrow">Senior Backend Engineer</p>
+        <h1 class="hero-name">Rajat Jog</h1>
+        <p class="hero-stack">Python · Django · FastAPI · AWS ML Certified</p>
+        <p class="hero-tagline">
+          I build backend systems that are meant to last — not just work.
+        </p>
+        <div class="hero-actions">
+          <a href="/rajatjog-website/projects" class="btn-primary"
+            >View my work</a
+          >
+          <a href="/rajatjog-website/blog" class="btn-secondary"
+            >Read my writing</a
+          >
+        </div>
+      </section>
+
+      <!-- Featured Projects -->
+      <section class="section">
+        <p class="section-heading">Featured Projects</p>
+        <div class="project-grid">
+          {
+            projects.map((project) => (
+              <div class="card project-card">
+                <div class="project-card-top">
+                  <div class="project-title-row">
+                    <h3 class="project-title">{project.title}</h3>
+                    <span class={project.badgeClass}>{project.badgeLabel}</span>
+                  </div>
+                  <p class="project-why">"{project.why}"</p>
+                  <p class="project-description">{project.description}</p>
+                </div>
+                <div class="project-card-bottom">
+                  <div class="project-stack">
+                    {project.stack.map((tag) => (
+                      <span class="badge">{tag}</span>
+                    ))}
+                  </div>
+                  <div class="project-links">
+                    {project.links.map((link) => (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener"
+                        class="project-link"
+                      >
+                        {link.label} →
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="view-all">
+          <a href="/rajatjog-website/projects" class="btn-secondary"
+            >View all projects</a
+          >
+        </div>
+      </section>
+
+      <!-- Latest Writing -->
+      <section class="section">
+        <p class="section-heading">Latest Writing</p>
+        {
+          posts.length === 0 ? (
+            <div class="empty-state">
+              <p>Posts coming soon.</p>
+              <p>
+                In the meantime, I write regularly on
+                <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">
+                  LinkedIn
+                </a>
+                about Django system design and backend engineering.
+              </p>
+            </div>
+          ) : (
+            <div class="post-list">
+              {posts.map((post) => (
+                <a href={`/rajatjog-website/blog/${post.id}/`} class="post-row">
+                  <div class="post-row-left">
+                    <span class="post-title">{post.data.title}</span>
+                    <span class="post-description">
+                      {post.data.description}
+                    </span>
+                  </div>
+                  <span class="post-date">
+                    {post.data.pubDate.toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                </a>
+              ))}
+            </div>
+          )
+        }
+        <div class="view-all">
+          <a href="/rajatjog-website/blog" class="btn-secondary"
+            >View all posts</a
+          >
+        </div>
+      </section>
+
+      <!-- About -->
+      <section class="section about-blurb">
+        <p class="section-heading">About</p>
+        <p>
+          I'm a senior backend engineer from Pune, India specialising in Python,
+          Django, and FastAPI. I've spent 7+ years building production systems
+          in healthtech and fintech — the kind that need to be correct, not just
+          fast.
+        </p>
+        <p>
+          I open-source the hard parts. My libraries
+          <a
+            href="https://pypi.org/project/timeblocks/"
+            target="_blank"
+            rel="noopener">timeblocks</a
+          >,
+          <a
+            href="https://pypi.org/project/django-system-audit/"
+            target="_blank"
+            rel="noopener">django-system-audit</a
+          >, and
+          <a
+            href="https://pypi.org/project/django-ml-audit/"
+            target="_blank"
+            rel="noopener">django-ml-audit</a
+          >
+          exist because I kept hitting the same architectural problems in production
+          and decided to solve them properly once.
+        </p>
+        <div class="view-all">
+          <a href="/rajatjog-website/contact" class="btn-secondary"
+            >Get in touch</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
 </html>
+
+<style>
+  .hero {
+    padding: 4rem 0 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-name {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-stack {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .project-card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .project-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .project-why {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .project-description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .project-card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .project-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent) !important;
+    text-decoration: none;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .post-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .post-row:last-child {
+    border-bottom: none;
+  }
+
+  .post-row:hover {
+    background: var(--color-bg-secondary);
+  }
+
+  .post-row-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .post-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .post-description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .post-date {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 0.2rem;
+  }
+
+  .empty-state {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .empty-state p {
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-state p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-blurb p {
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    max-width: 620px;
+  }
+
+  .view-all {
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero-name {
+      font-size: 2.25rem;
+    }
+    .hero-tagline {
+      font-size: 1.05rem;
+    }
+    .post-row {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .post-date {
+      font-size: 0.75rem;
+    }
+  }
+</style>

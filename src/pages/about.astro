@@ -1,63 +1,407 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SOCIAL_LINKS } from "../consts";
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="About — Rajat Jog"
+      description="Senior Backend Engineer from Pune, India. Python, Django, FastAPI. Building systems that last."
+    />
+  </head>
+  <body>
+    <Header />
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+    <main>
+      <section class="page-header">
+        <h1>About</h1>
+        <p class="page-subtitle">
+          Senior Backend Engineer · Pune, India · Remote-first
+        </p>
+      </section>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+      <hr />
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+      <section class="section">
+        <p>
+          I'm Rajat — a senior backend engineer with 7+ years building
+          production systems in healthtech and fintech. I specialise in Python,
+          Django, and FastAPI. I care about systems that are correct, not just
+          fast.
+        </p>
+        <p>
+          My approach is captured in three words: <strong
+            >Systems Over Syntax.</strong
+          >
+          Good engineering isn't about knowing more frameworks — it's about understanding
+          what you're building and why. I think in invariants before I think in tables.
+          I care about explicit logic over clever abstractions, strict database constraints
+          over application-layer hope, and idempotency over optimism.
+        </p>
+        <p>
+          I've spent most of my career at the intersection of compliance and
+          performance — building HIPAA and SOC2-compliant platforms where "it
+          works" isn't enough if it isn't auditable, and where a double-booked
+          room isn't a bug, it's an operational failure.
+        </p>
+      </section>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+      <hr />
+
+      <section class="section">
+        <h2>What I've built</h2>
+        <p>I open-source the hard parts. Three libraries on PyPI:</p>
+        <ul class="project-list">
+          <li>
+            <a
+              href="https://pypi.org/project/timeblocks/"
+              target="_blank"
+              rel="noopener"
+            >
+              timeblocks
+            </a>
+            — recurring time availability scheduling for Django. Built after hitting
+            the invariants problem in a production healthcare scheduling system.
+          </li>
+          <li>
+            <a
+              href="https://pypi.org/project/django-system-audit/"
+              target="_blank"
+              rel="noopener"
+            >
+              django-system-audit
+            </a>
+            — intent-aware audit trails for Django and DRF. Built because signal-based
+            audit logging is architecturally broken for compliance systems.
+          </li>
+          <li>
+            <a
+              href="https://pypi.org/project/django-ml-audit/"
+              target="_blank"
+              rel="noopener"
+            >
+              django-ml-audit
+            </a>
+            — per-prediction ML audit trails for Django. Built because debugging a
+            strange prediction from last month shouldn't require excavating logs across
+            5 services.
+          </li>
+        </ul>
+        <p>
+          I also built and shipped
+          <a href="https://yourdomain.com" target="_blank" rel="noopener"
+            >APIHealthHub</a
+          >
+          — a lightweight API monitoring and public status page SaaS for indie developers
+          who need uptime visibility without enterprise pricing.
+        </p>
+      </section>
+
+      <hr />
+
+      <section class="section">
+        <h2>Experience</h2>
+        <div class="experience-list">
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-role">Senior Software Engineer</span>
+              <span class="experience-period">Feb 2024 — Present</span>
+            </div>
+            <span class="experience-company">Mindbowser Inc · Remote</span>
+            <ul class="experience-bullets">
+              <li>
+                Integrated production ML workflows using AWS SageMaker for
+                predictive healthcare analytics
+              </li>
+              <li>
+                Engineered HIPAA and SOC2-compliant platforms using HL7 and FHIR
+                protocols
+              </li>
+              <li>
+                Led 5+ engineers, reduced production bugs 25%, accelerated
+                delivery by 6 weeks
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-role">Software Engineer</span>
+              <span class="experience-period">Nov 2022 — Feb 2024</span>
+            </div>
+            <span class="experience-company">Mindbowser Inc · Remote</span>
+            <ul class="experience-bullets">
+              <li>
+                Reduced API latency 60% via PostgreSQL indexing and Redis
+                caching
+              </li>
+              <li>
+                Architected Django and FastAPI backends for 5k DAU, 300 RPM
+                healthcare platforms
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-role">Software Engineer</span>
+              <span class="experience-period">Apr 2022 — Nov 2022</span>
+            </div>
+            <span class="experience-company">KiwiTech · Remote</span>
+            <ul class="experience-bullets">
+              <li>
+                Scaled RESTful APIs for 7+ clients handling 5–7 GB daily data
+                throughput
+              </li>
+              <li>
+                Built Celery task queues for 15+ daily background jobs — zero
+                missed deliveries
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-role">Python Developer</span>
+              <span class="experience-period">Mar 2021 — Apr 2022</span>
+            </div>
+            <span class="experience-company">KSBS Group Pte Ltd · Remote</span>
+            <ul class="experience-bullets">
+              <li>
+                Led 3-person team to ship e-commerce platform for 500 concurrent
+                users
+              </li>
+              <li>
+                Maintained Django attendance system with 99% production uptime
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <section class="section">
+        <h2>Certifications</h2>
+        <ul class="cert-list">
+          <li>
+            <span class="cert-name"
+              >AWS Machine Learning Specialty (MLS-C01)</span
+            >
+            <span class="cert-date">January 2026</span>
+          </li>
+          <li>
+            <span class="cert-name">AI Agents Fundamentals — Hugging Face</span>
+            <span class="cert-date">March 2026</span>
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+
+      <section class="section">
+        <h2>Currently</h2>
+        <p>
+          Based in Pune, India. Open to Senior Backend Engineer, Backend Tech
+          Lead, and Staff Engineer roles. Remote-first. Open to international
+          remote opportunities.
+        </p>
+        <div class="contact-row">
+          <a href={SOCIAL_LINKS.email} class="btn-primary">Email me</a>
+          <a
+            href={SOCIAL_LINKS.linkedin}
+            target="_blank"
+            rel="noopener"
+            class="btn-secondary"
+          >
+            LinkedIn
+          </a>
+          <a
+            href={SOCIAL_LINKS.github}
+            target="_blank"
+            rel="noopener"
+            class="btn-secondary"
+          >
+            GitHub
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .section {
+    margin-top: 2.5rem;
+  }
+
+  .section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+
+  .section p {
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    max-width: 620px;
+    line-height: 1.75;
+  }
+
+  .section strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  /* Project list */
+  .project-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .project-list li {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-border);
+  }
+
+  .project-list li a {
+    color: var(--color-text);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-list li a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* Experience */
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .experience-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .experience-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .experience-role {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .experience-period {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .experience-company {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .experience-bullets {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .experience-bullets li {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Certifications */
+  .cert-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cert-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cert-list li:last-child {
+    border-bottom: none;
+  }
+
+  .cert-name {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .cert-date {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  /* Contact row */
+  .contact-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+</style>
