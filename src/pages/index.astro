@@ -75,25 +75,22 @@ const projects = [
         </p>
 
         <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-value">7+</span>
-            <span class="stat-label">Years</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">3</span>
-            <span class="stat-label">PyPI Packages</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">HIPAA</span>
-            <span class="stat-label">& SOC2</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">AWS</span>
-            <span class="stat-label">ML Certified</span>
-          </div>
+          <span class="badge-shield">
+            <span class="badge-shield-label">experience</span>
+            <span class="badge-shield-value">7+ years</span>
+          </span>
+          <span class="badge-shield">
+            <span class="badge-shield-label">pypi</span>
+            <span class="badge-shield-value blue">3 packages</span>
+          </span>
+          <span class="badge-shield">
+            <span class="badge-shield-label">compliance</span>
+            <span class="badge-shield-value orange">HIPAA · SOC2</span>
+          </span>
+          <span class="badge-shield">
+            <span class="badge-shield-label">certified</span>
+            <span class="badge-shield-value orange">AWS ML</span>
+          </span>
         </div>
 
         <div class="hero-actions">
@@ -457,37 +454,9 @@ const projects = [
   .hero-stats {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.5rem;
     margin-bottom: 2rem;
     flex-wrap: wrap;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .stat-value {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
-    font-family: var(--font-mono);
-  }
-
-  .stat-label {
-    font-size: 0.68rem;
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-  }
-
-  .stat-divider {
-    width: 1px;
-    height: 28px;
-    background: var(--color-border);
-    flex-shrink: 0;
   }
 
   .hero-actions {
@@ -821,11 +790,7 @@ const projects = [
     }
 
     .hero-stats {
-      gap: 1rem;
-    }
-
-    .stat-divider {
-      display: none;
+      gap: 0.4rem;
     }
 
     .hero-social {
