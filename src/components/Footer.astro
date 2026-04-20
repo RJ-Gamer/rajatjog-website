@@ -69,10 +69,21 @@ import { SOCIAL_LINKS } from "../consts";
 <style>
   footer {
     width: 100%;
-    border-top: 1px solid var(--color-border);
-    background: var(--color-bg-secondary);
-    margin-top: 3rem;
+    border-top: var(--glass-border);
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    margin-top: 5rem;
     display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-accent-glow), transparent);
   }
 
   .footer-inner {
@@ -129,14 +140,15 @@ import { SOCIAL_LINKS } from "../consts";
   }
 
   .footer-col a {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     color: var(--color-text-secondary) !important;
     text-decoration: none;
-    transition: color 0.15s ease;
+    transition: all 0.2s ease;
   }
 
   .footer-col a:hover {
-    color: var(--color-text) !important;
+    color: var(--color-accent) !important;
+    transform: translateX(4px);
   }
 
   .footer-bottom {

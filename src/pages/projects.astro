@@ -118,10 +118,14 @@ const projects = [
   }
 
   .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     color: var(--color-text);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.04em;
   }
 
   .page-subtitle {
@@ -138,11 +142,23 @@ const projects = [
   }
 
   .project {
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--color-border);
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--color-accent-glow);
+    border-color: var(--color-border-hover);
   }
 
   .project:last-child {

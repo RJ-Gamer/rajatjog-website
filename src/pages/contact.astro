@@ -111,10 +111,14 @@ import { SOCIAL_LINKS } from "../consts";
   }
 
   .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     color: var(--color-text);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.04em;
   }
 
   .page-subtitle {
@@ -163,19 +167,22 @@ import { SOCIAL_LINKS } from "../consts";
     margin-top: 1.25rem;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
     overflow: hidden;
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--glass-shadow);
   }
 
   .link-row {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--color-border);
     text-decoration: none;
-    transition: background 0.15s ease;
+    transition: all 0.2s ease;
   }
 
   .link-row:last-child {
@@ -184,6 +191,7 @@ import { SOCIAL_LINKS } from "../consts";
 
   .link-row:hover {
     background: var(--color-bg-secondary);
+    padding-left: 2rem;
   }
 
   .link-platform {

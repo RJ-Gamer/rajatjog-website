@@ -55,24 +55,65 @@ const projects = [
 
     <main style="flex: 1;">
       <!-- Hero -->
-
       <section class="hero">
-        <p class="hero-eyebrow">Senior Backend Engineer</p>
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Open to Senior Backend roles</span>
+        </div>
+
         <h1 class="hero-name">Rajat Jog</h1>
+
         <p class="hero-stack">
-          Python · Django · FastAPI ·
-          <span class="typewriter" id="typewriter"></span>
+          <span class="stack-mono">python</span><span class="stack-sep"> · </span><span class="stack-mono">django</span><span class="stack-sep"> · </span><span class="stack-mono">fastapi</span><span class="stack-sep"> · </span><span class="typewriter" id="typewriter"></span>
         </p>
+
         <p class="hero-tagline">
           I build backend systems that are meant to last — not just work.
         </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">7+</span>
+            <span class="stat-label">Years</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">3</span>
+            <span class="stat-label">PyPI Packages</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">HIPAA</span>
+            <span class="stat-label">& SOC2</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">AWS</span>
+            <span class="stat-label">ML Certified</span>
+          </div>
+        </div>
+
         <div class="hero-actions">
-          <a href="/rajatjog-website/projects" class="btn-primary"
-            >View my work</a
-          >
-          <a href="/rajatjog-website/blog" class="btn-secondary"
-            >Read my writing</a
-          >
+          <a href="/rajatjog-website/projects" class="btn-primary">View my work</a>
+          <a href="/rajatjog-website/contact" class="btn-secondary">Get in touch</a>
+          <div class="hero-social">
+            <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+            <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href={SOCIAL_LINKS.pypi} target="_blank" rel="noopener" class="social-btn" aria-label="PyPI">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M11.562 0c-.594.001-1.16.053-1.67.148C8.434.496 8.106 1.22 8.106 2.25v1.648h3.584v.549H6.207c-1.04 0-1.951.625-2.237 1.814-.328 1.363-.343 2.213 0 3.637.254 1.058.862 1.814 1.902 1.814h1.229V9.586c0-1.182 1.023-2.225 2.237-2.225h3.58c.996 0 1.793-.822 1.793-1.82V2.25c0-.967-.817-1.694-1.793-1.957A12.09 12.09 0 0 0 11.562 0zM9.673 1.23c.371 0 .673.307.673.685a.68.68 0 0 1-.673.685.68.68 0 0 1-.673-.685c0-.378.302-.685.673-.685z"/>
+                <path d="M15.388 4.447v1.826c0 1.232-1.044 2.27-2.237 2.27h-3.58c-.979 0-1.793.839-1.793 1.82v3.412c0 .967.84 1.535 1.793 1.82.134.04.272.072.415.099v-2.593h3.58v-.549H9.982v-1.097h3.169c1.04 0 1.951-.625 2.237-1.814.329-1.363.343-2.213 0-3.637-.254-1.058-.862-1.814-1.902-1.814h-.098zm-1.791 8.229c.371 0 .673.307.673.685a.68.68 0 0 1-.673.685.68.68 0 0 1-.673-.685c0-.378.302-.685.673-.685z"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -145,7 +186,9 @@ const projects = [
               <div class="card project-card">
                 <div class="project-card-top">
                   <div class="project-title-row">
-                    <h3 class="project-title">{project.title}</h3>
+                    <h3 class="project-title">
+                      <span class="project-title-mono">{project.title}</span>
+                    </h3>
                     <span class={project.badgeClass}>{project.badgeLabel}</span>
                   </div>
                   <p class="project-why">"{project.why}"</p>
@@ -175,9 +218,7 @@ const projects = [
           }
         </div>
         <div class="view-all">
-          <a href="/rajatjog-website/projects" class="btn-secondary"
-            >View all projects</a
-          >
+          <a href="/rajatjog-website/projects" class="btn-secondary">View all projects</a>
         </div>
       </section>
 
@@ -189,10 +230,10 @@ const projects = [
             <div class="empty-state">
               <p>Posts coming soon.</p>
               <p>
-                In the meantime, I write regularly on
+                In the meantime, I write regularly on{" "}
                 <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">
                   LinkedIn
-                </a>
+                </a>{" "}
                 about Django system design and backend engineering.
               </p>
             </div>
@@ -202,9 +243,7 @@ const projects = [
                 <a href={`/rajatjog-website/blog/${post.id}/`} class="post-row">
                   <div class="post-row-left">
                     <span class="post-title">{post.data.title}</span>
-                    <span class="post-description">
-                      {post.data.description}
-                    </span>
+                    <span class="post-description">{post.data.description}</span>
                   </div>
                   <span class="post-date">
                     {post.data.pubDate.toLocaleDateString("en-US", {
@@ -219,9 +258,7 @@ const projects = [
           )
         }
         <div class="view-all">
-          <a href="/rajatjog-website/blog" class="btn-secondary"
-            >View all posts</a
-          >
+          <a href="/rajatjog-website/blog" class="btn-secondary">View all posts</a>
         </div>
       </section>
 
@@ -235,42 +272,30 @@ const projects = [
           fast.
         </p>
         <p>
-          I open-source the hard parts. My libraries
-          <a
-            href="https://pypi.org/project/timeblocks/"
-            target="_blank"
-            rel="noopener">timeblocks</a
-          >,
-          <a
-            href="https://pypi.org/project/django-system-audit/"
-            target="_blank"
-            rel="noopener">django-system-audit</a
-          >, and
-          <a
-            href="https://pypi.org/project/django-ml-audit/"
-            target="_blank"
-            rel="noopener">django-ml-audit</a
-          >
+          I open-source the hard parts. My libraries{" "}
+          <a href="https://pypi.org/project/timeblocks/" target="_blank" rel="noopener">timeblocks</a>,{" "}
+          <a href="https://pypi.org/project/django-system-audit/" target="_blank" rel="noopener">django-system-audit</a>, and{" "}
+          <a href="https://pypi.org/project/django-ml-audit/" target="_blank" rel="noopener">django-ml-audit</a>{" "}
           exist because I kept hitting the same architectural problems in production
           and decided to solve them properly once.
         </p>
         <div class="view-all">
-          <a href="/rajatjog-website/contact" class="btn-secondary"
-            >Get in touch</a
-          >
+          <a href="/rajatjog-website/contact" class="btn-secondary">Get in touch</a>
         </div>
       </section>
     </main>
 
     <Footer />
-  </body><script>
+  </body>
+
+  <script>
     const words = [
-      "AWS ML Certified",
-      "Open Source Author",
-      "Backend Architect",
-      "Systems Thinker",
-      "HIPAA/SOC2 Expert",
-      "API Designer",
+      "aws-ml-certified",
+      "open-source-author",
+      "backend-architect",
+      "systems-thinker",
+      "hipaa-soc2-expert",
+      "api-designer",
     ];
 
     let wordIndex = 0;
@@ -313,68 +338,183 @@ const projects = [
 </html>
 
 <style>
+  /* ── Hero ── */
   .hero {
-    padding: 3.5rem 0 1rem;
+    padding: 6rem 0 3rem;
     position: relative;
     isolation: isolate;
   }
 
-  .hero::before {
+  /* Subtle dot grid */
+  .hero::after {
     content: "";
     position: absolute;
-    top: -2rem;
-    left: -50vw;
-    right: -50vw;
-    bottom: 0;
-    background-image: radial-gradient(
-      circle,
-      var(--color-border) 1.5px,
-      transparent 1.5px
-    );
-    background-size: 28px 28px;
-    opacity: 0.5;
-    z-index: -1;
+    inset: -2rem -50vw 0;
+    background-image: radial-gradient(circle, var(--color-border) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+    opacity: 0.6;
+    z-index: -2;
     pointer-events: none;
   }
 
-  .hero-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 0.6rem;
+  /* Radial glow behind text */
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -20%;
+    width: 80%;
+    height: 450px;
+    background: radial-gradient(ellipse at 50% 50%, var(--color-accent-glow) 0%, transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(40px);
+  }
+
+  /* Availability badge */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    padding: 5px 14px 5px 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    animation: pulse-dot 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+    50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.08); }
   }
 
   .hero-name {
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 4.5rem;
+    font-weight: 800;
     color: var(--color-text);
     line-height: 1.05;
-    margin-bottom: 0.4rem;
-    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .hero-stack {
     font-size: 1rem;
     color: var(--color-text-secondary);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+  }
+
+  .stack-mono {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .stack-sep {
+    color: var(--color-border);
+    margin: 0 4px;
   }
 
   .hero-tagline {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     color: var(--color-text-secondary);
-    max-width: 480px;
-    line-height: 1.65;
-    margin-bottom: 1.75rem;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Stats row */
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    font-family: var(--font-mono);
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--color-border);
+    flex-shrink: 0;
   }
 
   .hero-actions {
     display: flex;
+    align-items: center;
     gap: 0.75rem;
     flex-wrap: wrap;
   }
 
+  /* Social icon buttons */
+  .hero-social {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 0.25rem;
+  }
+
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: var(--glass-border);
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .social-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-3px) rotate(5deg);
+    box-shadow: 0 8px 20px var(--color-accent-glow);
+  }
+
+  /* ── Projects ── */
   .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -405,6 +545,11 @@ const projects = [
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
+  }
+
+  .project-title-mono {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
   }
 
   .project-why {
@@ -444,14 +589,23 @@ const projects = [
     font-weight: 500;
     color: var(--color-accent) !important;
     text-decoration: none;
+    transition: opacity 0.15s ease;
   }
 
+  .project-link:hover {
+    opacity: 0.75;
+  }
+
+  /* ── Blog post list ── */
   .post-list {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
     overflow: hidden;
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--glass-shadow);
   }
 
   .post-row {
@@ -459,10 +613,11 @@ const projects = [
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--color-border);
     text-decoration: none;
-    transition: background 0.15s ease;
+    transition: all 0.2s ease;
+    cursor: pointer;
   }
 
   .post-row:last-child {
@@ -471,6 +626,7 @@ const projects = [
 
   .post-row:hover {
     background: var(--color-bg-secondary);
+    padding-left: 2rem;
   }
 
   .post-row-left {
@@ -491,17 +647,18 @@ const projects = [
   }
 
   .post-date {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--color-text-secondary);
     white-space: nowrap;
     flex-shrink: 0;
     padding-top: 0.2rem;
+    font-family: var(--font-mono);
   }
 
   .empty-state {
-    background: var(--color-bg-secondary);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: var(--base-radius);
     padding: 2rem;
   }
 
@@ -524,23 +681,7 @@ const projects = [
     margin-top: 1.5rem;
   }
 
-  @media (max-width: 640px) {
-    .hero-name {
-      font-size: 2.25rem;
-    }
-    .hero-tagline {
-      font-size: 1.05rem;
-    }
-    .post-row {
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .post-date {
-      font-size: 0.75rem;
-    }
-  }
-
-  /* Typewriter */
+  /* ── Typewriter ── */
   .typewriter {
     color: var(--color-accent);
     font-weight: 500;
@@ -551,16 +692,11 @@ const projects = [
   }
 
   @keyframes blink {
-    0%,
-    100% {
-      border-color: var(--color-accent);
-    }
-    50% {
-      border-color: transparent;
-    }
+    0%, 100% { border-color: var(--color-accent); }
+    50% { border-color: transparent; }
   }
 
-  /* Skills */
+  /* ── Skills ── */
   .skills-grid {
     display: flex;
     flex-direction: column;
@@ -582,34 +718,50 @@ const projects = [
   }
 
   .skill-group-label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.08em;
     color: var(--color-text-secondary);
     margin: 0;
     padding-top: 0.2rem;
+    font-family: var(--font-mono);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .skill-tag {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    padding: 3px 9px;
-    border-radius: 4px;
+    padding: 4px 12px;
+    border-radius: 100px;
     border: 1px solid transparent;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
+    font-family: var(--font-mono);
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .skill-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
   .skill-tag.expert {
-    background: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
     color: #ffffff;
-    border-color: var(--color-accent);
+    border-color: transparent;
+    box-shadow: 0 2px 10px var(--color-accent-glow);
   }
 
   .skill-tag.mid {
-    background: transparent;
+    background: var(--color-surface);
     color: var(--color-accent);
-    border-color: var(--color-accent);
+    border: 1px solid var(--color-accent);
   }
 
   .skill-tag.domain {
@@ -621,12 +773,52 @@ const projects = [
   .skill-tag.learning {
     background: transparent;
     color: var(--color-text-secondary);
-    border: 1px dashed var(--color-border);
+    border: 1px dashed var(--color-border-hover);
   }
+
+  /* ── Responsive ── */
   @media (max-width: 640px) {
+    .hero-name {
+      font-size: 2.75rem;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+    }
+
+    .hero-stats {
+      gap: 1rem;
+    }
+
+    .stat-divider {
+      display: none;
+    }
+
+    .hero-social {
+      margin-left: 0;
+    }
+
     .skill-group {
       grid-template-columns: 1fr;
       gap: 0.4rem;
+    }
+
+    .post-row {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .post-date {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .badge-dot {
+      animation: none;
+    }
+    .typewriter {
+      animation: none;
     }
   }
 </style>
