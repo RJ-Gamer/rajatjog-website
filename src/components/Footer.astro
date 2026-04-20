@@ -1,27 +1,67 @@
 ---
 import { SOCIAL_LINKS } from "../consts";
 ---
- 
+
 <footer>
   <div class="footer-inner">
-    <span class="footer-left">
-      © {new Date().getFullYear()} Rajat Jog · Built with
-      <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>
-    </span>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-name">Rajat Jog</span>
+        <span class="footer-tagline">Systems Over Syntax</span>
+      </div>
 
-    <div class="footer-links">
-      <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener">
-        GitHub
-      </a>
-      <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">
-        LinkedIn
-      </a>
-      <a href={SOCIAL_LINKS.email}>
-        Email
-      </a>
-      <a href={SOCIAL_LINKS.pypi} target="_blank" rel="noopener">
-        PyPI
-      </a>
+      <div class="footer-nav">
+        <div class="footer-col">
+          <span class="footer-col-label">Work</span>
+          <a href="/rajatjog-website/projects">Projects</a>
+          <a href="/rajatjog-website/blog">Writing</a>
+          <a href="/rajatjog-website/now">Now</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-label">Connect</span>
+          <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener">GitHub</a
+          >
+          <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener"
+            >LinkedIn</a
+          >
+          <a href={SOCIAL_LINKS.pypi} target="_blank" rel="noopener">PyPI</a>
+          <a href={SOCIAL_LINKS.email}>Email</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-label">Open Source</span>
+          <a
+            href="https://pypi.org/project/timeblocks/"
+            target="_blank"
+            rel="noopener">timeblocks</a
+          >
+          <a
+            href="https://pypi.org/project/django-system-audit/"
+            target="_blank"
+            rel="noopener">django-system-audit</a
+          >
+          <a
+            href="https://pypi.org/project/django-ml-audit/"
+            target="_blank"
+            rel="noopener">django-ml-audit</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">
+        © {new Date().getFullYear()} Rajat Jog · Pune, India
+      </span>
+      <span class="footer-built">
+        Built with <a href="https://astro.build" target="_blank" rel="noopener"
+          >Astro</a
+        >
+        · Hosted on <a
+          href="https://pages.github.com"
+          target="_blank"
+          rel="noopener">GitHub Pages</a
+        >
+      </span>
     </div>
   </div>
 </footer>
@@ -30,56 +70,117 @@ import { SOCIAL_LINKS } from "../consts";
   footer {
     width: 100%;
     border-top: 1px solid var(--color-border);
-    background: var(--color-bg);
-    margin-top: auto;
+    background: var(--color-bg-secondary);
+    margin-top: 3rem;
+    display: block;
   }
 
   .footer-inner {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 1.25rem 1.5rem;
+    padding: 3rem 1.5rem 1.5rem;
+  }
+
+  .footer-top {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 3rem;
     flex-wrap: wrap;
-    gap: 0.75rem;
   }
 
-  .footer-left {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .footer-left a {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .footer-left a:hover {
-    color: var(--color-text);
-    border-color: var(--color-text);
-  }
-
-  .footer-links {
+  .footer-brand {
     display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  .footer-links a {
+  .footer-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-col-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-col a {
     font-size: 0.875rem;
     color: var(--color-text-secondary) !important;
     text-decoration: none;
     transition: color 0.15s ease;
   }
 
-  .footer-links a:hover {
+  .footer-col a:hover {
     color: var(--color-text) !important;
   }
 
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+
+  .footer-built {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+
+  .footer-built a {
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .footer-built a:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+
   @media (max-width: 640px) {
-    .footer-inner {
+    .footer-top {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer-nav {
+      gap: 2rem;
+    }
+
+    .footer-bottom {
       flex-direction: column;
       align-items: flex-start;
     }

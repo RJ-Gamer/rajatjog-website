@@ -8,21 +8,28 @@ import { SITE_TITLE, NAV_LINKS } from "../consts";
       {SITE_TITLE}
     </a>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
 
-    <ul class="nav-links" id="navLinks">
-      {
-        NAV_LINKS.map((link) => (
-          <li>
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))
-      }
-    </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+      </button>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </nav>
 </header>
 
@@ -52,10 +59,17 @@ import { SITE_TITLE, NAV_LINKS } from "../consts";
     color: var(--color-text) !important;
     text-decoration: none;
     letter-spacing: -0.01em;
+    flex-shrink: 0;
   }
 
   .site-title:hover {
     opacity: 0.7;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
   }
 
   .nav-links {
@@ -79,7 +93,65 @@ import { SITE_TITLE, NAV_LINKS } from "../consts";
     color: var(--color-text) !important;
   }
 
-  /* Mobile hamburger — hidden on desktop */
+  /* Theme toggle */
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    transition: border-color 0.15s ease;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-text-secondary);
+  }
+
+  .icon-sun,
+  .icon-moon {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* Show sun in dark mode, moon in light mode */
+  :global([data-theme="dark"]) .icon-sun {
+    display: block;
+  }
+  :global([data-theme="dark"]) .icon-moon {
+    display: none;
+  }
+  :global([data-theme="light"]) .icon-sun {
+    display: none;
+  }
+  :global([data-theme="light"]) .icon-moon {
+    display: block;
+  }
+
+  /* Default based on system preference */
+  @media (prefers-color-scheme: dark) {
+    .icon-sun {
+      display: block;
+    }
+    .icon-moon {
+      display: none;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    .icon-sun {
+      display: none;
+    }
+    .icon-moon {
+      display: block;
+    }
+  }
+
+  /* Mobile hamburger */
   .menu-toggle {
     display: none;
     flex-direction: column;
@@ -99,7 +171,6 @@ import { SITE_TITLE, NAV_LINKS } from "../consts";
     transition: all 0.2s ease;
   }
 
-  /* Mobile styles */
   @media (max-width: 640px) {
     .menu-toggle {
       display: flex;
@@ -136,17 +207,42 @@ import { SITE_TITLE, NAV_LINKS } from "../consts";
 </style>
 
 <script>
-  const toggle = document.getElementById("menuToggle");
-  const links = document.getElementById("navLinks");
+  // ── Theme toggle ──
+  const themeToggle = document.getElementById("themeToggle");
 
-  toggle?.addEventListener("click", () => {
-    links?.classList.toggle("open");
+  // On load — apply saved theme or system preference
+  function applyTheme(theme: string) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }
+
+  const saved = localStorage.getItem("theme");
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    applyTheme(prefersDark ? "dark" : "light");
+  }
+
+  // Toggle on click
+  themeToggle?.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
   });
 
-  // Close menu when a link is clicked
-  links?.querySelectorAll("a").forEach((link) => {
+  // ── Mobile menu ──
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+
+  menuToggle?.addEventListener("click", () => {
+    navLinks?.classList.toggle("open");
+  });
+
+  navLinks?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      links.classList.remove("open");
+      navLinks.classList.remove("open");
     });
   });
-</script>	
+</script>

@@ -55,10 +55,14 @@ const projects = [
 
     <main>
       <!-- Hero -->
+
       <section class="hero">
         <p class="hero-eyebrow">Senior Backend Engineer</p>
         <h1 class="hero-name">Rajat Jog</h1>
-        <p class="hero-stack">Python · Django · FastAPI · AWS ML Certified</p>
+        <p class="hero-stack">
+          Python · Django · FastAPI ·
+          <span class="typewriter" id="typewriter"></span>
+        </p>
         <p class="hero-tagline">
           I build backend systems that are meant to last — not just work.
         </p>
@@ -69,6 +73,66 @@ const projects = [
           <a href="/rajatjog-website/blog" class="btn-secondary"
             >Read my writing</a
           >
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="section">
+        <p class="section-heading">Skills & Stack</p>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <p class="skill-group-label">Backend</p>
+            <div class="skill-tags">
+              <span class="skill-tag expert">Python</span>
+              <span class="skill-tag expert">Django</span>
+              <span class="skill-tag expert">FastAPI</span>
+              <span class="skill-tag expert">Django REST Framework</span>
+              <span class="skill-tag expert">Celery</span>
+              <span class="skill-tag expert">Redis</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-label">Database</p>
+            <div class="skill-tags">
+              <span class="skill-tag expert">PostgreSQL</span>
+              <span class="skill-tag mid">Query Optimisation</span>
+              <span class="skill-tag mid">Database Indexing</span>
+              <span class="skill-tag mid">Schema Design</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-label">Cloud & Infra</p>
+            <div class="skill-tags">
+              <span class="skill-tag mid">AWS</span>
+              <span class="skill-tag mid">SageMaker</span>
+              <span class="skill-tag mid">Lambda</span>
+              <span class="skill-tag mid">S3</span>
+              <span class="skill-tag mid">Docker</span>
+              <span class="skill-tag mid">Railway</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-label">Domains</p>
+            <div class="skill-tags">
+              <span class="skill-tag domain">HIPAA</span>
+              <span class="skill-tag domain">SOC2</span>
+              <span class="skill-tag domain">HL7/FHIR</span>
+              <span class="skill-tag domain">Healthtech</span>
+              <span class="skill-tag domain">Fintech</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <p class="skill-group-label">Currently Learning</p>
+            <div class="skill-tags">
+              <span class="skill-tag learning">System Design</span>
+              <span class="skill-tag learning">DSA</span>
+              <span class="skill-tag learning">AI Agents</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -199,7 +263,53 @@ const projects = [
     </main>
 
     <Footer />
-  </body>
+  </body><script>
+    const words = [
+      "AWS ML Certified",
+      "Open Source Author",
+      "Backend Architect",
+      "Systems Thinker",
+      "HIPAA/SOC2 Expert",
+      "API Designer",
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const el = document.getElementById("typewriter");
+    const typeSpeed = 80;
+    const deleteSpeed = 40;
+    const pauseTime = 1800;
+
+    function type() {
+      if (!el) return;
+
+      const current = words[wordIndex];
+
+      if (!deleting) {
+        el.textContent = current.slice(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(type, pauseTime);
+          return;
+        }
+      } else {
+        el.textContent = current.slice(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+
+      setTimeout(type, deleting ? deleteSpeed : typeSpeed);
+    }
+
+    type();
+  </script>
 </html>
 
 <style>
@@ -407,6 +517,107 @@ const projects = [
     }
     .post-date {
       font-size: 0.75rem;
+    }
+  }
+
+  /* Typewriter */
+  .typewriter {
+    color: var(--color-accent);
+    font-weight: 500;
+    border-right: 2px solid var(--color-accent);
+    padding-right: 3px;
+    white-space: nowrap;
+    animation: blink 0.7s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      border-color: var(--color-accent);
+    }
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .skill-group {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .skill-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .skill-group-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-secondary);
+    margin: 0;
+    padding-top: 0.2rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-tag {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+  }
+
+  /* Expert — solid accent */
+  .skill-tag.expert {
+    background: var(--color-accent);
+    color: #ffffff;
+    border-color: var(--color-accent);
+  }
+
+  /* Mid — outlined accent */
+  .skill-tag.mid {
+    background: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    opacity: 0.85;
+  }
+
+  /* Domain — neutral solid */
+  .skill-tag.domain {
+    background: var(--color-badge);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+
+  /* Learning — dashed border */
+  .skill-tag.learning {
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: 1px dashed var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .skill-group {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
     }
   }
 </style>
