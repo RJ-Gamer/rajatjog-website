@@ -1,86 +1,334 @@
 ---
-import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
+const { title, description, pubDate, updatedDate, tags } = Astro.props;
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const formattedDate = pubDate.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+    <Header />
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+    <main style="flex: 1;">
+      <article class="post">
+        <!-- Back link -->
+        <a href="/rajatjog-website/blog" class="back-link"> ← All posts </a>
+
+        <!-- Post header -->
+        <header class="post-header">
+          {
+            tags && tags.length > 0 && (
+              <div class="post-tags">
+                {tags.map((tag: string) => (
+                  <span class="badge">{tag}</span>
+                ))}
+              </div>
+            )
+          }
+          <h1 class="post-title">{title}</h1>
+          <p class="post-description">{description}</p>
+          <div class="post-meta">
+            <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+            {
+              formattedUpdated && (
+                <span class="post-updated">· Updated {formattedUpdated}</span>
+              )
+            }
+          </div>
+        </header>
+
+        <hr />
+
+        <!-- Post content -->
+        <div class="prose">
+          <slot />
+        </div>
+
+        <hr />
+
+        <!-- Post footer -->
+        <footer class="post-footer">
+          <div class="post-footer-left">
+            <p class="post-footer-author">Written by Rajat Jog</p>
+            <p class="post-footer-links">
+              <a
+                href="https://linkedin.com/in/rajat-jog"
+                target="_blank"
+                rel="noopener"
+              >
+                LinkedIn
+              </a>
+              ·
+              <a
+                href="https://github.com/RJ-Gamer"
+                target="_blank"
+                rel="noopener"
+              >
+                GitHub
+              </a>
+            </p>
+          </div>
+          <a href="/rajatjog-website/blog" class="btn-secondary">
+            ← Back to writing
+          </a>
+        </footer>
+      </article>
+    </main>
+
+    <Footer />
+  </body>
 </html>
+
+<style>
+  .back-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary) !important;
+    text-decoration: none;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+    transition: color 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-text) !important;
+  }
+
+  .post {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .post-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .post-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .post-description {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 580px;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  .post-updated {
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  /* Prose content */
+  .prose {
+    font-size: 1.025rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+  }
+
+  .prose :global(h2) {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: -0.01em;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.4rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+
+  .prose :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+    text-decoration: none;
+  }
+
+  .prose :global(a:hover) {
+    border-color: var(--color-accent);
+    opacity: 1;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .prose :global(ul li::marker) {
+    color: var(--color-accent);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    padding: 0.75rem 0 0.75rem 1.25rem;
+    margin: 1.75rem 0;
+    background: var(--color-bg-secondary);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .prose :global(blockquote p) {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .prose :global(pre) {
+    background: var(--color-bg-secondary) !important;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2rem 0;
+  }
+
+  .prose :global(img) {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border);
+  }
+
+  /* Post footer */
+  .post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem 0 2rem;
+  }
+
+  .post-footer-author {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .post-footer-links {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin: 0.25rem 0 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .post-footer-links a {
+    color: var(--color-text-secondary) !important;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-footer-links a:hover {
+    color: var(--color-text) !important;
+    border-color: var(--color-text);
+  }
+
+  @media (max-width: 640px) {
+    .post-title {
+      font-size: 1.75rem;
+    }
+    .post-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .back-link {
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+
