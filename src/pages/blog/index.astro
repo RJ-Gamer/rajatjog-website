@@ -84,10 +84,14 @@ const posts = (await getCollection("blog"))
   }
 
   .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     color: var(--color-text);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.04em;
   }
 
   .page-subtitle {
@@ -98,10 +102,13 @@ const posts = (await getCollection("blog"))
 
   .empty-state {
     margin-top: 2.5rem;
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 2rem;
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
+    box-shadow: var(--glass-shadow);
+    padding: 2.5rem;
+    text-align: center;
   }
 
   .empty-state p {
@@ -117,9 +124,12 @@ const posts = (await getCollection("blog"))
     margin-top: 2.5rem;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
     overflow: hidden;
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--glass-shadow);
   }
 
   .post-row {
@@ -127,10 +137,10 @@ const posts = (await getCollection("blog"))
     align-items: flex-start;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 1.25rem 1.5rem;
+    padding: 1.5rem;
     border-bottom: 1px solid var(--color-border);
     text-decoration: none;
-    transition: background 0.15s ease;
+    transition: all 0.2s ease;
   }
 
   .post-row:last-child {
@@ -139,6 +149,7 @@ const posts = (await getCollection("blog"))
 
   .post-row:hover {
     background: var(--color-bg-secondary);
+    padding-left: 2rem;
   }
 
   .post-left {

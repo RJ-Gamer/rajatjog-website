@@ -61,14 +61,17 @@ const projects = [
           <span>Open to Senior Backend roles</span>
         </div>
 
-        <h1 class="hero-name">Rajat Jog</h1>
+        <h1 class="hero-name">
+          Building systems<br />
+          that <span class="text-gradient">last.</span>
+        </h1>
+
+        <p class="hero-tagline">
+          I'm <strong>Rajat Jog</strong> — a Senior Backend Engineer. I specialize in building highly scalable, resilient, and HIPAA/SOC2-compliant backend architectures. I write systems where correctness and performance are non-negotiable.
+        </p>
 
         <p class="hero-stack">
           <span class="stack-mono">python</span><span class="stack-sep"> · </span><span class="stack-mono">django</span><span class="stack-sep"> · </span><span class="stack-mono">fastapi</span><span class="stack-sep"> · </span><span class="typewriter" id="typewriter"></span>
-        </p>
-
-        <p class="hero-tagline">
-          I build backend systems that are meant to last — not just work.
         </p>
 
         <div class="hero-stats">
@@ -167,7 +170,7 @@ const projects = [
           </div>
 
           <div class="skill-group">
-            <p class="skill-group-label">Currently Learning</p>
+            <p class="skill-group-label">Current Focus</p>
             <div class="skill-tags">
               <span class="skill-tag learning">System Design</span>
               <span class="skill-tag learning">DSA</span>
@@ -340,35 +343,38 @@ const projects = [
 <style>
   /* ── Hero ── */
   .hero {
-    padding: 6rem 0 3rem;
+    padding: 7rem 0 4rem;
     position: relative;
     isolation: isolate;
   }
 
-  /* Subtle dot grid */
+  /* Premium sleek grid */
   .hero::after {
     content: "";
     position: absolute;
     inset: -2rem -50vw 0;
-    background-image: radial-gradient(circle, var(--color-border) 1.5px, transparent 1.5px);
-    background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+    mask-image: radial-gradient(ellipse at 30% 40%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 40%, black 10%, transparent 70%);
     opacity: 0.6;
-    z-index: -2;
+    z-index: -3;
     pointer-events: none;
   }
 
-  /* Radial glow behind text */
+  /* Animated gradient mesh */
   .hero::before {
     content: "";
     position: absolute;
-    top: -10%;
-    left: -20%;
-    width: 80%;
-    height: 450px;
-    background: radial-gradient(ellipse at 50% 50%, var(--color-accent-glow) 0%, transparent 70%);
-    z-index: -1;
+    inset: -5rem -20% 0;
+    background: 
+      radial-gradient(circle at 20% 30%, var(--color-accent-glow) 0%, transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+    z-index: -2;
     pointer-events: none;
-    filter: blur(40px);
+    filter: blur(50px);
   }
 
   /* Availability badge */
@@ -407,9 +413,12 @@ const projects = [
     font-weight: 800;
     color: var(--color-text);
     line-height: 1.05;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
     letter-spacing: -0.04em;
-    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -432,11 +441,16 @@ const projects = [
   }
 
   .hero-tagline {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--color-text-secondary);
-    max-width: 520px;
+    max-width: 650px;
     line-height: 1.7;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-tagline strong {
+    color: var(--color-text);
+    font-weight: 600;
   }
 
   /* Stats row */
@@ -698,34 +712,54 @@ const projects = [
 
   /* ── Skills ── */
   .skills-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
   }
 
   .skill-group {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 0.75rem;
-    align-items: start;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
+    padding: 1.5rem;
+    box-shadow: var(--glass-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  .skill-group:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+  .skill-group::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-end));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .skill-group:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px var(--color-accent-glow);
+    border-color: var(--color-border-hover);
+  }
+
+  .skill-group:hover::before {
+    opacity: 1;
   }
 
   .skill-group-label {
-    font-size: 0.72rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-secondary);
+    letter-spacing: 0.1em;
+    color: var(--color-text);
     margin: 0;
-    padding-top: 0.2rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
   }
 
   .skill-tags {
@@ -798,10 +832,7 @@ const projects = [
       margin-left: 0;
     }
 
-    .skill-group {
-      grid-template-columns: 1fr;
-      gap: 0.4rem;
-    }
+
 
     .post-row {
       flex-direction: column;

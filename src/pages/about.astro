@@ -171,6 +171,43 @@ import { SOCIAL_LINKS } from "../consts";
               </li>
             </ul>
           </div>
+
+          <!-- Hidden older experiences -->
+          <div class="experience-item hidden-experience">
+            <div class="experience-header">
+              <span class="experience-role">Junior Developer</span>
+              <span class="experience-period">Jan 2020 — Mar 2021</span>
+            </div>
+            <span class="experience-company">Tech Solutions Ltd · Pune</span>
+            <ul class="experience-bullets">
+              <li>
+                Developed and maintained internal CRUD applications using Python and Django.
+              </li>
+              <li>
+                Optimized SQL queries to improve dashboard load times by 30%.
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item hidden-experience">
+            <div class="experience-header">
+              <span class="experience-role">Software Engineering Intern</span>
+              <span class="experience-period">Jun 2019 — Dec 2019</span>
+            </div>
+            <span class="experience-company">Startup Inc · Pune</span>
+            <ul class="experience-bullets">
+              <li>
+                Assisted in the migration of monolithic REST APIs to microservices architecture.
+              </li>
+              <li>
+                Wrote comprehensive unit tests, increasing overall code coverage to 85%.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="show-more-container">
+          <button id="show-more-exp" class="btn-secondary">Show older experiences</button>
         </div>
       </section>
 
@@ -178,18 +215,32 @@ import { SOCIAL_LINKS } from "../consts";
 
       <section class="section">
         <h2>Certifications</h2>
-        <ul class="cert-list">
-          <li>
-            <span class="cert-name"
-              >AWS Machine Learning Specialty (MLS-C01)</span
-            >
-            <span class="cert-date">January 2026</span>
-          </li>
-          <li>
-            <span class="cert-name">AI Agents Fundamentals — Hugging Face</span>
-            <span class="cert-date">March 2026</span>
-          </li>
-        </ul>
+        <div class="cert-grid">
+          <div class="cert-card">
+            <div class="cert-seal">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg>
+            </div>
+            <div class="cert-content">
+              <span class="cert-name">AWS Machine Learning Specialty (MLS-C01)</span>
+              <span class="cert-date">Issued: January 2026</span>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-seal">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg>
+            </div>
+            <div class="cert-content">
+              <span class="cert-name">AI Agents Fundamentals — Hugging Face</span>
+              <span class="cert-date">Issued: March 2026</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <hr />
@@ -317,7 +368,21 @@ import { SOCIAL_LINKS } from "../consts";
   .experience-list {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 2rem;
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .experience-list::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    bottom: 0;
+    left: 1.5rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-accent), transparent);
+    border-radius: 2px;
+    opacity: 0.5;
   }
 
   .experience-item {
@@ -331,12 +396,46 @@ import { SOCIAL_LINKS } from "../consts";
     border-radius: var(--base-radius);
     box-shadow: var(--glass-shadow);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
   }
   
+  .experience-item::before {
+    content: '';
+    position: absolute;
+    top: 1.75rem; /* Align with header roughly */
+    left: calc(-1.5rem - 7px);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-glow);
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .experience-item::after {
+    content: '';
+    position: absolute;
+    top: 2.15rem;
+    left: -1.5rem;
+    width: 1.5rem;
+    height: 2px;
+    background: var(--color-accent);
+    opacity: 0.3;
+    z-index: 0;
+  }
+
   .experience-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px var(--color-accent-glow);
     border-color: var(--color-border-hover);
+  }
+
+  .experience-item:hover::before {
+    background: var(--color-accent);
+    box-shadow: 0 0 20px var(--color-accent);
+    transform: scale(1.2);
   }
 
   .experience-header {
@@ -379,38 +478,118 @@ import { SOCIAL_LINKS } from "../consts";
   }
 
   /* Certifications */
-  .cert-list {
-    list-style: none;
-    padding: 0;
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .cert-card {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    border: var(--glass-border);
+    border-radius: var(--base-radius);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    align-items: center;
+  }
+
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.015) 10px,
+      rgba(255, 255, 255, 0.015) 20px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .cert-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-accent);
+    box-shadow: 0 15px 35px var(--color-accent-glow);
+  }
+
+  .cert-seal {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 15px var(--color-accent-glow);
+    z-index: 1;
+    position: relative;
+  }
+
+  .cert-content {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .cert-list li {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .cert-list li:last-child {
-    border-bottom: none;
+    gap: 0.25rem;
+    z-index: 1;
+    position: relative;
+    text-align: left;
   }
 
   .cert-name {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: var(--color-text);
-    font-weight: 500;
+    line-height: 1.4;
+    font-family: var(--font-sans);
   }
 
   .cert-date {
     font-size: 0.8rem;
     color: var(--color-text-secondary);
-    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  /* Show More Button */
+  .show-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hidden-experience {
+    display: none;
+    opacity: 0;
+  }
+
+  .hidden-experience.visible {
+    display: flex;
+    animation: fadeInDown 0.5s ease forwards;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Contact row */
@@ -421,3 +600,19 @@ import { SOCIAL_LINKS } from "../consts";
     margin-top: 1.25rem;
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("show-more-exp");
+    const hiddenItems = document.querySelectorAll(".hidden-experience");
+
+    if (btn) {
+      btn.addEventListener("click", () => {
+        hiddenItems.forEach(item => {
+          item.classList.add("visible");
+        });
+        btn.parentElement?.remove();
+      });
+    }
+  });
+</script>
