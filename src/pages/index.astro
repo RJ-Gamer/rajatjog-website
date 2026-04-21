@@ -94,6 +94,17 @@ const projectGroups = [
       title="Rajat Jog — Senior Backend Engineer"
       description={SITE_DESCRIPTION}
     />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Rajat Jog",
+      url: "https://RJ-Gamer.github.io/rajatjog-website",
+      jobTitle: "Senior Backend Engineer",
+      sameAs: [
+        "https://github.com/RJ-Gamer",
+        "https://linkedin.com/in/rajat-jog",
+      ],
+    })} />
   </head>
   <body style="min-height: 100vh; display: flex; flex-direction: column;">
     <Header />
