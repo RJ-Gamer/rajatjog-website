@@ -3,49 +3,99 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
-const projects = [
+const projectGroups = [
   {
-    title: "django-system-audit",
-    badgeLabel: "PyPI",
-    badgeClass: "badge badge-pypi",
-    why: "Signals capture effects. Compliance systems need to capture intent.",
-    description:
-      "Intent-aware audit trail library for Django and DRF. Records audit events explicitly through views and admin actions rather than relying on signals — capturing why something happened, not just that it did. Built for HIPAA and SOC2 environments where audit logs must be legally defensible.",
-    stack: ["Python", "Django", "DRF"],
-    links: [
-      { label: "PyPI", href: "https://pypi.org/project/django-system-audit/" },
+    category: "Client Projects",
+    items: [
       {
-        label: "GitHub",
-        href: "https://github.com/RJ-Gamer/django-system-audit",
+        title: "OppVenuz",
+        badgeLabel: "E-Commerce",
+        badgeClass: "badge",
+        duration: "Jun 2023 – Nov 2024",
+        association: "Associated with Mindbowser Inc",
+        bullets: [
+          "Architected and developed the complete backend infrastructure for Oppvenuz, ensuring seamless integration of vendor listings, user profiles, and booking functionalities.",
+          "Designed and implemented scalable RESTful APIs using Django and Django REST Framework (DRF) to support dynamic content delivery and user interactions across the platform.",
+          "Optimized database schemas and queries for PostgreSQL, enhancing data retrieval speeds and overall application performance.",
+          "Implemented caching strategies using Redis to reduce server load and improve response times for high-traffic endpoints."
+        ],
+        stack: ["Django", "DRF", "PostgreSQL", "Redis"],
+        links: [
+          { label: "Website", href: "https://www.oppvenuz.com/" }
+        ]
       },
-    ],
+      {
+        title: "Allday | Dayo",
+        badgeLabel: "Mobile App",
+        badgeClass: "badge",
+        duration: "Jan 2023 – Feb 2024",
+        association: "Associated with Mindbowser Inc",
+        bullets: [
+          "Architected and developed the complete backend infrastructure for Dayo, facilitating seamless user interactions and reward mechanisms.",
+          "Designed and implemented scalable RESTful APIs using Django and Django REST Framework (DRF) to support real-time data synchronization and user engagement features.",
+          "Built and integrated a custom Shopify marketplace to support the in-app redemption of wellness rewards, offering seamless product discovery and purchase experiences.",
+          "Utilized LLM-based summarization tools to generate concise user insights and analytics dashboards."
+        ],
+        stack: ["Django", "DRF", "Shopify", "LLMs"],
+      }
+    ]
   },
   {
-    title: "timeblocks",
-    badgeLabel: "PyPI",
-    badgeClass: "badge badge-pypi",
-    why: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
-    description:
-      "Recurring time availability scheduling for Django. Handles daily, weekly, custom weekday, monthly, and yearly patterns with concurrency-safe slot generation. Changing availability never corrupts already-booked records — the core invariant most scheduling systems violate.",
-    stack: ["Python", "Django"],
-    links: [
-      { label: "PyPI", href: "https://pypi.org/project/timeblocks/" },
-      { label: "GitHub", href: "https://github.com/RJ-Gamer/timeblocks" },
-    ],
-  },
-  {
-    title: "django-ml-audit",
-    badgeLabel: "PyPI",
-    badgeClass: "badge badge-pypi",
-    why: "Debugging a strange ML prediction from last month shouldn't require excavating logs across 5 services.",
-    description:
-      "Per-prediction ML audit trails for Django production systems. Records model version, redacted inputs, outputs, confidence scores, and SHAP explanations against real production traffic. Answers: what did the model do, which version, and why.",
-    stack: ["Python", "Django", "DRF"],
-    links: [
-      { label: "PyPI", href: "https://pypi.org/project/django-ml-audit/" },
-      { label: "GitHub", href: "https://github.com/RJ-Gamer/django-ml-audit" },
-    ],
-  },
+    category: "Open Source Projects",
+    items: [
+      {
+        title: "django-system-audit",
+        badgeLabel: "PyPI",
+        badgeClass: "badge badge-pypi",
+        why: "Signals capture effects. Compliance systems need to capture intent.",
+        bullets: [
+          "Intent-aware audit trail library for Django and DRF.",
+          "Records audit events explicitly through views and admin actions rather than relying on signals — capturing why something happened, not just that it did.",
+          "Built for HIPAA and SOC2 environments where audit logs must be legally defensible."
+        ],
+        stack: ["Python", "Django", "DRF"],
+        links: [
+          { label: "PyPI", href: "https://pypi.org/project/django-system-audit/" },
+          {
+            label: "GitHub",
+            href: "https://github.com/RJ-Gamer/django-system-audit",
+          },
+        ],
+      },
+      {
+        title: "timeblocks",
+        badgeLabel: "PyPI",
+        badgeClass: "badge badge-pypi",
+        why: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+        bullets: [
+          "Recurring time availability scheduling for Django.",
+          "Handles daily, weekly, custom weekday, monthly, and yearly patterns with concurrency-safe slot generation.",
+          "Changing availability never corrupts already-booked records — the core invariant most scheduling systems violate."
+        ],
+        stack: ["Python", "Django"],
+        links: [
+          { label: "PyPI", href: "https://pypi.org/project/timeblocks/" },
+          { label: "GitHub", href: "https://github.com/RJ-Gamer/timeblocks" },
+        ],
+      },
+      {
+        title: "django-ml-audit",
+        badgeLabel: "PyPI",
+        badgeClass: "badge badge-pypi",
+        why: "Debugging a strange ML prediction from last month shouldn't require excavating logs across 5 services.",
+        bullets: [
+          "Per-prediction ML audit trails for Django production systems.",
+          "Records model version, redacted inputs, outputs, confidence scores, and SHAP explanations against real production traffic.",
+          "Answers: what did the model do, which version, and why."
+        ],
+        stack: ["Python", "Django", "DRF"],
+        links: [
+          { label: "PyPI", href: "https://pypi.org/project/django-ml-audit/" },
+          { label: "GitHub", href: "https://github.com/RJ-Gamer/django-ml-audit" },
+        ],
+      },
+    ]
+  }
 ];
 ---
 
@@ -70,41 +120,58 @@ const projects = [
       <hr />
 
       <section class="projects-section">
-        {
-          projects.map((project) => (
-            <article class="project">
-              <div class="project-header">
-                <div class="project-title-row">
-                  <h2 class="project-title">{project.title}</h2>
-                  <span class={project.badgeClass}>{project.badgeLabel}</span>
-                </div>
-                <p class="project-why">"{project.why}"</p>
-              </div>
+        {projectGroups.map((group) => (
+          <div class="project-group">
+            <h2 class="group-category">{group.category}</h2>
+            {
+              group.items.map((project) => (
+                <article class="project">
+                  <div class="project-header">
+                    <div class="project-title-row">
+                      <h3 class="project-title">{project.title}</h3>
+                      {project.badgeLabel && <span class={project.badgeClass}>{project.badgeLabel}</span>}
+                    </div>
+                    {project.duration && (
+                      <p class="project-meta">{project.duration} • {project.association}</p>
+                    )}
+                    {project.why && <p class="project-why">"{project.why}"</p>}
+                  </div>
 
-              <p class="project-description">{project.description}</p>
+                  {project.description && <p class="project-description">{project.description}</p>}
+                  {project.bullets && project.bullets.length > 0 && (
+                    <ul class="project-bullets">
+                      {project.bullets.map((bullet) => (
+                        <li>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
 
-              <div class="project-footer">
-                <div class="project-stack">
-                  {project.stack.map((tag) => (
-                    <span class="badge">{tag}</span>
-                  ))}
-                </div>
-                <div class="project-links">
-                  {project.links.map((link) => (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener"
-                      class="project-link"
-                    >
-                      {link.label} →
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))
-        }
+                  <div class="project-footer">
+                    <div class="project-stack">
+                      {project.stack.map((tag) => (
+                        <span class="badge">{tag}</span>
+                      ))}
+                    </div>
+                    {project.links && project.links.length > 0 && (
+                      <div class="project-links">
+                        {project.links.map((link) => (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener"
+                            class="project-link"
+                          >
+                            {link.label} →
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        ))}
       </section>
     </main>
 
@@ -163,6 +230,44 @@ const projects = [
 
   .project:last-child {
     border-bottom: none;
+  }
+
+  .group-category {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-group:first-child .group-category {
+    margin-top: 0;
+  }
+
+  .project-meta {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    margin: -0.2rem 0 0 0;
+  }
+
+  .project-bullets {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    list-style-type: disc;
+  }
+
+  .project-bullets li {
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem;
+  }
+
+  .project-bullets li:last-child {
+    margin-bottom: 0;
   }
 
   .project-header {
