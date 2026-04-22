@@ -28,6 +28,19 @@ function isActive(href: string) {
         }
       </ul>
 
+      <div class="accent-picker" id="accentPicker">
+        <button class="accent-toggle" id="accentToggle" aria-label="Choose accent color" aria-expanded="false" title="Choose accent color">
+          <span class="active-swatch" aria-hidden="true"></span>
+        </button>
+        <div class="accent-menu" id="accentMenu" aria-label="Accent color options">
+          <button type="button" data-accent-choice="emerald" aria-label="Emerald accent"><span class="swatch emerald"></span></button>
+          <button type="button" data-accent-choice="cyan" aria-label="Cyan accent"><span class="swatch cyan"></span></button>
+          <button type="button" data-accent-choice="violet" aria-label="Violet accent"><span class="swatch violet"></span></button>
+          <button type="button" data-accent-choice="amber" aria-label="Amber accent"><span class="swatch amber"></span></button>
+          <button type="button" data-accent-choice="rose" aria-label="Rose accent"><span class="swatch rose"></span></button>
+        </div>
+      </div>
+
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
         <svg class="theme-icon sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"></circle>
@@ -120,6 +133,107 @@ function isActive(href: string) {
     padding: 0;
     transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
     width: 36px;
+  }
+
+  .accent-picker {
+    position: relative;
+  }
+
+  .accent-toggle {
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    height: 36px;
+    justify-content: center;
+    padding: 0;
+    transition: border-color 0.18s ease, background 0.18s ease;
+    width: 36px;
+  }
+
+  .accent-toggle:hover,
+  .accent-picker.open .accent-toggle {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-border-hover);
+  }
+
+  .active-swatch,
+  .swatch {
+    border-radius: 999px;
+    display: block;
+  }
+
+  .active-swatch {
+    background: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-glow);
+    height: 14px;
+    width: 14px;
+  }
+
+  .accent-menu {
+    align-items: center;
+    background: var(--color-surface);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+    display: none;
+    gap: 0.35rem;
+    padding: 0.45rem;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.65rem);
+  }
+
+  .accent-picker.open .accent-menu {
+    display: flex;
+  }
+
+  .accent-menu button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    display: flex;
+    height: 28px;
+    justify-content: center;
+    padding: 0;
+    width: 28px;
+  }
+
+  .accent-menu button:hover,
+  .accent-menu button.active {
+    border-color: var(--color-border-hover);
+    background: var(--color-bg-secondary);
+  }
+
+  .swatch {
+    height: 14px;
+    width: 14px;
+  }
+
+  .swatch.emerald {
+    background: oklch(0.72 0.16 145);
+  }
+
+  .swatch.cyan {
+    background: oklch(0.76 0.13 205);
+  }
+
+  .swatch.violet {
+    background: oklch(0.72 0.16 292);
+  }
+
+  .swatch.amber {
+    background: oklch(0.78 0.15 72);
+  }
+
+  .swatch.rose {
+    background: oklch(0.72 0.17 18);
   }
 
   .theme-toggle:hover {
@@ -225,6 +339,10 @@ function isActive(href: string) {
       padding: 0.8rem 1.25rem;
       width: 100%;
     }
+
+    .accent-menu {
+      right: -2.85rem;
+    }
   }
 </style>
 
@@ -232,11 +350,50 @@ function isActive(href: string) {
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
   const themeToggle = document.getElementById("themeToggle");
+  const accentPicker = document.getElementById("accentPicker");
+  const accentToggle = document.getElementById("accentToggle");
+  const accentChoices = document.querySelectorAll("[data-accent-choice]");
+
+  function setActiveAccentButton(accent: string) {
+    accentChoices.forEach((button) => {
+      button.classList.toggle("active", button.getAttribute("data-accent-choice") === accent);
+    });
+  }
+
+  function setAccent(accent: string) {
+    document.documentElement.dataset.accent = accent;
+    localStorage.setItem("accentColor", accent);
+    setActiveAccentButton(accent);
+  }
 
   function setTheme(theme: string) {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
   }
+
+  setActiveAccentButton(document.documentElement.dataset.accent || "emerald");
+
+  accentToggle?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const isOpen = accentPicker?.classList.toggle("open") ?? false;
+    accentToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  accentChoices.forEach((button) => {
+    button.addEventListener("click", () => {
+      const accent = button.getAttribute("data-accent-choice") || "emerald";
+      setAccent(accent);
+      accentPicker?.classList.remove("open");
+      accentToggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!accentPicker?.contains(event.target as Node)) {
+      accentPicker?.classList.remove("open");
+      accentToggle?.setAttribute("aria-expanded", "false");
+    }
+  });
 
   themeToggle?.addEventListener("click", () => {
     const current = document.documentElement.dataset.theme || "dark";

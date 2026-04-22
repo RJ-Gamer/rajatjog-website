@@ -26,10 +26,13 @@ const base = import.meta.env.BASE_URL;
   (() => {
     try {
       const saved = localStorage.getItem("theme");
+      const accent = localStorage.getItem("accentColor") || "emerald";
       const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
       document.documentElement.dataset.theme = saved || (prefersLight ? "light" : "dark");
+      document.documentElement.dataset.accent = accent;
     } catch {
       document.documentElement.dataset.theme = "dark";
+      document.documentElement.dataset.accent = "emerald";
     }
   })();
 </script>

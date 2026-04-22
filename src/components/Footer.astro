@@ -49,16 +49,50 @@ import { SOCIAL_LINKS } from "../consts";
 
 <style>
   footer {
+    background:
+      linear-gradient(180deg, transparent 0%, var(--color-bg-secondary) 100%);
     border-top: 1px solid var(--color-border);
     display: block;
     margin-top: auto;
+    padding: 3rem 1.5rem 1.5rem;
+    position: relative;
     width: 100%;
   }
 
+  footer::before {
+    background: linear-gradient(90deg, transparent, var(--color-accent-glow), transparent);
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -1px;
+  }
+
   .footer-inner {
+    background: var(--color-surface);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.18);
     margin: 0 auto;
     max-width: var(--max-width);
-    padding: 3rem 2.5rem 1.5rem;
+    overflow: hidden;
+    padding: 2.75rem 2.5rem 1.5rem;
+    position: relative;
+  }
+
+  .footer-inner::before {
+    background:
+      linear-gradient(90deg, var(--color-accent), var(--color-teal), transparent);
+    content: "";
+    height: 2px;
+    left: 0;
+    opacity: 0.65;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   .footer-top {
@@ -162,8 +196,12 @@ import { SOCIAL_LINKS } from "../consts";
   }
 
   @media (max-width: 720px) {
+    footer {
+      padding: 2rem 1rem 1rem;
+    }
+
     .footer-inner {
-      padding: 2.5rem 1.25rem 1.5rem;
+      padding: 2.25rem 1.25rem 1.35rem;
     }
   }
 </style>
