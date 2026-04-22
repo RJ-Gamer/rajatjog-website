@@ -10,88 +10,73 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const projectGroups = [
+const stats = [
+  { label: "Experience", value: "7+", unit: "years" },
+  { label: "PyPI Packages", value: "3", unit: "published" },
+  { label: "Compliance", value: "HIPAA", unit: "and SOC2" },
+  { label: "Certified", value: "AWS", unit: "ML Specialty" },
+];
+
+const skills = [
+  { category: "Backend", tags: ["Python", "Django", "FastAPI", "Django REST Framework", "Celery", "Redis"] },
+  { category: "Database", tags: ["PostgreSQL", "Query Optimisation", "Database Indexing", "Schema Design"] },
+  { category: "Cloud & Infra", tags: ["AWS SageMaker", "Lambda", "S3", "Docker", "Railway"] },
+  { category: "Domains", tags: ["HIPAA", "SOC2", "HL7/FHIR", "Healthtech", "Fintech"] },
+  { category: "Focus", tags: ["System Design", "DSA", "AI Agents"] },
+];
+
+const projects = [
   {
-    category: "Client Projects",
-    items: [
-      {
-        title: "OppVenuz",
-        badgeLabel: "E-Commerce",
-        badgeClass: "badge",
-        duration: "Jun 2023 – Nov 2024",
-        association: "Associated with Mindbowser Inc",
-        bullets: [
-          "Architected and developed the complete backend infrastructure for Oppvenuz, ensuring seamless integration of vendor listings, user profiles, and booking functionalities.",
-          "Designed and implemented scalable RESTful APIs using Django and Django REST Framework (DRF) to support dynamic content delivery and user interactions across the platform.",
-          "Optimized database schemas and queries for PostgreSQL, enhancing data retrieval speeds and overall application performance.",
-          "Implemented caching strategies using Redis to reduce server load and improve response times for high-traffic endpoints."
-        ],
-        stack: ["Django", "DRF", "PostgreSQL", "Redis"],
-        links: [
-          { label: "Website", href: "https://www.oppvenuz.com/" }
-        ]
-      },
-      {
-        title: "Allday | Dayo",
-        badgeLabel: "Mobile App",
-        badgeClass: "badge",
-        duration: "Jan 2023 – Feb 2024",
-        association: "Associated with Mindbowser Inc",
-        bullets: [
-          "Architected and developed the complete backend infrastructure for Dayo, facilitating seamless user interactions and reward mechanisms.",
-          "Designed and implemented scalable RESTful APIs using Django and Django REST Framework (DRF) to support real-time data synchronization and user engagement features.",
-          "Built and integrated a custom Shopify marketplace to support the in-app redemption of wellness rewards, offering seamless product discovery and purchase experiences.",
-          "Utilized LLM-based summarization tools to generate concise user insights and analytics dashboards."
-        ],
-        stack: ["Django", "DRF", "Shopify", "LLMs"],
-      }
-    ]
+    name: "OppVenuz",
+    meta: "Client / E-Commerce / Mindbowser Inc / Jun 2023 - Nov 2024",
+    description:
+      "Architected backend infrastructure for vendor listings, user profiles, and booking flows with scalable DRF APIs, PostgreSQL optimisation, and Redis caching.",
+    tags: ["Django", "DRF", "PostgreSQL", "Redis"],
+    links: [{ label: "Website", href: "https://www.oppvenuz.com/" }],
+    accent: "accent",
   },
   {
-    category: "Open Source Projects",
-    items: [
-      {
-        title: "django-system-audit",
-        badgeLabel: "PyPI",
-        badgeClass: "badge badge-pypi",
-        why: "Signals capture effects. Compliance systems need to capture intent.",
-        bullets: [
-          "Intent-aware audit trail library for Django and DRF.",
-          "Built for HIPAA and SOC2 environments where audit logs must be legally defensible."
-        ],
-        stack: ["Python", "Django", "DRF"],
-        links: [
-          { label: "PyPI", href: "https://pypi.org/project/django-system-audit/" },
-          {
-            label: "GitHub",
-            href: "https://github.com/RJ-Gamer/django-system-audit",
-          },
-        ],
-      },
-      {
-        title: "timeblocks",
-        badgeLabel: "PyPI",
-        badgeClass: "badge badge-pypi",
-        why: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
-        bullets: [
-          "Recurring time availability scheduling for Django.",
-          "Concurrency-safe — changing availability never corrupts booked records."
-        ],
-        stack: ["Python", "Django"],
-        links: [
-          { label: "PyPI", href: "https://pypi.org/project/timeblocks/" },
-          { label: "GitHub", href: "https://github.com/RJ-Gamer/timeblocks" },
-        ],
-      },
-    ]
-  }
+    name: "Allday | Dayo",
+    meta: "Client / Mobile App / Mindbowser Inc / Jan 2023 - Feb 2024",
+    description:
+      "Built the backend for a wellness rewards app, including Shopify marketplace integration, LLM-based insights, and real-time data sync.",
+    tags: ["Django", "DRF", "Shopify", "LLMs"],
+    links: [],
+    accent: "teal",
+  },
+  {
+    name: "django-system-audit",
+    meta: "Open Source / PyPI",
+    quote: "Signals capture effects. Compliance systems need to capture intent.",
+    description:
+      "Intent-aware audit trail library for Django and DRF, built for HIPAA and SOC2 environments where logs must be legally defensible.",
+    tags: ["Python", "Django", "DRF"],
+    links: [
+      { label: "PyPI", href: "https://pypi.org/project/django-system-audit/" },
+      { label: "GitHub", href: "https://github.com/RJ-Gamer/django-system-audit" },
+    ],
+    accent: "accent",
+  },
+  {
+    name: "timeblocks",
+    meta: "Open Source / PyPI",
+    quote: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+    description:
+      "Recurring availability scheduling for Django. Concurrency-safe, so changing availability never corrupts booked records.",
+    tags: ["Python", "Django"],
+    links: [
+      { label: "PyPI", href: "https://pypi.org/project/timeblocks/" },
+      { label: "GitHub", href: "https://github.com/RJ-Gamer/timeblocks" },
+    ],
+    accent: "teal",
+  },
 ];
 ---
 
 <html lang="en">
   <head>
     <BaseHead
-      title="Rajat Jog — Senior Backend Engineer"
+      title="Rajat Jog - Senior Backend Engineer"
       description={SITE_DESCRIPTION}
     />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -106,843 +91,533 @@ const projectGroups = [
       ],
     })} />
   </head>
-  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+  <body>
     <Header />
 
-    <main style="flex: 1;">
-      <!-- Hero -->
+    <main>
       <section class="hero">
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          <span>Open to Senior Backend roles</span>
+        <div class="status-line">
+          <span class="status-dot"></span>
+          <span>Open to Senior Backend Roles</span>
         </div>
 
-        <h1 class="hero-name">
+        <h1>
           Building systems<br />
-          that <span class="text-gradient">last.</span>
+          <span>that last.</span>
         </h1>
 
-        <p class="hero-tagline">
-          I'm <strong>Rajat Jog</strong> — a Senior Backend Engineer. I specialize in building highly scalable, resilient, and HIPAA/SOC2-compliant backend architectures. I write systems where correctness and performance are non-negotiable.
+        <p class="hero-copy">
+          I'm <strong>Rajat Jog</strong> - a Senior Backend Engineer specialising
+          in scalable, resilient, HIPAA/SOC2-compliant architectures. Correctness
+          and performance are non-negotiable.
         </p>
 
-        <p class="hero-stack">
-          <span class="stack-mono">python</span><span class="stack-sep"> · </span><span class="stack-mono">django</span><span class="stack-sep"> · </span><span class="stack-mono">fastapi</span><span class="stack-sep"> · </span><span class="typewriter" id="typewriter"></span>
-        </p>
-
-        <div class="hero-stats">
-          <span class="badge-shield">
-            <span class="badge-shield-label">experience</span>
-            <span class="badge-shield-value">7+ years</span>
-          </span>
-          <span class="badge-shield">
-            <span class="badge-shield-label">pypi</span>
-            <span class="badge-shield-value blue">3 packages</span>
-          </span>
-          <span class="badge-shield">
-            <span class="badge-shield-label">compliance</span>
-            <span class="badge-shield-value orange">HIPAA · SOC2</span>
-          </span>
-          <span class="badge-shield">
-            <span class="badge-shield-label">certified</span>
-            <span class="badge-shield-value orange">AWS ML</span>
-          </span>
+        <div class="stack-list" aria-label="Core stack">
+          {["python", "django", "fastapi", "postgresql", "redis", "aws"].map((tag) => (
+            <span class="chip">{tag}</span>
+          ))}
         </div>
 
         <div class="hero-actions">
           <a href="/rajatjog-website/projects" class="btn-primary">View my work</a>
           <a href="/rajatjog-website/contact" class="btn-secondary">Get in touch</a>
           <div class="hero-social">
-            <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
-              </svg>
-            </a>
-            <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
-            <a href={SOCIAL_LINKS.pypi} target="_blank" rel="noopener" class="social-btn" aria-label="PyPI">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M11.562 0c-.594.001-1.16.053-1.67.148C8.434.496 8.106 1.22 8.106 2.25v1.648h3.584v.549H6.207c-1.04 0-1.951.625-2.237 1.814-.328 1.363-.343 2.213 0 3.637.254 1.058.862 1.814 1.902 1.814h1.229V9.586c0-1.182 1.023-2.225 2.237-2.225h3.58c.996 0 1.793-.822 1.793-1.82V2.25c0-.967-.817-1.694-1.793-1.957A12.09 12.09 0 0 0 11.562 0zM9.673 1.23c.371 0 .673.307.673.685a.68.68 0 0 1-.673.685.68.68 0 0 1-.673-.685c0-.378.302-.685.673-.685z"/>
-                <path d="M15.388 4.447v1.826c0 1.232-1.044 2.27-2.237 2.27h-3.58c-.979 0-1.793.839-1.793 1.82v3.412c0 .967.84 1.535 1.793 1.82.134.04.272.072.415.099v-2.593h3.58v-.549H9.982v-1.097h3.169c1.04 0 1.951-.625 2.237-1.814.329-1.363.343-2.213 0-3.637-.254-1.058-.862-1.814-1.902-1.814h-.098zm-1.791 8.229c.371 0 .673.307.673.685a.68.68 0 0 1-.673.685.68.68 0 0 1-.673-.685c0-.378.302-.685.673-.685z"/>
-              </svg>
-            </a>
+            <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener">GitHub</a>
+            <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+            <a href={SOCIAL_LINKS.pypi} target="_blank" rel="noopener">PyPI</a>
           </div>
+        </div>
+
+        <div class="stats-grid">
+          {stats.map((stat) => (
+            <div class="stat">
+              <div class="stat-value">
+                {stat.value}
+                <span>{stat.unit}</span>
+              </div>
+              <div class="stat-label">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <!-- Skills Bento Box -->
-      <section class="section">
-        <div class="section-heading-wrapper">
-          <p class="section-heading">Skills & Stack</p>
-          <p class="section-subheading">The tools I use to build robust, scalable architectures.</p>
+      <section class="panel-section">
+        <div class="section-title">
+          <span>02 / Stack</span>
+          <h2>Skills & Tooling</h2>
         </div>
-        
-        <div class="skills-layout">
-          <div class="skill-row">
-            <div class="skill-row-label">Backend</div>
-            <div class="skill-row-tags">
-              <span class="skill-tag expert">Python</span>
-              <span class="skill-tag expert">Django</span>
-              <span class="skill-tag expert">FastAPI</span>
-              <span class="skill-tag expert">Django REST Framework</span>
-              <span class="skill-tag expert">Celery</span>
-              <span class="skill-tag expert">Redis</span>
+        <div class="skills-list">
+          {skills.map((row) => (
+            <div class="skill-row">
+              <div class="skill-label">{row.category}</div>
+              <div class="skill-tags">
+                {row.tags.map((tag) => <span class="chip">{tag}</span>)}
+              </div>
             </div>
-          </div>
-
-          <div class="skill-row">
-            <div class="skill-row-label">Database</div>
-            <div class="skill-row-tags">
-              <span class="skill-tag expert">PostgreSQL</span>
-              <span class="skill-tag mid">Query Optimisation</span>
-              <span class="skill-tag mid">Database Indexing</span>
-              <span class="skill-tag mid">Schema Design</span>
-            </div>
-          </div>
-
-          <div class="skill-row">
-            <div class="skill-row-label">Cloud & Infra</div>
-            <div class="skill-row-tags">
-              <span class="skill-tag mid">AWS</span>
-              <span class="skill-tag mid">SageMaker</span>
-              <span class="skill-tag mid">Lambda</span>
-              <span class="skill-tag mid">S3</span>
-              <span class="skill-tag mid">Docker</span>
-              <span class="skill-tag mid">Railway</span>
-            </div>
-          </div>
-
-          <div class="skill-row">
-            <div class="skill-row-label">Domains</div>
-            <div class="skill-row-tags">
-              <span class="skill-tag domain">HIPAA</span>
-              <span class="skill-tag domain">SOC2</span>
-              <span class="skill-tag domain">HL7/FHIR</span>
-              <span class="skill-tag domain">Healthtech</span>
-              <span class="skill-tag domain">Fintech</span>
-            </div>
-          </div>
-
-          <div class="skill-row">
-            <div class="skill-row-label">Current Focus</div>
-            <div class="skill-row-tags">
-              <span class="skill-tag learning">System Design</span>
-              <span class="skill-tag learning">DSA</span>
-              <span class="skill-tag learning">AI Agents</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      <!-- Featured Projects -->
-      <section class="section">
-        {projectGroups.map((group) => (
-          <div class="project-group">
-            <p class="section-heading">{group.category}</p>
-            <div class={group.category === "Client Projects" ? "project-list" : "project-grid"}>
-              {
-                group.items.map((project) => (
-                  <div class="card project-card">
-                    <div class="project-card-top">
-                      <div class="project-title-row">
-                        <h3 class="project-title">
-                          <span class="project-title-mono">{project.title}</span>
-                        </h3>
-                        {project.badgeLabel && <span class={project.badgeClass}>{project.badgeLabel}</span>}
-                      </div>
-                      {project.duration && (
-                        <p class="project-meta">{project.duration} • {project.association}</p>
-                      )}
-                      {project.why && <p class="project-why">"{project.why}"</p>}
-                      {project.description && <p class="project-description">{project.description}</p>}
-                      {project.bullets && project.bullets.length > 0 && (
-                        <ul class="project-bullets">
-                          {project.bullets.map((bullet) => (
-                            <li>{bullet}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                    <div class="project-card-bottom">
-                      <div class="project-stack">
-                        {project.stack.map((tag) => (
-                          <span class="badge">{tag}</span>
-                        ))}
-                      </div>
-                      {project.links && project.links.length > 0 && (
-                        <div class="project-links">
-                          {project.links.map((link) => (
-                            <a
-                              href={link.href}
-                              target="_blank"
-                              rel="noopener"
-                              class="project-link"
-                            >
-                              {link.label} →
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-        ))}
-        <div class="view-all">
-          <a href="/rajatjog-website/projects" class="btn-secondary">View all projects</a>
+      <section class="panel-section" id="projects">
+        <div class="section-title">
+          <span>03 / Work</span>
+          <h2>Projects</h2>
         </div>
+        <div class="project-grid">
+          {projects.map((project) => (
+            <article class:list={["feature-card", project.accent]}>
+              <div class="card-line"></div>
+              <p class="card-meta">{project.meta}</p>
+              <h3>{project.name}</h3>
+              {project.quote && <blockquote>{project.quote}</blockquote>}
+              <p>{project.description}</p>
+              <div class="tag-row">
+                {project.tags.map((tag) => <span class="chip">{tag}</span>)}
+              </div>
+              {project.links.length > 0 && (
+                <div class="card-links">
+                  {project.links.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener">{link.label} -></a>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+        <a href="/rajatjog-website/projects" class="text-link">All projects -></a>
       </section>
 
-      <!-- Latest Writing -->
-      <section class="section">
-        <p class="section-heading">Latest Writing</p>
-        {
-          posts.length === 0 ? (
-            <div class="empty-state">
-              <p>Posts coming soon.</p>
-              <p>
-                In the meantime, I write regularly on{" "}
-                <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">
-                  LinkedIn
-                </a>{" "}
-                about Django system design and backend engineering.
-              </p>
-            </div>
-          ) : (
-            <div class="post-list">
-              {posts.map((post) => (
-                <a href={`/rajatjog-website/blog/${post.id}/`} class="post-row">
-                  <div class="post-row-left">
-                    <span class="post-title">{post.data.title}</span>
-                    <span class="post-description">{post.data.description}</span>
-                  </div>
-                  <span class="post-date">
+      <section class="panel-section" id="blog">
+        <div class="section-title section-title-split">
+          <div>
+            <span>04 / Writing</span>
+            <h2>Blog</h2>
+          </div>
+          <a href="/rajatjog-website/blog">All posts -></a>
+        </div>
+        <p class="section-intro">System design, Django internals, and lessons from production.</p>
+
+        {posts.length === 0 ? (
+          <div class="empty-state">Posts coming soon.</div>
+        ) : (
+          <div class="writing-grid">
+            {posts.map((post, index) => (
+              <a
+                href={`/rajatjog-website/blog/${post.id}/`}
+                class:list={["post-card", { featured: index === 0 }]}
+              >
+                <div class="post-meta">
+                  {index === 0 && <span class="featured-label">Featured</span>}
+                  <span>
                     {post.data.pubDate.toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
                     })}
                   </span>
-                </a>
-              ))}
-            </div>
-          )
-        }
-        <div class="view-all">
-          <a href="/rajatjog-website/blog" class="btn-secondary">View all posts</a>
-        </div>
+                </div>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                {post.data.tags && (
+                  <div class="tag-row">
+                    {post.data.tags.map((tag: string) => <span class="chip">{tag}</span>)}
+                  </div>
+                )}
+                <span class="read-link">Read post -></span>
+              </a>
+            ))}
+          </div>
+        )}
       </section>
 
-      <!-- About -->
-      <section class="section about-blurb">
-        <p class="section-heading">About</p>
-        <p>
-          I'm a senior backend engineer from Pune, India specialising in Python,
-          Django, and FastAPI. I've spent 7+ years building production systems
-          in healthtech and fintech — the kind that need to be correct, not just
-          fast.
-        </p>
-        <p>
-          I open-source the hard parts. My libraries{" "}
-          <a href="https://pypi.org/project/timeblocks/" target="_blank" rel="noopener">timeblocks</a>,{" "}
-          <a href="https://pypi.org/project/django-system-audit/" target="_blank" rel="noopener">django-system-audit</a>, and{" "}
-          <a href="https://pypi.org/project/django-ml-audit/" target="_blank" rel="noopener">django-ml-audit</a>{" "}
-          exist because I kept hitting the same architectural problems in production
-          and decided to solve them properly once.
-        </p>
-        <div class="view-all">
-          <a href="/rajatjog-website/contact" class="btn-secondary">Get in touch</a>
+      <section class="panel-section about-contact">
+        <div>
+          <div class="section-title">
+            <span>05 / About</span>
+            <h2>Rajat Jog</h2>
+          </div>
+          <p>
+            Senior backend engineer from Pune, India specialising in Python,
+            Django, and FastAPI. 7+ years building production systems in
+            healthtech and fintech - the kind that need to be correct, not just
+            fast.
+          </p>
+          <p>
+            I open-source the hard parts. timeblocks, django-system-audit, and
+            django-ml-audit exist because I kept hitting the same architectural
+            problems in production and decided to solve them properly once.
+          </p>
+        </div>
+        <div class="contact-panel">
+          {[
+            ["Location", "Pune, India", ""],
+            ["GitHub", "@RJ-Gamer", SOCIAL_LINKS.github],
+            ["LinkedIn", "rajat-jog", SOCIAL_LINKS.linkedin],
+            ["PyPI", "rajatjog1294", SOCIAL_LINKS.pypi],
+            ["Email", "rajatjog1294@gmail.com", SOCIAL_LINKS.email],
+          ].map(([label, value, href]) => (
+            <div class="contact-row">
+              <span>{label}</span>
+              {href ? (
+                <a href={href} target={href.startsWith("mailto") ? undefined : "_blank"} rel="noopener">{value}</a>
+              ) : (
+                <strong>{value}</strong>
+              )}
+            </div>
+          ))}
         </div>
       </section>
     </main>
 
     <Footer />
   </body>
-
-  <script>
-    const words = [
-      "aws-ml-certified",
-      "open-source-author",
-      "backend-architect",
-      "systems-thinker",
-      "hipaa-soc2-expert",
-      "api-designer",
-    ];
-
-    let wordIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-    const el = document.getElementById("typewriter");
-    const typeSpeed = 80;
-    const deleteSpeed = 40;
-    const pauseTime = 1800;
-
-    function type() {
-      if (!el) return;
-
-      const current = words[wordIndex];
-
-      if (!deleting) {
-        el.textContent = current.slice(0, charIndex + 1);
-        charIndex++;
-
-        if (charIndex === current.length) {
-          deleting = true;
-          setTimeout(type, pauseTime);
-          return;
-        }
-      } else {
-        el.textContent = current.slice(0, charIndex - 1);
-        charIndex--;
-
-        if (charIndex === 0) {
-          deleting = false;
-          wordIndex = (wordIndex + 1) % words.length;
-        }
-      }
-
-      setTimeout(type, deleting ? deleteSpeed : typeSpeed);
-    }
-
-    type();
-  </script>
 </html>
 
 <style>
-  /* ── Hero ── */
   .hero {
-    padding: 7rem 0 4rem;
-    position: relative;
-    isolation: isolate;
+    min-height: calc(100vh - 60px);
+    padding: 3rem 0 5rem;
   }
 
-  /* Premium sleek grid */
-  .hero::after {
-    content: "";
-    position: absolute;
-    inset: -2rem -50vw 0;
-    background-image: 
-      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
-    background-size: 4rem 4rem;
-    mask-image: radial-gradient(ellipse at 30% 40%, black 10%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse at 30% 40%, black 10%, transparent 70%);
-    opacity: 0.6;
-    z-index: -3;
-    pointer-events: none;
-  }
-
-  /* Animated gradient mesh */
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: -5rem -20% 0;
-    background: 
-      radial-gradient(circle at 20% 30%, var(--color-accent-glow) 0%, transparent 40%),
-      radial-gradient(circle at 80% 60%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
-    z-index: -2;
-    pointer-events: none;
-    filter: blur(50px);
-  }
-
-  /* Availability badge */
-  .hero-badge {
-    display: inline-flex;
+  .status-line {
     align-items: center;
-    gap: 8px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 100px;
-    padding: 5px 14px 5px 10px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.01em;
-  }
-
-  .badge-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--color-green);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-    animation: pulse-dot 2.5s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
-    50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.08); }
-  }
-
-  .hero-name {
-    font-size: 4.5rem;
-    font-weight: 800;
-    color: var(--color-text);
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.04em;
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-stack {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
+    color: var(--color-accent);
+    display: inline-flex;
     font-family: var(--font-mono);
-  }
-
-  .stack-mono {
-    color: var(--color-accent);
-    font-weight: 600;
-  }
-
-  .stack-sep {
-    color: var(--color-border);
-    margin: 0 4px;
-  }
-
-  .hero-tagline {
-    font-size: 1.2rem;
-    color: var(--color-text-secondary);
-    max-width: 650px;
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-  
-  .hero-tagline strong {
-    color: var(--color-text);
-    font-weight: 600;
-  }
-
-  /* Stats row */
-  .hero-stats {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  /* Social icon buttons */
-  .hero-social {
-    display: flex;
-    gap: 0.5rem;
-    margin-left: 0.25rem;
-  }
-
-  .social-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: var(--glass-border);
-    color: var(--color-text-secondary);
-    background: var(--color-surface);
-    backdrop-filter: blur(8px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: var(--glass-shadow);
-  }
-
-  .social-btn:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    transform: translateY(-3px) rotate(5deg);
-    box-shadow: 0 8px 20px var(--color-accent-glow);
-  }
-
-  /* ── Projects ── */
-  .project-group {
+    font-size: 0.72rem;
+    gap: 0.55rem;
+    letter-spacing: 0.1em;
     margin-bottom: 3rem;
-  }
-  
-  .project-group:last-child {
-    margin-bottom: 0;
+    text-transform: uppercase;
   }
 
-  .project-meta {
-    font-size: 0.825rem;
-    color: var(--color-text-secondary);
-    font-family: var(--font-mono);
-    margin: -0.25rem 0 0.5rem 0;
+  .status-dot {
+    background: var(--color-accent);
+    border-radius: 999px;
+    box-shadow: 0 0 0 4px var(--color-accent-dim), 0 0 16px var(--color-accent);
+    display: block;
+    height: 7px;
+    width: 7px;
   }
 
-  .project-bullets {
-    margin: 0.5rem 0 0 0;
-    padding-left: 1.5rem;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    list-style-type: disc;
+  .hero h1 {
+    max-width: 820px;
   }
 
-  .project-bullets li {
-    margin-bottom: 0.4rem;
-    padding-left: 0.2rem;
-  }
-
-  .project-bullets li:last-child {
-    margin-bottom: 0;
-  }
-
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-  }
-
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .project-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .project-card-top {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .project-title-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .project-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin: 0;
-  }
-
-  .project-title-mono {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-  }
-
-  .project-why {
-    font-size: 0.875rem;
+  .hero h1 span {
     color: var(--color-text-secondary);
     font-style: italic;
-    line-height: 1.5;
-    margin: 0;
   }
 
-  .project-description {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .project-card-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .project-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .project-links {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .project-link {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-accent) !important;
-    text-decoration: none;
-    transition: opacity 0.15s ease;
-  }
-
-  .project-link:hover {
-    opacity: 0.75;
-  }
-
-  /* ── Blog post list ── */
-  .post-list {
-    display: flex;
-    flex-direction: column;
-    border: var(--glass-border);
-    border-radius: var(--base-radius);
-    overflow: hidden;
-    background: var(--color-surface);
-    backdrop-filter: blur(12px);
-    box-shadow: var(--glass-shadow);
-  }
-
-  .post-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    cursor: pointer;
-  }
-
-  .post-row:last-child {
-    border-bottom: none;
-  }
-
-  .post-row:hover {
-    background: var(--color-bg-secondary);
-    padding-left: 2rem;
-  }
-
-  .post-row-left {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .post-title {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-text);
-  }
-
-  .post-description {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .post-date {
-    font-size: 0.78rem;
-    color: var(--color-text-secondary);
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding-top: 0.2rem;
-    font-family: var(--font-mono);
-  }
-
-  .empty-state {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--base-radius);
-    padding: 2rem;
-  }
-
-  .empty-state p {
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
-  }
-
-  .empty-state p:last-child {
-    margin-bottom: 0;
-  }
-
-  .about-blurb p {
-    color: var(--color-text-secondary);
-    margin-bottom: 1rem;
+  .hero-copy {
+    font-size: 1.05rem;
     max-width: 620px;
   }
 
-  .view-all {
-    margin-top: 1.5rem;
+  .stack-list,
+  .hero-actions,
+  .hero-social,
+  .tag-row,
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
-  /* ── Typewriter ── */
-  .typewriter {
+  .stack-list {
+    margin: 2rem 0 2.5rem;
+  }
+
+  .hero-actions {
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+
+  .hero-social a,
+  .text-link,
+  .card-links a,
+  .section-title-split a,
+  .read-link {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .hero-social a:hover,
+  .text-link:hover,
+  .card-links a:hover,
+  .section-title-split a:hover,
+  .read-link {
     color: var(--color-accent);
-    font-weight: 500;
-    border-right: 2px solid var(--color-accent);
-    padding-right: 3px;
-    white-space: nowrap;
-    animation: blink 0.7s step-end infinite;
   }
 
-  @keyframes blink {
-    0%, 100% { border-color: var(--color-accent); }
-    50% { border-color: transparent; }
+  .stats-grid {
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-top: 2.5rem;
   }
 
-  /* ── Skills Layout ── */
-  .section-heading-wrapper {
+  .stat {
+    border-right: 1px solid var(--color-border);
+    padding: 0 1.5rem;
+  }
+
+  .stat:first-child {
+    padding-left: 0;
+  }
+
+  .stat:last-child {
+    border-right: none;
+  }
+
+  .stat-value {
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 1.65rem;
+    font-weight: 300;
+  }
+
+  .stat-value span {
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    margin-left: 0.25rem;
+  }
+
+  .stat-label,
+  .card-meta,
+  .skill-label,
+  .contact-row span {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .panel-section {
+    border-top: 1px solid var(--color-border);
+    padding: 5rem 0 0;
+  }
+
+  .section-title {
+    align-items: baseline;
+    display: flex;
+    gap: 1rem;
     margin-bottom: 2.5rem;
   }
-  
-  .section-subheading {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    margin-top: 0.5rem;
+
+  .section-title span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
-  .skills-layout {
+  .section-title h2 {
+    font-size: 2rem;
+    font-weight: 400;
+  }
+
+  .section-title-split {
+    justify-content: space-between;
+  }
+
+  .skills-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .skill-row {
+    align-items: flex-start;
     display: flex;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    background: var(--color-surface);
-    backdrop-filter: blur(12px);
-    border: var(--glass-border);
-    border-radius: var(--base-radius);
-    box-shadow: var(--glass-shadow);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 1.5rem;
   }
 
-  .skill-row:hover {
-    transform: translateX(4px);
-    border-color: var(--color-border-hover);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05), 0 0 0 1px var(--color-accent-glow);
+  .skill-label {
+    min-width: 120px;
+    padding-top: 0.3rem;
   }
 
-  .skill-row-label {
-    flex: 0 0 160px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-family: var(--font-sans);
-    color: var(--color-text);
-    font-size: 0.9rem;
-  }
-
-  .skill-row-tags {
+  .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
 
-  .skill-row:hover .skill-row-label {
+  .project-grid,
+  .writing-grid {
+    display: grid;
+    gap: 2px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card,
+  .post-card {
+    border: 1px solid var(--color-border);
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 100%;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .feature-card:hover,
+  .post-card:hover {
+    background: var(--color-bg-secondary);
+    color: inherit;
+  }
+
+  .card-line {
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    height: 2px;
+    left: 0;
+    opacity: 0.7;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .feature-card.teal .card-line {
+    background: linear-gradient(90deg, var(--color-teal), transparent);
+  }
+
+  .feature-card h3,
+  .post-card h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+  }
+
+  .feature-card p,
+  .post-card p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  blockquote {
+    border-left: 2px solid var(--color-accent-border);
     color: var(--color-accent);
+    font-style: italic;
+    line-height: 1.6;
+    padding-left: 1rem;
   }
 
-  .skill-tag {
-    font-size: 0.825rem;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    letter-spacing: 0.02em;
+  .feature-card.teal blockquote {
+    border-color: var(--color-teal-border);
+    color: var(--color-teal);
+  }
+
+  .text-link {
+    display: inline-flex;
+    margin-top: 1.5rem;
+  }
+
+  .section-intro {
+    margin-top: -1.25rem;
+    max-width: 36rem;
+  }
+
+  .post-card.featured {
+    background: var(--color-surface-strong);
+    grid-column: 1 / -1;
+    padding: 3rem;
+  }
+
+  .post-meta {
+    align-items: center;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-wrap: wrap;
     font-family: var(--font-mono);
-    backdrop-filter: blur(4px);
-    transition: all 0.2s ease;
+    font-size: 0.7rem;
+    gap: 0.65rem;
   }
 
-  .skill-tag:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.15);
-  }
-
-  .skill-tag.expert {
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-    color: #ffffff;
-    border-color: transparent;
-    box-shadow: 0 4px 15px var(--color-accent-glow);
-  }
-
-  .skill-tag.mid {
-    background: var(--color-surface);
+  .featured-label {
+    background: var(--color-accent-dim);
+    border: 1px solid var(--color-accent-border);
+    border-radius: 3px;
     color: var(--color-accent);
-    border: 1px solid var(--color-accent);
+    padding: 0.2rem 0.5rem;
+    text-transform: uppercase;
   }
 
-  .skill-row:hover .skill-tag.mid {
-    box-shadow: 0 0 10px var(--color-accent-glow);
+  .about-contact {
+    display: grid;
+    gap: 5rem;
+    grid-template-columns: 1fr 360px;
   }
 
-  .skill-tag.domain {
-    background: var(--color-badge);
-    color: var(--color-text);
-    border-color: var(--color-border);
+  .contact-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
   }
 
-  .skill-tag.learning {
-    background: transparent;
+  .contact-row {
+    align-items: baseline;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 90px 1fr;
+  }
+
+  .contact-row a,
+  .contact-row strong {
     color: var(--color-text-secondary);
-    border: 1px dashed var(--color-border-hover);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
   }
 
-  @media (max-width: 768px) {
+  .empty-state {
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: 2rem;
+  }
+
+  @media (max-width: 860px) {
+    .stats-grid,
+    .project-grid,
+    .writing-grid,
+    .about-contact {
+      grid-template-columns: 1fr;
+    }
+
+    .stat {
+      border-bottom: 1px solid var(--color-border);
+      border-right: none;
+      padding: 1.25rem 0;
+    }
+
+    .stat:first-child {
+      padding-top: 0;
+    }
+
+    .stat:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-top: 1.5rem;
+    }
+
     .skill-row {
       flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1.25rem 1.5rem;
-    }
-    .skill-row-label {
-      flex: none;
-    }
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 640px) {
-    .hero-name {
-      font-size: 2.75rem;
+      gap: 0.75rem;
     }
 
-    .hero-tagline {
-      font-size: 1rem;
-    }
-
-    .hero-stats {
-      gap: 0.4rem;
-    }
-
-    .hero-social {
-      margin-left: 0;
-    }
-
-
-
-    .post-row {
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .post-date {
-      font-size: 0.75rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .badge-dot {
-      animation: none;
-    }
-    .typewriter {
-      animation: none;
+    .feature-card,
+    .post-card,
+    .post-card.featured {
+      padding: 1.5rem;
     }
   }
 </style>

@@ -2,13 +2,22 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+
+const nowItems = [
+  ["Building", "Working on open source Django libraries and exploring new side project ideas."],
+  ["Working", "Senior Backend Engineer at Mindbowser, building HIPAA and SOC2-compliant healthcare platforms in Python and Django."],
+  ["Learning", "System design depth, DSA patterns for interviews, and Celery internals from production work."],
+  ["Reading", "System Design Interview Vol 2 by Alex Xu."],
+  ["Writing", "Publishing weekly on LinkedIn about Django system design, backend engineering, and building in public."],
+  ["Looking for", "Senior Backend Engineer, Backend Tech Lead, or Staff Engineer roles. Remote-first. Open to international remote."],
+];
 ---
 
 <html lang="en">
   <head>
     <BaseHead
-      title="Now — Rajat Jog"
-      description="What Rajat Jog is currently focused on — updated April 2026."
+      title="Now - Rajat Jog"
+      description="What Rajat Jog is currently focused on - updated April 2026."
     />
   </head>
   <body>
@@ -16,77 +25,40 @@ import Header from "../components/Header.astro";
 
     <main>
       <section class="page-header">
-        <h1>Now</h1>
+        <span class="page-kicker">Now</span>
+        <h1>
+          Current focus,<br />
+          <span>April 2026.</span>
+        </h1>
         <p class="page-subtitle">
-          What I'm currently focused on · Updated April 2026 · Pune, India
+          What I am currently focused on. Updated April 2026 from Pune, India.
         </p>
       </section>
 
-      <hr />
+      <section class="now-list">
+        {nowItems.map(([label, content]) => (
+          <article class="now-item">
+            <h2>{label}</h2>
+            <p>
+              {label === "Writing" ? (
+                <>
+                  Publishing weekly on
+                  <a href="https://linkedin.com/in/rajat-jog" target="_blank" rel="noopener"> LinkedIn</a>
+                  {" "}about Django system design, backend engineering, and building in public.
+                </>
+              ) : content}
+            </p>
+          </article>
+        ))}
+      </section>
 
-      <div class="now-grid">
-        <div class="now-item">
-          <p class="now-label">Building</p>
-          <p class="now-content">
-            Working on open source Django libraries and exploring new side
-            project ideas.
-          </p>
-        </div>
-
-        <div class="now-item">
-          <p class="now-label">Working</p>
-          <p class="now-content">
-            Senior Backend Engineer at Mindbowser, building HIPAA and
-            SOC2-compliant healthcare platforms in Python and Django.
-          </p>
-        </div>
-
-        <div class="now-item">
-          <p class="now-label">Learning</p>
-          <p class="now-content">
-            System design depth, DSA patterns for interviews, and Celery
-            internals from building APIHealthHub in production.
-          </p>
-        </div>
-
-        <div class="now-item">
-          <p class="now-label">Reading</p>
-          <p class="now-content">System Design Interview Vol 2 by Alex Xu.</p>
-        </div>
-
-        <div class="now-item">
-          <p class="now-label">Writing</p>
-          <p class="now-content">
-            Publishing weekly on
-            <a
-              href="https://linkedin.com/in/rajat-jog"
-              target="_blank"
-              rel="noopener"
-            >
-              LinkedIn
-            </a>
-            about Django system design, backend engineering, and building in public.
-          </p>
-        </div>
-
-        <div class="now-item">
-          <p class="now-label">Looking for</p>
-          <p class="now-content">
-            Senior Backend Engineer, Backend Tech Lead, or Staff Engineer roles.
-            Remote-first. Open to international remote.
-          </p>
-        </div>
-      </div>
-
-      <hr />
-
-      <p class="now-footer">
-        This is a
-        <a href="https://nownownow.com/about" target="_blank" rel="noopener">
-          /now page
-        </a>
-        — inspired by Derek Sivers. It changes when my focus changes.
-      </p>
+      <section class="now-footer">
+        <p>
+          This is a
+          <a href="https://nownownow.com/about" target="_blank" rel="noopener"> /now page</a>
+          - inspired by Derek Sivers. It changes when my focus changes.
+        </p>
+      </section>
     </main>
 
     <Footer />
@@ -94,93 +66,60 @@ import Header from "../components/Header.astro";
 </html>
 
 <style>
-  .page-header {
-    padding: 3rem 0 1.5rem;
-  }
-
-  .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-bottom: 0.5rem;
-  }
-
-  .page-subtitle {
+  .page-header h1 span {
     color: var(--color-text-secondary);
-    font-size: 1rem;
-    margin: 0;
+    font-style: italic;
   }
 
-  .now-grid {
-    margin-top: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  .now-list {
+    border-top: 1px solid var(--color-border);
   }
 
   .now-item {
+    border-bottom: 1px solid var(--color-border);
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1rem;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--color-border);
-    align-items: baseline;
+    gap: 2rem;
+    grid-template-columns: 150px minmax(0, 1fr);
+    padding: 1.45rem 0;
   }
 
-  .now-item:last-child {
-    border-bottom: none;
-  }
-
-  .now-label {
-    font-size: 0.75rem;
+  .now-item h2 {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-text-secondary);
-    margin: 0;
-    padding-top: 0.15rem;
+    padding-top: 0.25rem;
+    text-transform: uppercase;
   }
 
-  .now-content {
+  .now-item p {
     font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
     margin: 0;
-    max-width: 500px;
+    max-width: 640px;
   }
 
-  .now-content a {
-    color: var(--color-text);
-    border-bottom: 1px solid var(--color-border);
-    text-decoration: none;
-  }
-
-  .now-content a:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+  .now-item a,
+  .now-footer a {
+    border-bottom: 1px solid var(--color-accent-border);
   }
 
   .now-footer {
-    margin-top: 2rem;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border);
+    margin-top: 4rem;
+    padding-top: 2rem;
   }
 
-  .now-footer a {
-    color: var(--color-text-secondary);
-    border-bottom: 1px solid var(--color-border);
-    text-decoration: none;
-  }
-
-  .now-footer a:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+  .now-footer p {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin: 0;
   }
 
   @media (max-width: 640px) {
     .now-item {
+      gap: 0.5rem;
       grid-template-columns: 1fr;
-      gap: 0.25rem;
     }
   }
 </style>

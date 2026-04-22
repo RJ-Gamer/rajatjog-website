@@ -3,106 +3,100 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
-const projectGroups = [
+const clientProjects = [
   {
-    category: "Client Projects",
-    items: [
-      {
-        title: "OppVenuz",
-        badgeLabel: "E-Commerce",
-        badgeClass: "badge",
-        duration: "Jun 2023 – Nov 2024",
-        association: "Associated with Mindbowser Inc",
-        bullets: [
-          "Architected and developed the complete backend infrastructure for Oppvenuz, ensuring seamless integration of vendor listings, user profiles, and booking functionalities.",
-          "Designed and implemented scalable RESTful APIs using Django and Django REST Framework (DRF) to support dynamic content delivery and user interactions across the platform.",
-          "Optimized database schemas and queries for PostgreSQL, enhancing data retrieval speeds and overall application performance.",
-          "Implemented caching strategies using Redis to reduce server load and improve response times for high-traffic endpoints."
-        ],
-        stack: ["Django", "DRF", "PostgreSQL", "Redis"],
-        links: [
-          { label: "Website", href: "https://www.oppvenuz.com/" }
-        ]
-      },
-      {
-        title: "Allday | Dayo",
-        badgeLabel: "Mobile App",
-        badgeClass: "badge",
-        duration: "Jan 2023 – Feb 2024",
-        association: "Associated with Mindbowser Inc",
-        bullets: [
-          "Architected and developed the complete backend infrastructure for Dayo, facilitating seamless user interactions and reward mechanisms.",
-          "Designed and implemented scalable RESTful APIs using Django and Django REST Framework (DRF) to support real-time data synchronization and user engagement features.",
-          "Built and integrated a custom Shopify marketplace to support the in-app redemption of wellness rewards, offering seamless product discovery and purchase experiences.",
-          "Utilized LLM-based summarization tools to generate concise user insights and analytics dashboards."
-        ],
-        stack: ["Django", "DRF", "Shopify", "LLMs"],
-      }
-    ]
+    title: "OppVenuz",
+    type: "E-Commerce Platform",
+    period: "Jun 2023 - Nov 2024",
+    association: "Mindbowser Inc",
+    accent: "accent",
+    stat: "18 months",
+    bullets: [
+      "Architected complete backend infrastructure for vendor listings, user profiles, and booking functionalities.",
+      "Built scalable RESTful APIs with Django REST Framework supporting dynamic content delivery across the platform.",
+      "Optimized PostgreSQL schemas and queries, enhancing data retrieval speeds and application performance.",
+      "Implemented Redis caching strategies to reduce server load on high-traffic endpoints.",
+    ],
+    stack: ["Django", "DRF", "PostgreSQL", "Redis"],
+    links: [{ label: "Visit website", href: "https://www.oppvenuz.com/" }],
   },
   {
-    category: "Open Source Projects",
-    items: [
-      {
-        title: "django-system-audit",
-        badgeLabel: "PyPI",
-        badgeClass: "badge badge-pypi",
-        why: "Signals capture effects. Compliance systems need to capture intent.",
-        bullets: [
-          "Intent-aware audit trail library for Django and DRF.",
-          "Records audit events explicitly through views and admin actions rather than relying on signals — capturing why something happened, not just that it did.",
-          "Built for HIPAA and SOC2 environments where audit logs must be legally defensible."
-        ],
-        stack: ["Python", "Django", "DRF"],
-        links: [
-          { label: "PyPI", href: "https://pypi.org/project/django-system-audit/" },
-          {
-            label: "GitHub",
-            href: "https://github.com/RJ-Gamer/django-system-audit",
-          },
-        ],
-      },
-      {
-        title: "timeblocks",
-        badgeLabel: "PyPI",
-        badgeClass: "badge badge-pypi",
-        why: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
-        bullets: [
-          "Recurring time availability scheduling for Django.",
-          "Handles daily, weekly, custom weekday, monthly, and yearly patterns with concurrency-safe slot generation.",
-          "Changing availability never corrupts already-booked records — the core invariant most scheduling systems violate."
-        ],
-        stack: ["Python", "Django"],
-        links: [
-          { label: "PyPI", href: "https://pypi.org/project/timeblocks/" },
-          { label: "GitHub", href: "https://github.com/RJ-Gamer/timeblocks" },
-        ],
-      },
-      {
-        title: "django-ml-audit",
-        badgeLabel: "PyPI",
-        badgeClass: "badge badge-pypi",
-        why: "Debugging a strange ML prediction from last month shouldn't require excavating logs across 5 services.",
-        bullets: [
-          "Per-prediction ML audit trails for Django production systems.",
-          "Records model version, redacted inputs, outputs, confidence scores, and SHAP explanations against real production traffic.",
-          "Answers: what did the model do, which version, and why."
-        ],
-        stack: ["Python", "Django", "DRF"],
-        links: [
-          { label: "PyPI", href: "https://pypi.org/project/django-ml-audit/" },
-          { label: "GitHub", href: "https://github.com/RJ-Gamer/django-ml-audit" },
-        ],
-      },
-    ]
-  }
+    title: "Allday | Dayo",
+    type: "Mobile App Backend",
+    period: "Jan 2023 - Feb 2024",
+    association: "Mindbowser Inc",
+    accent: "teal",
+    stat: "13 months",
+    bullets: [
+      "Developed backend for a wellness rewards app with real-time data sync and user engagement features.",
+      "Built and integrated a custom Shopify marketplace for in-app reward redemption.",
+      "Used LLM-based summarisation to generate concise user insights and analytics dashboards.",
+      "Designed APIs supporting seamless reward mechanisms across devices.",
+    ],
+    stack: ["Django", "DRF", "Shopify", "LLMs"],
+    links: [],
+  },
+];
+
+const openSourceProjects = [
+  {
+    title: "django-system-audit",
+    domain: "Compliance",
+    quote: "Signals capture effects. Compliance systems need to capture intent.",
+    accent: "accent",
+    install: "pip install django-system-audit",
+    bullets: [
+      "Intent-aware audit trail library for Django and DRF.",
+      "Records audit events explicitly through views and admin actions, capturing why something happened.",
+      "Built for HIPAA and SOC2 environments where audit logs must be legally defensible.",
+    ],
+    stack: ["Python", "Django", "DRF"],
+    links: [
+      { label: "PyPI package", href: "https://pypi.org/project/django-system-audit/", sub: "pip install django-system-audit" },
+      { label: "GitHub repo", href: "https://github.com/RJ-Gamer/django-system-audit", sub: "Source and issues" },
+    ],
+  },
+  {
+    title: "timeblocks",
+    domain: "Scheduling",
+    quote: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+    accent: "teal",
+    install: "pip install timeblocks",
+    bullets: [
+      "Recurring time availability scheduling for Django.",
+      "Handles daily, weekly, custom weekday, monthly, and yearly patterns with concurrency-safe slot generation.",
+      "Changing availability never corrupts already-booked records.",
+    ],
+    stack: ["Python", "Django"],
+    links: [
+      { label: "PyPI package", href: "https://pypi.org/project/timeblocks/", sub: "pip install timeblocks" },
+      { label: "GitHub repo", href: "https://github.com/RJ-Gamer/timeblocks", sub: "Source and issues" },
+    ],
+  },
+  {
+    title: "django-ml-audit",
+    domain: "ML Observability",
+    quote: "Debugging a strange ML prediction from last month should not require excavating logs across 5 services.",
+    accent: "accent",
+    install: "pip install django-ml-audit",
+    bullets: [
+      "Per-prediction ML audit trails for Django production systems.",
+      "Records model version, redacted inputs, outputs, confidence scores, and SHAP explanations against real traffic.",
+      "Answers what the model did, which version did it, and why.",
+    ],
+    stack: ["Python", "Django", "DRF"],
+    links: [
+      { label: "PyPI package", href: "https://pypi.org/project/django-ml-audit/", sub: "pip install django-ml-audit" },
+      { label: "GitHub repo", href: "https://github.com/RJ-Gamer/django-ml-audit", sub: "Source and issues" },
+    ],
+  },
 ];
 ---
 
 <html lang="en">
   <head>
     <BaseHead
-      title="Projects — Rajat Jog"
+      title="Projects - Rajat Jog"
       description="Open source libraries, SaaS products, and production systems built by Rajat Jog."
     />
   </head>
@@ -111,67 +105,160 @@ const projectGroups = [
 
     <main>
       <section class="page-header">
-        <h1>Projects</h1>
+        <span class="page-kicker">Projects</span>
+        <h1>
+          Production systems,<br />
+          <span>open source solutions.</span>
+        </h1>
         <p class="page-subtitle">
-          Production systems, open source libraries, and side projects.
+          Client work at scale, and libraries that solve the problems I kept
+          hitting in production - correctness over convenience.
         </p>
+
+        <div class="summary-stats">
+          {[
+            ["2", "Client projects"],
+            ["3", "PyPI packages"],
+            ["7+", "Years production"],
+            ["HIPAA / SOC2", "Compliance domains"],
+          ].map(([value, label]) => (
+            <div>
+              <strong>{value}</strong>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <hr />
+      <section class="project-section">
+        <div class="section-title">
+          <span>01</span>
+          <h2>Client Projects</h2>
+        </div>
 
-      <section class="projects-section">
-        {projectGroups.map((group) => (
-          <div class="project-group">
-            <h2 class="group-category">{group.category}</h2>
-            {
-              group.items.map((project) => (
-                <article class="project">
-                  <div class="project-header">
-                    <div class="project-title-row">
-                      <h3 class="project-title">{project.title}</h3>
-                      {project.badgeLabel && <span class={project.badgeClass}>{project.badgeLabel}</span>}
-                    </div>
-                    {project.duration && (
-                      <p class="project-meta">{project.duration} • {project.association}</p>
-                    )}
-                    {project.why && <p class="project-why">"{project.why}"</p>}
+        <div class="client-list">
+          {clientProjects.map((project) => (
+            <article class:list={["client-card", project.accent]}>
+              <div class="client-main">
+                <div class="project-eyebrow">
+                  <span>Client</span>
+                  <span>{project.period}</span>
+                  <span>{project.association}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p class="project-type">{project.type}</p>
+                <ul>
+                  {project.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+                <div class="project-footer">
+                  <div class="tag-row">
+                    {project.stack.map((tag) => <span class="chip">{tag}</span>)}
                   </div>
+                  {project.links.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener">{link.label} -&gt;</a>
+                  ))}
+                </div>
+              </div>
 
-                  {project.description && <p class="project-description">{project.description}</p>}
-                  {project.bullets && project.bullets.length > 0 && (
-                    <ul class="project-bullets">
-                      {project.bullets.map((bullet) => (
-                        <li>{bullet}</li>
-                      ))}
-                    </ul>
-                  )}
-
-                  <div class="project-footer">
-                    <div class="project-stack">
-                      {project.stack.map((tag) => (
-                        <span class="badge">{tag}</span>
-                      ))}
-                    </div>
-                    {project.links && project.links.length > 0 && (
-                      <div class="project-links">
-                        {project.links.map((link) => (
-                          <a
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener"
-                            class="project-link"
-                          >
-                            {link.label} →
-                          </a>
-                        ))}
-                      </div>
-                    )}
+              <aside class="architecture-panel">
+                <p>Architecture</p>
+                {[
+                  ["API", "Django REST Framework"],
+                  ["Cache", project.accent === "accent" ? "Redis" : "Session Store"],
+                  ["DB", "PostgreSQL"],
+                  ["Infra", project.accent === "accent" ? "Railway / Docker" : "AWS Lambda / S3"],
+                ].map(([layer, tech]) => (
+                  <div>
+                    <span>{layer}</span>
+                    <strong>{tech}</strong>
                   </div>
-                </article>
-              ))
-            }
+                ))}
+                <div class="delivery-stat">
+                  <strong>{project.stat}</strong>
+                  <span>delivery</span>
+                </div>
+              </aside>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="project-section">
+        <div class="section-title split">
+          <div>
+            <span>02</span>
+            <h2>Open Source</h2>
           </div>
-        ))}
+          <p>
+            Libraries that solve the architectural problems I kept hitting in
+            production. Built once, properly.
+          </p>
+        </div>
+
+        <div class="oss-table-head" aria-hidden="true">
+          <span></span>
+          <span>Package</span>
+          <span>Problem &amp; Approach</span>
+          <span>Links</span>
+        </div>
+
+        <div class="oss-list">
+          {openSourceProjects.map((project, index) => (
+            <article class:list={["oss-row", project.accent]}>
+              <div class="oss-index">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+              </div>
+
+              <div class="oss-package">
+                <div>
+                  <div class="oss-labels">
+                    <span>{project.domain}</span>
+                    <span>PyPI</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                </div>
+                <div class="tag-row compact">
+                  {project.stack.map((tag) => <span class="chip">{tag}</span>)}
+                </div>
+              </div>
+
+              <div class="oss-body">
+                <blockquote>{project.quote}</blockquote>
+                <div class="short-rule"></div>
+                <ul>
+                  {project.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              </div>
+
+              <div class="oss-links">
+                {project.links.map((link) => (
+                  <a href={link.href} target="_blank" rel="noopener">
+                    <span>
+                      <strong>{link.label}</strong>
+                      <small>{link.sub}</small>
+                    </span>
+                    <i>-&gt;</i>
+                  </a>
+                ))}
+                <div class="oss-hover-label">
+                  Open source
+                  <span>-&gt;</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="pypi-strip">
+          <div class="pypi-left">
+            <span class="pulse-dot"></span>
+            <p>3 packages / <strong>rajatjog1294</strong> on PyPI</p>
+          </div>
+          <div class="pypi-links">
+            <a href="https://pypi.org/user/rajatjog1294" target="_blank" rel="noopener">View PyPI profile -&gt;</a>
+            <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener">All GitHub repos -&gt;</a>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -180,168 +267,609 @@ const projectGroups = [
 </html>
 
 <style>
-  .page-header {
-    padding: 3rem 0 1.5rem;
-  }
-
-  .page-header h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--color-text);
-    margin-bottom: 0.75rem;
-    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.04em;
-  }
-
-  .page-subtitle {
-    color: var(--color-text-secondary);
-    font-size: 1rem;
-    margin: 0;
-  }
-
-  .projects-section {
-    margin-top: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .project {
-    padding: 2.5rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    background: var(--color-surface);
-    backdrop-filter: blur(12px);
-    border: var(--glass-border);
-    border-radius: var(--base-radius);
-    box-shadow: var(--glass-shadow);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .project:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 0 0 1px var(--color-accent-glow);
-    border-color: var(--color-border-hover);
-  }
-
-  .project:last-child {
-    border-bottom: none;
-  }
-
-  .group-category {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin: 2rem 0 1rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .project-group:first-child .group-category {
-    margin-top: 0;
-  }
-
-  .project-meta {
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    font-family: var(--font-mono);
-    margin: -0.2rem 0 0 0;
-  }
-
-  .project-bullets {
-    margin: 0.5rem 0 0 0;
-    padding-left: 1.5rem;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-    list-style-type: disc;
-  }
-
-  .project-bullets li {
-    margin-bottom: 0.4rem;
-    padding-left: 0.2rem;
-  }
-
-  .project-bullets li:last-child {
-    margin-bottom: 0;
-  }
-
-  .project-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .project-title-row {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
-
-  .project-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin: 0;
-  }
-
-  .project-why {
-    font-size: 0.95rem;
+  .page-header h1 span {
     color: var(--color-text-secondary);
     font-style: italic;
-    line-height: 1.5;
-    margin: 0;
-    max-width: 580px;
   }
 
-  .project-description {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-    max-width: 620px;
+  .summary-stats {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 3rem;
+  }
+
+  .summary-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .summary-stats strong {
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  .summary-stats span,
+  .project-type,
+  .architecture-panel p,
+  .architecture-panel div span,
+  .delivery-stat span,
+  .section-title span,
+  .oss-table-head span,
+  .pypi-strip p {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-section {
+    margin-top: 5rem;
+  }
+
+  .section-title {
+    align-items: baseline;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-title.split {
+    align-items: end;
+    justify-content: space-between;
+  }
+
+  .section-title.split > div {
+    align-items: baseline;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  .section-title p {
+    font-size: 0.84rem;
     margin: 0;
+    max-width: 390px;
+  }
+
+  .client-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .client-card {
+    border: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    position: relative;
+  }
+
+  .client-card::before {
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .client-card.teal::before {
+    background: linear-gradient(90deg, var(--color-teal), transparent);
+  }
+
+  .client-card:hover,
+  .oss-row:hover {
+    background: var(--color-bg-secondary);
+  }
+
+  .client-main {
+    border-right: 1px solid var(--color-border);
+    padding: 2.75rem 3rem;
+  }
+
+  .project-eyebrow,
+  .project-footer,
+  .tag-row,
+  .oss-labels,
+  .pypi-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .project-eyebrow {
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .project-eyebrow span,
+  .oss-labels span {
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    padding: 0.22rem 0.55rem;
+    text-transform: uppercase;
+  }
+
+  .client-card.accent .project-eyebrow span:first-child,
+  .oss-row.accent .oss-labels span:first-child {
+    background: var(--color-accent-dim);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
+  }
+
+  .client-card.teal .project-eyebrow span:first-child,
+  .oss-row.teal .oss-labels span:first-child {
+    background: var(--color-teal-dim);
+    border-color: var(--color-teal-border);
+    color: var(--color-teal);
+  }
+
+  .client-card h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none;
+    margin: 1.8rem 0;
+  }
+
+  li {
+    color: var(--color-text-secondary);
+    display: flex;
+    font-size: 0.9rem;
+    gap: 0.75rem;
+    line-height: 1.75;
+  }
+
+  li::before {
+    background: var(--color-accent);
+    border-radius: 999px;
+    content: "";
+    flex: 0 0 auto;
+    height: 6px;
+    margin-top: 0.7rem;
+    width: 6px;
+  }
+
+  .teal li::before {
+    background: var(--color-teal);
   }
 
   .project-footer {
-    display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
   }
 
-  .project-stack {
+  .project-footer a,
+  .pypi-links a {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .project-footer a:hover,
+  .pypi-links a:hover {
+    color: var(--color-accent);
+  }
+
+  .architecture-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.75rem 2.5rem;
+  }
+
+  .architecture-panel div:not(.delivery-stat) {
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+  }
+
+  .architecture-panel strong {
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-align: right;
+  }
+
+  .delivery-stat {
+    margin-top: 2rem;
+  }
+
+  .delivery-stat strong {
+    color: var(--color-accent);
+    display: block;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 0.2rem;
+    text-align: left;
+  }
+
+  .teal .delivery-stat strong {
+    color: var(--color-teal);
+  }
+
+  .oss-table-head,
+  .oss-row {
+    display: grid;
+    grid-template-columns: 64px 240px minmax(0, 1fr) 280px;
+  }
+
+  .oss-table-head {
+    border-bottom: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
+    margin-top: 2rem;
+  }
+
+  .oss-table-head span {
+    border-right: 1px solid var(--color-border);
+    padding: 0.7rem 0;
+  }
+
+  .oss-table-head span:nth-child(2) {
+    padding-left: 1.75rem;
+  }
+
+  .oss-table-head span:nth-child(3) {
+    padding-left: 2.5rem;
+  }
+
+  .oss-table-head span:nth-child(4) {
+    border-right: none;
+    padding-left: 2.25rem;
+  }
+
+  .oss-row {
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+    transition: background 0.18s ease;
+  }
+
+  .oss-row::before {
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    content: "";
+    height: 1px;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  .oss-row.teal::before {
+    background: linear-gradient(90deg, var(--color-teal), transparent);
+  }
+
+  .oss-row:hover::before {
+    opacity: 0.7;
+  }
+
+  .oss-index,
+  .oss-package,
+  .oss-body {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .oss-index {
+    padding-top: 2.75rem;
+  }
+
+  .oss-index span {
+    color: var(--color-text-muted);
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    transform: rotate(180deg);
+    transition: color 0.18s ease;
+    writing-mode: vertical-rl;
+  }
+
+  .oss-row:hover .oss-index span {
+    color: var(--color-accent);
+  }
+
+  .oss-row.teal:hover .oss-index span {
+    color: var(--color-teal);
+  }
+
+  .oss-package {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.75rem 2rem 2.75rem 1.75rem;
+  }
+
+  .oss-labels {
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+  }
+
+  .oss-labels span {
+    align-self: flex-start;
+  }
+
+  .oss-package h3 {
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .tag-row.compact {
+    margin-top: 1.5rem;
+  }
+
+  .tag-row.compact .chip {
+    font-size: 0.62rem;
+    padding: 0.18rem 0.48rem;
+  }
+
+  .oss-body {
+    padding: 2.75rem 2.5rem;
+  }
+
+  .oss-body blockquote {
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+    font-style: italic;
+    line-height: 1.45;
+    margin: 0;
+    padding: 0;
+    transition: color 0.18s ease;
+  }
+
+  .oss-row:hover .oss-body blockquote {
+    color: var(--color-accent);
+  }
+
+  .oss-row.teal:hover .oss-body blockquote {
+    color: var(--color-teal);
+  }
+
+  .short-rule {
+    background: var(--color-accent-border);
+    height: 1px;
+    margin: 1.5rem 0;
+    width: 32px;
+  }
+
+  .teal .short-rule {
+    background: var(--color-teal-border);
+  }
+
+  .oss-body ul {
+    margin: 0;
+  }
+
+  .oss-body li {
+    font-size: 0.84rem;
+  }
+
+  .oss-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.75rem 2.25rem;
+  }
+
+  .oss-links a {
+    align-items: center;
+    background: var(--color-surface-strong);
+    border: 1px solid var(--color-border);
+    border-radius: var(--base-radius);
+    color: inherit;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .oss-links a:hover {
+    background: var(--color-accent-dim);
+    border-color: var(--color-accent-border);
+    color: inherit;
+  }
+
+  .teal .oss-links a:hover {
+    background: var(--color-teal-dim);
+    border-color: var(--color-teal-border);
+  }
+
+  .oss-links strong,
+  .oss-links small {
+    display: block;
+    font-family: var(--font-mono);
+  }
+
+  .oss-links strong {
+    color: var(--color-text);
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-bottom: 0.15rem;
+  }
+
+  .oss-links small {
+    color: var(--color-text-muted);
+    font-size: 0.62rem;
+  }
+
+  .oss-links i {
+    color: var(--color-text-muted);
+    flex: 0 0 auto;
+    font-style: normal;
+    transition: color 0.18s ease, transform 0.18s ease;
+  }
+
+  .oss-links a:hover i {
+    color: var(--color-accent);
+    transform: translate(2px, -2px);
+  }
+
+  .teal .oss-links a:hover i {
+    color: var(--color-teal);
+  }
+
+  .oss-hover-label {
+    align-items: center;
+    color: transparent;
+    display: flex;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    gap: 0.45rem;
+    letter-spacing: 0.08em;
+    margin-top: 1.25rem;
+    text-transform: uppercase;
+    transition: color 0.18s ease;
+  }
+
+  .oss-row:hover .oss-hover-label {
+    color: var(--color-accent);
+  }
+
+  .oss-row.teal:hover .oss-hover-label {
+    color: var(--color-teal);
+  }
+
+  .pypi-strip {
+    align-items: center;
+    background: var(--color-surface-strong);
+    border: 1px solid var(--color-border);
+    border-top: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
   }
 
-  .project-links {
+  .pypi-left {
+    align-items: center;
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
-  .project-link {
-    font-size: 0.875rem;
+  .pulse-dot {
+    background: var(--color-accent);
+    border-radius: 999px;
+    box-shadow: 0 0 12px var(--color-accent);
+    height: 8px;
+    width: 8px;
+  }
+
+  .pypi-strip p {
+    margin: 0;
+  }
+
+  .pypi-strip strong {
+    color: var(--color-text);
     font-weight: 500;
-    color: var(--color-accent) !important;
-    text-decoration: none;
-    transition: opacity 0.15s ease;
   }
 
-  .project-link:hover {
-    opacity: 0.75;
+  @media (max-width: 1040px) {
+    .oss-table-head {
+      display: none;
+    }
+
+    .oss-row {
+      grid-template-columns: 56px minmax(0, 1fr);
+    }
+
+    .oss-index {
+      border-right: 1px solid var(--color-border);
+      grid-row: span 3;
+    }
+
+    .oss-package,
+    .oss-body {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .oss-links {
+      grid-column: 2;
+      padding: 1.5rem;
+    }
   }
 
-  @media (max-width: 640px) {
-    .project-footer {
-      flex-direction: column;
+  @media (max-width: 980px) {
+    .client-card {
+      grid-template-columns: 1fr;
+    }
+
+    .client-main {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .summary-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-title.split {
       align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .client-main,
+    .architecture-panel,
+    .oss-package,
+    .oss-body {
+      padding: 1.5rem;
+    }
+
+    .oss-row {
+      grid-template-columns: 1fr;
+    }
+
+    .oss-index {
+      border-bottom: 1px solid var(--color-border);
+      border-right: none;
+      grid-row: auto;
+      padding: 1rem 1.5rem;
+    }
+
+    .oss-index span {
+      transform: none;
+      writing-mode: horizontal-tb;
+    }
+
+    .oss-links {
+      grid-column: auto;
+    }
+
+    .pypi-strip {
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 1.25rem;
     }
   }
 </style>
