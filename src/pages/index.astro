@@ -3,11 +3,16 @@ import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
 import { SITE_DESCRIPTION, SOCIAL_LINKS } from "../consts";
 
 const posts = (await getCollection("blog"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const testimonials = (await getCollection("testimonials"))
+  .filter((testimonial) => testimonial.data.featured)
   .slice(0, 3);
 
 const stats = [
@@ -187,10 +192,31 @@ const projects = [
         <a href="/rajatjog-website/projects" class="text-link">All projects -></a>
       </section>
 
+      <section class="panel-section" id="testimonials">
+        <div class="section-title">
+          <span>04 / Social Proof</span>
+          <h2>What Others Say</h2>
+        </div>
+        {testimonials.length > 0 ? (
+          <div class="testimonials-grid">
+            {testimonials.map((testimonial) => (
+              <TestimonialCard
+                name={testimonial.data.name}
+                role={testimonial.data.role}
+                company={testimonial.data.company}
+                quote={testimonial.data.quote}
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state">Testimonials coming soon.</div>
+        )}
+      </section>
+
       <section class="panel-section" id="blog">
         <div class="section-title section-title-split">
           <div>
-            <span>04 / Writing</span>
+            <span>05 / Writing</span>
             <h2>Blog</h2>
           </div>
           <a href="/rajatjog-website/blog">All posts -></a>
@@ -233,7 +259,7 @@ const projects = [
       <section class="panel-section about-contact">
         <div>
           <div class="section-title">
-            <span>05 / About</span>
+            <span>06 / About</span>
             <h2>Rajat Jog</h2>
           </div>
           <p>
@@ -449,7 +475,8 @@ const projects = [
   }
 
   .project-grid,
-  .writing-grid {
+  .writing-grid,
+  .testimonials-grid {
     display: grid;
     gap: 2px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -585,6 +612,7 @@ const projects = [
     .stats-grid,
     .project-grid,
     .writing-grid,
+    .testimonials-grid,
     .about-contact {
       grid-template-columns: 1fr;
     }

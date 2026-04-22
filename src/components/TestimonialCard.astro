@@ -1,0 +1,87 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+}
+
+const { name, role, company, quote } = Astro.props;
+---
+
+<article class="testimonial-card">
+  <p class="testimonial-quote">{quote}</p>
+  <div class="testimonial-author">
+    <div>
+      <p class="author-name">{name}</p>
+      <p class="author-meta">{role}, {company}</p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .testimonial-card {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: space-between;
+    min-height: 100%;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.18s ease;
+  }
+
+  .testimonial-card::before {
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    content: "";
+    height: 2px;
+    left: 0;
+    opacity: 0.7;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .testimonial-card:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-accent-border);
+  }
+
+  .testimonial-quote {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .author-name {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .author-meta {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 860px) {
+    .testimonial-card {
+      min-height: auto;
+    }
+  }
+</style>
