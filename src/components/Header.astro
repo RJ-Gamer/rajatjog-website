@@ -38,6 +38,11 @@ function isActive(href: string) {
           <button type="button" data-accent-choice="violet" aria-label="Violet accent"><span class="swatch violet"></span></button>
           <button type="button" data-accent-choice="amber" aria-label="Amber accent"><span class="swatch amber"></span></button>
           <button type="button" data-accent-choice="rose" aria-label="Rose accent"><span class="swatch rose"></span></button>
+          <button type="button" data-accent-choice="blue" aria-label="Blue accent"><span class="swatch blue"></span></button>
+          <button type="button" data-accent-choice="orange" aria-label="Orange accent"><span class="swatch orange"></span></button>
+          <button type="button" data-accent-choice="purple" aria-label="Purple accent"><span class="swatch purple"></span></button>
+          <button type="button" data-accent-choice="slate" aria-label="Slate accent"><span class="swatch slate"></span></button>
+          <button type="button" data-accent-choice="indigo" aria-label="Indigo accent"><span class="swatch indigo"></span></button>
         </div>
       </div>
 
@@ -234,6 +239,26 @@ function isActive(href: string) {
 
   .swatch.rose {
     background: oklch(0.72 0.17 18);
+  }
+
+  .swatch.blue {
+    background: oklch(0.7 0.16 250);
+  }
+
+  .swatch.orange {
+    background: oklch(0.75 0.16 45);
+  }
+
+  .swatch.purple {
+    background: oklch(0.7 0.16 280);
+  }
+
+  .swatch.slate {
+    background: oklch(0.72 0.12 240);
+  }
+
+  .swatch.indigo {
+    background: oklch(0.65 0.18 265);
   }
 
   .theme-toggle:hover {
