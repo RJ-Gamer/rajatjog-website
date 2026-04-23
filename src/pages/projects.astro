@@ -40,9 +40,35 @@ const clientProjects = [
 
 const openSourceProjects = [
   {
+    title: "session-bridge-ai",
+    domain: "Developer Tools",
+    quote: "Credits die mid-sentence. Context shouldn't.",
+    accent: "blue",
+    install: "ext install RajatJog.session-bridge-ai",
+    bullets: [
+      "VS Code extension that maintains a running SESSION.md across Claude, Gemini, OpenAI and Codex sessions.",
+      "Automatically captures git diffs, open files, and progress notes — generates structured AI handoff documents.",
+      "Built-in token usage dashboard reads Claude Code telemetry to show burn rate and cost per project.",
+    ],
+    stack: ["TypeScript", "VS Code API", "Gemini AI", "Node.js"],
+    links: [
+      {
+        label: "VS Code Marketplace",
+        href: "https://marketplace.visualstudio.com/items?itemName=RajatJog.session-bridge-ai",
+        sub: "ext install RajatJog.session-bridge-ai",
+      },
+      {
+        label: "GitHub repo",
+        href: "https://github.com/RJ-Gamer/session-bridge-ai",
+        sub: "Source and issues",
+      },
+    ],
+  },
+  {
     title: "django-system-audit",
     domain: "Compliance",
-    quote: "Signals capture effects. Compliance systems need to capture intent.",
+    quote:
+      "Signals capture effects. Compliance systems need to capture intent.",
     accent: "accent",
     install: "pip install django-system-audit",
     bullets: [
@@ -52,14 +78,23 @@ const openSourceProjects = [
     ],
     stack: ["Python", "Django", "DRF"],
     links: [
-      { label: "PyPI package", href: "https://pypi.org/project/django-system-audit/", sub: "pip install django-system-audit" },
-      { label: "GitHub repo", href: "https://github.com/RJ-Gamer/django-system-audit", sub: "Source and issues" },
+      {
+        label: "PyPI package",
+        href: "https://pypi.org/project/django-system-audit/",
+        sub: "pip install django-system-audit",
+      },
+      {
+        label: "GitHub repo",
+        href: "https://github.com/RJ-Gamer/django-system-audit",
+        sub: "Source and issues",
+      },
     ],
   },
   {
     title: "timeblocks",
     domain: "Scheduling",
-    quote: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+    quote:
+      "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
     accent: "teal",
     install: "pip install timeblocks",
     bullets: [
@@ -69,14 +104,23 @@ const openSourceProjects = [
     ],
     stack: ["Python", "Django"],
     links: [
-      { label: "PyPI package", href: "https://pypi.org/project/timeblocks/", sub: "pip install timeblocks" },
-      { label: "GitHub repo", href: "https://github.com/RJ-Gamer/timeblocks", sub: "Source and issues" },
+      {
+        label: "PyPI package",
+        href: "https://pypi.org/project/timeblocks/",
+        sub: "pip install timeblocks",
+      },
+      {
+        label: "GitHub repo",
+        href: "https://github.com/RJ-Gamer/timeblocks",
+        sub: "Source and issues",
+      },
     ],
   },
   {
     title: "django-ml-audit",
     domain: "ML Observability",
-    quote: "Debugging a strange ML prediction from last month should not require excavating logs across 5 services.",
+    quote:
+      "Debugging a strange ML prediction from last month should not require excavating logs across 5 services.",
     accent: "accent",
     install: "pip install django-ml-audit",
     bullets: [
@@ -86,8 +130,16 @@ const openSourceProjects = [
     ],
     stack: ["Python", "Django", "DRF"],
     links: [
-      { label: "PyPI package", href: "https://pypi.org/project/django-ml-audit/", sub: "pip install django-ml-audit" },
-      { label: "GitHub repo", href: "https://github.com/RJ-Gamer/django-ml-audit", sub: "Source and issues" },
+      {
+        label: "PyPI package",
+        href: "https://pypi.org/project/django-ml-audit/",
+        sub: "pip install django-ml-audit",
+      },
+      {
+        label: "GitHub repo",
+        href: "https://github.com/RJ-Gamer/django-ml-audit",
+        sub: "Source and issues",
+      },
     ],
   },
 ];
@@ -116,17 +168,19 @@ const openSourceProjects = [
         </p>
 
         <div class="summary-stats">
-          {[
-            ["2", "Client projects"],
-            ["3", "PyPI packages"],
-            ["7+", "Years production"],
-            ["HIPAA / SOC2", "Compliance domains"],
-          ].map(([value, label]) => (
-            <div>
-              <strong>{value}</strong>
-              <span>{label}</span>
-            </div>
-          ))}
+          {
+            [
+              ["2", "Client projects"],
+              ["4", "Open Source"],
+              ["7+", "Years production"],
+              ["HIPAA / SOC2", "Compliance domains"],
+            ].map(([value, label]) => (
+              <div>
+                <strong>{value}</strong>
+                <span>{label}</span>
+              </div>
+            ))
+          }
         </div>
       </section>
 
@@ -137,49 +191,65 @@ const openSourceProjects = [
         </div>
 
         <div class="client-list">
-          {clientProjects.map((project) => (
-            <article class:list={["client-card", project.accent]}>
-              <div class="client-main">
-                <div class="project-eyebrow">
-                  <span>Client</span>
-                  <span>{project.period}</span>
-                  <span>{project.association}</span>
-                </div>
-                <h3>{project.title}</h3>
-                <p class="project-type">{project.type}</p>
-                <ul>
-                  {project.bullets.map((bullet) => <li>{bullet}</li>)}
-                </ul>
-                <div class="project-footer">
-                  <div class="tag-row">
-                    {project.stack.map((tag) => <span class="chip">{tag}</span>)}
+          {
+            clientProjects.map((project) => (
+              <article class:list={["client-card", project.accent]}>
+                <div class="client-main">
+                  <div class="project-eyebrow">
+                    <span>Client</span>
+                    <span>{project.period}</span>
+                    <span>{project.association}</span>
                   </div>
-                  {project.links.map((link) => (
-                    <a href={link.href} target="_blank" rel="noopener">{link.label} -&gt;</a>
-                  ))}
+                  <h3>{project.title}</h3>
+                  <p class="project-type">{project.type}</p>
+                  <ul>
+                    {project.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
+                  <div class="project-footer">
+                    <div class="tag-row">
+                      {project.stack.map((tag) => (
+                        <span class="chip">{tag}</span>
+                      ))}
+                    </div>
+                    {project.links.map((link) => (
+                      <a href={link.href} target="_blank" rel="noopener">
+                        {link.label} -&gt;
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <aside class="architecture-panel">
-                <p>Architecture</p>
-                {[
-                  ["API", "Django REST Framework"],
-                  ["Cache", project.accent === "accent" ? "Redis" : "Session Store"],
-                  ["DB", "PostgreSQL"],
-                  ["Infra", project.accent === "accent" ? "Railway / Docker" : "AWS Lambda / S3"],
-                ].map(([layer, tech]) => (
-                  <div>
-                    <span>{layer}</span>
-                    <strong>{tech}</strong>
+                <aside class="architecture-panel">
+                  <p>Architecture</p>
+                  {[
+                    ["API", "Django REST Framework"],
+                    [
+                      "Cache",
+                      project.accent === "accent" ? "Redis" : "Session Store",
+                    ],
+                    ["DB", "PostgreSQL"],
+                    [
+                      "Infra",
+                      project.accent === "accent"
+                        ? "Railway / Docker"
+                        : "AWS Lambda / S3",
+                    ],
+                  ].map(([layer, tech]) => (
+                    <div>
+                      <span>{layer}</span>
+                      <strong>{tech}</strong>
+                    </div>
+                  ))}
+                  <div class="delivery-stat">
+                    <strong>{project.stat}</strong>
+                    <span>delivery</span>
                   </div>
-                ))}
-                <div class="delivery-stat">
-                  <strong>{project.stat}</strong>
-                  <span>delivery</span>
-                </div>
-              </aside>
-            </article>
-          ))}
+                </aside>
+              </article>
+            ))
+          }
         </div>
       </section>
 
@@ -203,50 +273,56 @@ const openSourceProjects = [
         </div>
 
         <div class="oss-list">
-          {openSourceProjects.map((project, index) => (
-            <article class:list={["oss-row", project.accent]}>
-              <div class="oss-index">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-              </div>
+          {
+            openSourceProjects.map((project, index) => (
+              <article class:list={["oss-row", project.accent]}>
+                <div class="oss-index">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
 
-              <div class="oss-package">
-                <div>
-                  <div class="oss-labels">
-                    <span>{project.domain}</span>
-                    <span>PyPI</span>
+                <div class="oss-package">
+                  <div>
+                    <div class="oss-labels">
+                      <span>{project.domain}</span>
+                      <span>PyPI</span>
+                    </div>
+                    <h3>{project.title}</h3>
                   </div>
-                  <h3>{project.title}</h3>
+                  <div class="tag-row compact">
+                    {project.stack.map((tag) => (
+                      <span class="chip">{tag}</span>
+                    ))}
+                  </div>
                 </div>
-                <div class="tag-row compact">
-                  {project.stack.map((tag) => <span class="chip">{tag}</span>)}
-                </div>
-              </div>
 
-              <div class="oss-body">
-                <blockquote>{project.quote}</blockquote>
-                <div class="short-rule"></div>
-                <ul>
-                  {project.bullets.map((bullet) => <li>{bullet}</li>)}
-                </ul>
-              </div>
-
-              <div class="oss-links">
-                {project.links.map((link) => (
-                  <a href={link.href} target="_blank" rel="noopener">
-                    <span>
-                      <strong>{link.label}</strong>
-                      <small>{link.sub}</small>
-                    </span>
-                    <i>-&gt;</i>
-                  </a>
-                ))}
-                <div class="oss-hover-label">
-                  Open source
-                  <span>-&gt;</span>
+                <div class="oss-body">
+                  <blockquote>{project.quote}</blockquote>
+                  <div class="short-rule" />
+                  <ul>
+                    {project.bullets.map((bullet) => (
+                      <li>{bullet}</li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div class="oss-links">
+                  {project.links.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener">
+                      <span>
+                        <strong>{link.label}</strong>
+                        <small>{link.sub}</small>
+                      </span>
+                      <i>-&gt;</i>
+                    </a>
+                  ))}
+                  <div class="oss-hover-label">
+                    Open source
+                    <span>-&gt;</span>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
         </div>
 
         <div class="pypi-strip">
@@ -255,8 +331,14 @@ const openSourceProjects = [
             <p>3 packages / <strong>rajatjog1294</strong> on PyPI</p>
           </div>
           <div class="pypi-links">
-            <a href="https://pypi.org/user/rajatjog1294" target="_blank" rel="noopener">View PyPI profile -&gt;</a>
-            <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener">All GitHub repos -&gt;</a>
+            <a
+              href="https://pypi.org/user/rajatjog1294"
+              target="_blank"
+              rel="noopener">View PyPI profile -&gt;</a
+            >
+            <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener"
+              >All GitHub repos -&gt;</a
+            >
           </div>
         </div>
       </section>
@@ -724,7 +806,9 @@ const openSourceProjects = [
     color: var(--color-text-muted);
     flex: 0 0 auto;
     font-style: normal;
-    transition: color 0.18s ease, transform 0.18s ease;
+    transition:
+      color 0.18s ease,
+      transform 0.18s ease;
   }
 
   .oss-links a:hover i {
