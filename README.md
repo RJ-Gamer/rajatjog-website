@@ -1,63 +1,92 @@
-# Astro Starter Kit: Blog
+# Personal Portfolio & Engineering Journal
 
-```sh
-npm create astro@latest -- --template blog
-```
+[![Astro](https://img.shields.io/badge/Astro-6.1.8-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+[![Deploy to GitHub Pages](https://github.com/RJ-Gamer/rajatjog-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/RJ-Gamer/rajatjog-website/actions/workflows/deploy.yml)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rajat%20Jog-0077B5?logo=linkedin)](https://linkedin.com/in/rajat-jog)
+[![PyPI](https://img.shields.io/badge/PyPI-rajatjog1294-3776AB?logo=pypi&logoColor=white)](https://pypi.org/user/rajatjog1294)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The personal website and technical portfolio of **Rajat Jog**, a Senior Backend Engineer specialising in Python, Django, and FastAPI. Built with a focus on high-signal content, performance, and clean architectural presentation.
 
-Features:
+---
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## 🏛️ Project Sections
 
-## 🚀 Project Structure
+### ✍️ [Engineering Journal](/src/pages/blog)
+A technical blog focusing on Django internals, system design patterns, and the realities of shipping production software in regulated environments (HIPAA/SOC2).
 
-Inside of your Astro project, you'll see the following folders and files:
+### 🛠️ [Projects](/src/pages/projects.astro)
+A showcase of both client-led production systems and independent open-source contributions, including:
+- **session-bridge-ai**: VS Code extension for AI context persistence.
+- **timeblocks**: Concurrency-safe recurring availability for Django.
+- **django-system-audit**: Intent-aware audit trails for compliance.
+- **django-ml-audit**: Observability for production ML predictions.
+
+### 🧩 [DSA Solutions](/src/pages/dsa)
+A collection of Data Structures and Algorithms solutions solved in Python. Each problem is presented with its production context, complexity analysis, and underlying patterns. Features a real-time difficulty filter (Easy/Medium/Hard).
+
+---
+
+## 💻 Tech Stack
+
+- **Framework**: [Astro 6.1.8](https://astro.build) (Static Site Generation)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: Vanilla CSS with custom properties (CSS Variables)
+- **Content**: MDX & Content Collections
+- **OG Images**: Dynamic generation using [Satori](https://github.com/vercel/satori) and [Resvg](https://github.com/yisibl/resvg-js)
+- **Deployment**: [GitHub Pages](https://pages.github.com/) via GitHub Actions
+
+---
+
+## 🚀 Getting Started
+
+### Local Development
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/RJ-Gamer/rajatjog-website.git
+   cd rajatjog-website
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+### Project Structure
 
 ```text
-├── public/
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/  # Reusable UI elements (Header, Footer, etc.)
+│   ├── content/     # Blog posts (Markdown/MDX)
+│   ├── layouts/     # Page templates
+│   ├── pages/       # Routes (Index, About, Projects, Blog, DSA)
+│   └── styles/      # Global CSS and themes
+├── public/          # Static assets
+└── astro.config.mjs # Framework configuration
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command | Action |
+| :--- | :--- |
+| `npm run dev` | Starts local dev server at `localhost:4321` |
+| `npm run build` | Builds the production site to `./dist/` |
+| `npm run preview` | Previews the build locally |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+---
 
-## 👀 Want to learn more?
+## 📄 License
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+This project is personal work. Feel free to use the code as inspiration for your own portfolio.
