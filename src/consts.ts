@@ -11,6 +11,7 @@ export const NAV_LINKS = [
   { label: "About", href: "/rajatjog-website/about" },
   { label: "Projects", href: "/rajatjog-website/projects" },
   { label: "Blog", href: "/rajatjog-website/blog" },
+  { label: "DSA", href: "/rajatjog-website/dsa" },
   { label: "Now", href: "/rajatjog-website/now" },
   { label: "Contact", href: "/rajatjog-website/contact" },
 ];
