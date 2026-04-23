@@ -87,19 +87,28 @@ const certs = [
 
 const openSource = [
   {
+    name: "session-bridge-ai",
+    description: "VS Code extension that preserves AI coding context across Claude, Gemini, and OpenAI.",
+    href: "https://marketplace.visualstudio.com/items?itemName=RajatJog.session-bridge-ai",
+    linkText: "Marketplace ->",
+  },
+  {
     name: "timeblocks",
     description: "Recurring time availability scheduling for Django.",
     href: "https://pypi.org/project/timeblocks/",
+    linkText: "PyPI ->",
   },
   {
     name: "django-system-audit",
     description: "Intent-aware audit trails for Django and DRF.",
     href: "https://pypi.org/project/django-system-audit/",
+    linkText: "PyPI ->",
   },
   {
     name: "django-ml-audit",
     description: "Per-prediction ML audit trails for Django production systems.",
     href: "https://pypi.org/project/django-ml-audit/",
+    linkText: "PyPI ->",
   },
 ];
 ---
@@ -235,7 +244,7 @@ const openSource = [
             <a href={project.href} target="_blank" rel="noopener" class="oss-row">
               <strong>{project.name}</strong>
               <span>{project.description}</span>
-              <i>PyPI -&gt;</i>
+              <i>{project.linkText}</i>
             </a>
           ))}
         </div>
