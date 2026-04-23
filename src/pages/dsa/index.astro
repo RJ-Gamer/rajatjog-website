@@ -1,0 +1,310 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+// Fetch the DSA repo tree from GitHub API at build time
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN; // optional, increases rate limit
+const headers = GITHUB_TOKEN
+  ? { Authorization: `token ${GITHUB_TOKEN}` }
+  : {};
+
+// Fetch repo contents
+let problems = [];
+try {
+  const res = await fetch(
+    "https://api.github.com/repos/RJ-Gamer/DSA-SOLVED/contents/DSA",
+    { headers }
+  );
+  const folders = await res.json();
+
+  // For each folder, fetch its README to get frontmatter-like data
+  problems = folders
+    .filter((item) => item.type === "dir")
+    .map((folder) => {
+      // Parse number and name from folder name like "01_two_sum"
+      const match = folder.name.match(/^(\d+)_(.+)$/);
+      const number = match ? match[1] : folder.name;
+      const slug = match ? match[2] : folder.name;
+      const title = slug
+        .split("_")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+
+      return {
+        number: parseInt(number),
+        title,
+        slug: folder.name,
+        githubUrl: `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${folder.name}`,
+        href: `/rajatjog-website/dsa/${folder.name}`,
+      };
+    })
+    .sort((a, b) => a.number - b.number);
+} catch (e) {
+  console.error("Failed to fetch DSA problems from GitHub", e);
+}
+
+// Manually add difficulty and topics since GitHub API can't infer these
+// Update this map as you add problems
+const metadata = {
+  "01_two_sum":                      { difficulty: "Easy",   topics: ["Array", "Hash Map"] },
+  "53_maximum_subarray":             { difficulty: "Medium", topics: ["Array", "Dynamic Programming"] },
+  "62_unique_paths":                 { difficulty: "Medium", topics: ["Dynamic Programming", "Math"] },
+  "63_unique_paths_II":              { difficulty: "Medium", topics: ["Dynamic Programming"] },
+  "70_climbing_stairs":              { difficulty: "Easy",   topics: ["Dynamic Programming"] },
+  "72_min_distance":                 { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "121_best_time_to_buy_and_sell":   { difficulty: "Easy",   topics: ["Array", "Greedy"] },
+  "125_valid_palindrome":            { difficulty: "Easy",   topics: ["String", "Two Pointers"] },
+  "217_contains_duplicate":          { difficulty: "Easy",   topics: ["Array", "Hash Map"] },
+  "242_valid_anagram":               { difficulty: "Easy",   topics: ["String", "Hash Map"] },
+  "516_longest_palindrome_subsequence": { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "647_palindrome_substrings":       { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "746_min_cost_climbing_stairs":    { difficulty: "Easy",   topics: ["Dynamic Programming"] },
+  "1143_longest_common_subsequence": { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+};
+
+// Merge metadata
+problems = problems.map((p) => ({
+  ...p,
+  ...(metadata[p.slug] || { difficulty: "—", topics: [] }),
+}));
+
+const easy   = problems.filter((p) => p.difficulty === "Easy").length;
+const medium = problems.filter((p) => p.difficulty === "Medium").length;
+const hard   = problems.filter((p) => p.difficulty === "Hard").length;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="DSA — Rajat Jog"
+      description={`${problems.length} DSA problems solved in Python with detailed explanations, patterns, and real-world use cases.`}
+    />
+  </head>
+  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+    <Header />
+
+    <main style="flex: 1;">
+      <section class="page-header">
+        <h1>DSA Problems</h1>
+        <p class="page-subtitle">
+          Solved in Python · Pattern-first · Production context included
+        </p>
+      </section>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-val">{problems.length}</span>
+          <span class="stat-lbl">Total</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val easy">{easy}</span>
+          <span class="stat-lbl">Easy</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val medium">{medium}</span>
+          <span class="stat-lbl">Medium</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val hard">{hard}</span>
+          <span class="stat-lbl">Hard</span>
+        </div>
+      </div>
+
+      <hr />
+
+      {problems.length === 0 ? (
+        <div class="empty-state">
+          <p>Could not load problems. View them directly on
+            <a href="https://github.com/RJ-Gamer/DSA-SOLVED" target="_blank" rel="noopener">
+              GitHub
+            </a>.
+          </p>
+        </div>
+      ) : (
+        <div class="problem-list">
+          {problems.map((problem) => (
+            <a
+              href={problem.href}
+              class="problem-row"
+            >
+              <span class="problem-number">#{problem.number}</span>
+              <span class="problem-title">{problem.title}</span>
+              <div class="problem-topics">
+                {problem.topics.map((topic) => (
+                  <span class="badge">{topic}</span>
+                ))}
+              </div>
+              <span class={`difficulty difficulty-${problem.difficulty === "—" ? "unknown" : problem.difficulty.toLowerCase()}`}>
+                {problem.difficulty}
+              </span>
+              <span class="problem-arrow">→</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <div class="github-link">
+        <a
+          href="https://github.com/RJ-Gamer/DSA-SOLVED"
+          target="_blank"
+          rel="noopener"
+          class="btn-secondary"
+        >
+          View on GitHub →
+        </a>
+      </div>
+
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .page-header {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-subtitle {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--base-radius);
+    padding: 0.75rem 1.5rem;
+    min-width: 80px;
+  }
+
+  .stat-val {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1;
+  }
+
+  .stat-val.easy   { color: #16a34a; }
+  .stat-val.medium { color: #d97706; }
+  .stat-val.hard   { color: #dc2626; }
+
+  .stat-lbl {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  .problem-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+  }
+
+  .problem-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: background 0.15s ease;
+    flex-wrap: wrap;
+  }
+
+  .problem-row:last-child {
+    border-bottom: none;
+  }
+
+  .problem-row:hover {
+    background: var(--color-bg-secondary);
+  }
+
+  .problem-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    min-width: 36px;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .problem-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .problem-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    flex: 1;
+  }
+
+  .difficulty {
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .difficulty-easy    { color: #16a34a; }
+  .difficulty-medium  { color: #d97706; }
+  .difficulty-hard    { color: #dc2626; }
+  .difficulty-unknown { color: var(--color-text-secondary); }
+
+  .problem-arrow {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+  }
+
+  .problem-row:hover .problem-arrow {
+    color: var(--color-accent);
+  }
+
+  .empty-state {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+  }
+
+  .github-link {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .problem-topics { display: none; }
+    .problem-row { gap: 0.75rem; }
+  }
+</style>

@@ -1,0 +1,315 @@
+---
+import { marked } from "marked";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+const headers: Record<string, string> = GITHUB_TOKEN
+  ? { Authorization: `token ${GITHUB_TOKEN}` }
+  : {};
+
+export async function getStaticPaths() {
+  const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+  const headers: Record<string, string> = GITHUB_TOKEN
+    ? { Authorization: `token ${GITHUB_TOKEN}` }
+    : {};
+
+  const res = await fetch(
+    "https://api.github.com/repos/RJ-Gamer/DSA-SOLVED/contents/DSA",
+    { headers }
+  );
+  const folders = await res.json();
+
+  return folders
+    .filter((item: any) => item.type === "dir")
+    .map((folder: any) => ({ params: { slug: folder.name } }));
+}
+
+const { slug } = Astro.params;
+
+// Fetch raw README
+const rawUrl = `https://raw.githubusercontent.com/RJ-Gamer/DSA-SOLVED/main/DSA/${slug}/README.md`;
+let htmlContent = "";
+let fetchFailed = false;
+
+try {
+  const res = await fetch(rawUrl, { headers });
+  if (res.ok) {
+    const md = await res.text();
+    htmlContent = await marked(md);
+  } else {
+    fetchFailed = true;
+  }
+} catch {
+  fetchFailed = true;
+}
+
+// Derive title from slug like "01_two_sum"
+const match = slug.match(/^(\d+)_(.+)$/);
+const number = match ? match[1] : "";
+const title = match
+  ? match[2].split("_").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
+  : slug;
+
+const githubUrl = `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${slug}`;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`${title} — DSA | Rajat Jog`}
+      description={`Solution and explanation for LeetCode problem: ${title}`}
+    />
+  </head>
+  <body style="min-height: 100vh; display: flex; flex-direction: column;">
+    <Header />
+
+    <main style="flex: 1;">
+      <article class="problem-post">
+        <a href="/rajatjog-website/dsa" class="back-link">← All problems</a>
+
+        <header class="problem-header">
+          {number && <span class="problem-number">#{number}</span>}
+          <h1 class="problem-title">{title}</h1>
+        </header>
+
+        <hr />
+
+        {fetchFailed ? (
+          <div class="fetch-error">
+            <p>Could not load the README. View it directly on GitHub.</p>
+            <a href={githubUrl} target="_blank" rel="noopener" class="btn-secondary">
+              View on GitHub →
+            </a>
+          </div>
+        ) : (
+          <div class="prose" set:html={htmlContent} />
+        )}
+
+        <hr />
+
+        <footer class="problem-footer">
+          <a href="/rajatjog-website/dsa" class="btn-secondary">← Back to DSA</a>
+          <a href={githubUrl} target="_blank" rel="noopener" class="github-link">
+            View on GitHub →
+          </a>
+        </footer>
+      </article>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .problem-post {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary) !important;
+    text-decoration: none;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+    transition: color 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-text) !important;
+  }
+
+  .problem-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .problem-number {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .problem-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0;
+    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Prose */
+  .prose {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+  }
+
+  .prose :global(h1) { display: none; } /* README h1 duplicates the page title */
+
+  .prose :global(h2) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--color-border);
+    letter-spacing: -0.01em;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .prose :global(a:hover) {
+    border-color: var(--color-accent);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.4rem;
+    line-height: 1.7;
+  }
+
+  .prose :global(ul li::marker) {
+    color: var(--color-accent);
+  }
+
+  .prose :global(pre) {
+    background: #121214 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--base-radius);
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.75rem;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: #e2e8f0;
+  }
+
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    padding: 0.75rem 0 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--color-bg-secondary);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .prose :global(blockquote p) {
+    margin: 0;
+    font-style: italic;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .prose :global(th) {
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2rem 0;
+  }
+
+  .problem-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .github-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent) !important;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .github-link:hover {
+    opacity: 0.75;
+  }
+
+  .fetch-error {
+    padding: 2rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--base-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .problem-title { font-size: 1.75rem; }
+    .back-link { margin-top: 1.5rem; margin-bottom: 2rem; }
+  }
+</style>
