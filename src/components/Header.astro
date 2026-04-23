@@ -6,7 +6,8 @@ const homeHref = "/rajatjog-website/";
 
 function isActive(href: string) {
   const normalized = href.replace(/\/$/, "");
-  if (normalized === "/rajatjog-website") return pathname === "/rajatjog-website";
+  if (normalized === "/rajatjog-website")
+    return pathname === "/rajatjog-website";
   return pathname === normalized || pathname.startsWith(`${normalized}/`);
 }
 ---
@@ -29,25 +30,96 @@ function isActive(href: string) {
       </ul>
 
       <div class="accent-picker" id="accentPicker">
-        <button class="accent-toggle" id="accentToggle" aria-label="Choose accent color" aria-expanded="false" title="Choose accent color">
+        <button
+          class="accent-toggle"
+          id="accentToggle"
+          aria-label="Choose accent color"
+          aria-expanded="false"
+          title="Choose accent color"
+        >
           <span class="active-swatch" aria-hidden="true"></span>
         </button>
-        <div class="accent-menu" id="accentMenu" aria-label="Accent color options">
-          <button type="button" data-accent-choice="emerald" aria-label="Emerald accent"><span class="swatch emerald"></span></button>
-          <button type="button" data-accent-choice="cyan" aria-label="Cyan accent"><span class="swatch cyan"></span></button>
-          <button type="button" data-accent-choice="violet" aria-label="Violet accent"><span class="swatch violet"></span></button>
-          <button type="button" data-accent-choice="amber" aria-label="Amber accent"><span class="swatch amber"></span></button>
-          <button type="button" data-accent-choice="rose" aria-label="Rose accent"><span class="swatch rose"></span></button>
-          <button type="button" data-accent-choice="blue" aria-label="Blue accent"><span class="swatch blue"></span></button>
-          <button type="button" data-accent-choice="orange" aria-label="Orange accent"><span class="swatch orange"></span></button>
-          <button type="button" data-accent-choice="purple" aria-label="Purple accent"><span class="swatch purple"></span></button>
-          <button type="button" data-accent-choice="slate" aria-label="Slate accent"><span class="swatch slate"></span></button>
-          <button type="button" data-accent-choice="indigo" aria-label="Indigo accent"><span class="swatch indigo"></span></button>
+        <div
+          class="accent-menu"
+          id="accentMenu"
+          aria-label="Accent color options"
+        >
+          <button
+            type="button"
+            data-accent-choice="emerald"
+            aria-label="Emerald accent"
+            ><span class="swatch emerald"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="cyan"
+            aria-label="Cyan accent"><span class="swatch cyan"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="violet"
+            aria-label="Violet accent"
+            ><span class="swatch violet"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="amber"
+            aria-label="Amber accent"><span class="swatch amber"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="rose"
+            aria-label="Rose accent"><span class="swatch rose"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="blue"
+            aria-label="Blue accent"><span class="swatch blue"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="orange"
+            aria-label="Orange accent"
+            ><span class="swatch orange"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="purple"
+            aria-label="Purple accent"
+            ><span class="swatch purple"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="slate"
+            aria-label="Slate accent"><span class="swatch slate"></span></button
+          >
+          <button
+            type="button"
+            data-accent-choice="indigo"
+            aria-label="Indigo accent"
+            ><span class="swatch indigo"></span></button
+          >
         </div>
       </div>
 
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme">
-        <svg class="theme-icon sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle color theme"
+        title="Toggle color theme"
+      >
+        <svg
+          class="theme-icon sun"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
           <path d="M12 20v2"></path>
@@ -58,12 +130,29 @@ function isActive(href: string) {
           <path d="m6.34 17.66-1.41 1.41"></path>
           <path d="m19.07 4.93-1.41 1.41"></path>
         </svg>
-        <svg class="theme-icon moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 7 7 0 1 0 20.5 14.5z"></path>
+        <svg
+          class="theme-icon moon"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 7 7 0 1 0 20.5 14.5z"
+          ></path>
         </svg>
       </button>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -136,7 +225,10 @@ function isActive(href: string) {
     height: 36px;
     justify-content: center;
     padding: 0;
-    transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    transition:
+      border-color 0.18s ease,
+      color 0.18s ease,
+      background 0.18s ease;
     width: 36px;
   }
 
@@ -154,7 +246,9 @@ function isActive(href: string) {
     height: 36px;
     justify-content: center;
     padding: 0;
-    transition: border-color 0.18s ease, background 0.18s ease;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease;
     width: 36px;
   }
 
@@ -312,7 +406,9 @@ function isActive(href: string) {
     border-radius: 2px;
     display: block;
     height: 2px;
-    transition: transform 0.18s ease, opacity 0.18s ease;
+    transition:
+      transform 0.18s ease,
+      opacity 0.18s ease;
     width: 18px;
   }
 
@@ -381,7 +477,10 @@ function isActive(href: string) {
 
   function setActiveAccentButton(accent: string) {
     accentChoices.forEach((button) => {
-      button.classList.toggle("active", button.getAttribute("data-accent-choice") === accent);
+      button.classList.toggle(
+        "active",
+        button.getAttribute("data-accent-choice") === accent,
+      );
     });
   }
 

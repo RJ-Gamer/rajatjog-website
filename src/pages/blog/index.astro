@@ -49,120 +49,160 @@ const listPosts = posts.slice(1);
             things - open source and otherwise.
           </p>
           <div class="masthead-stats">
-            {[
-              [posts.length, "Articles"],
-              [`${totalMinutes} min`, "Total read"],
-              [allTags.length, "Topics"],
-            ].map(([value, label]) => (
-              <div>
-                <strong>{value}</strong>
-                <span>{label}</span>
-              </div>
-            ))}
+            {
+              [
+                [posts.length, "Articles"],
+                [`${totalMinutes} min`, "Total read"],
+                [allTags.length, "Topics"],
+              ].map(([value, label]) => (
+                <div>
+                  <strong>{value}</strong>
+                  <span>{label}</span>
+                </div>
+              ))
+            }
           </div>
         </div>
       </section>
 
-      {posts.length === 0 ? (
-        <div class="empty-state">
-          <p>Posts coming soon.</p>
-          <p>
-            In the meantime, I write regularly on
-            <a href="https://linkedin.com/in/rajat-jog" target="_blank" rel="noopener"> LinkedIn</a>
-            about Django system design and backend engineering.
-          </p>
-        </div>
-      ) : (
-        <>
-          <section class="featured-hero">
-            <a href={`/rajatjog-website/blog/${featured.id}/`} class="featured-link">
-              <div class="featured-title">
-                <div class="article-meta">
-                  <span class="latest-label">Latest</span>
-                  <time datetime={featured.data.pubDate.toISOString()}>
-                    {featured.data.pubDate.toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </time>
-                  <span>/ {featured.readTime} min read</span>
-                </div>
-                <h2>{featured.data.title}</h2>
-                <div class="hover-line"></div>
-              </div>
-
-              <div class="featured-summary">
-                <p>{featured.data.description}</p>
-                {featured.data.tags && (
-                  <div class="tag-row">
-                    {featured.data.tags.map((tag: string) => <span class="chip">{tag}</span>)}
+      {
+        posts.length === 0 ? (
+          <div class="empty-state">
+            <p>Posts coming soon.</p>
+            <p>
+              In the meantime, I write regularly on
+              <a
+                href="https://linkedin.com/in/rajat-jog"
+                target="_blank"
+                rel="noopener"
+              >
+                {" "}
+                LinkedIn
+              </a>
+              about Django system design and backend engineering.
+            </p>
+          </div>
+        ) : (
+          <>
+            <section class="featured-hero">
+              <a
+                href={`/rajatjog-website/blog/${featured.id}/`}
+                class="featured-link"
+              >
+                <div class="featured-title">
+                  <div class="article-meta">
+                    <span class="latest-label">Latest</span>
+                    <time datetime={featured.data.pubDate.toISOString()}>
+                      {featured.data.pubDate.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </time>
+                    <span>/ {featured.readTime} min read</span>
                   </div>
-                )}
-                <span class="article-cta">
-                  Read article
-                  <i>-&gt;</i>
-                </span>
-              </div>
-            </a>
-          </section>
+                  <h2>{featured.data.title}</h2>
+                  <div class="hover-line" />
+                </div>
 
-          <section class="archive-section">
-            <div class="archive-head">
-              <div class="tag-filter" aria-label="Writing topics">
-                <button class="chip active" data-tag="all">All ({posts.length})</button>
-                {allTags.map((tag) => (
-                  <button class="chip" data-tag={tag}>{tag}</button>
-                ))}
-              </div>
-              <span class="archive-count">{posts.length} articles</span>
-            </div>
-
-            {listPosts.length > 0 ? (
-              <div class="post-list">
-                {listPosts.map((post) => (
-                  <a href={`/rajatjog-website/blog/${post.id}/`} class="post-row" data-tags={JSON.stringify(post.data.tags ?? [])}>
-                    <span class="post-num">{post.num}</span>
-                    <div class="post-title-block">
-                      <h3>{post.data.title}</h3>
-                      {post.data.tags && (
-                        <div class="tag-row compact">
-                          {post.data.tags.map((tag: string) => <span class="chip">{tag}</span>)}
-                        </div>
-                      )}
+                <div class="featured-summary">
+                  <p>{featured.data.description}</p>
+                  {featured.data.tags && (
+                    <div class="tag-row">
+                      {featured.data.tags.map((tag: string) => (
+                        <span class="chip">{tag}</span>
+                      ))}
                     </div>
-                    <p>{post.data.description}</p>
-                    <div class="post-side">
-                      <time datetime={post.data.pubDate.toISOString()}>
-                        {post.data.pubDate.toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </time>
-                      <span>{post.readTime} min read</span>
-                      <i>-&gt;</i>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            ) : (
-              <div class="single-note">More articles coming soon.</div>
-            )}
-          </section>
+                  )}
+                  <span class="article-cta">
+                    Read article
+                    <i>-&gt;</i>
+                  </span>
+                </div>
+              </a>
+            </section>
 
-          <section class="follow-strip">
-            <div>
-              <h2>Want to follow along?</h2>
-              <p>New articles on Django, system design, and building in public.</p>
-            </div>
-            <div class="follow-links">
-              <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener">GitHub</a>
-              <a href="https://linkedin.com/in/rajat-jog" target="_blank" rel="noopener">LinkedIn</a>
-            </div>
-          </section>
-        </>
-      )}
+            <section class="archive-section">
+              <div class="archive-head">
+                <div class="tag-filter" aria-label="Writing topics">
+                  <button class="chip active" data-tag="all">
+                    All ({posts.length})
+                  </button>
+                  {allTags.map((tag) => (
+                    <button class="chip" data-tag={tag}>
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+                <span class="archive-count">{posts.length} articles</span>
+              </div>
+
+              {listPosts.length > 0 ? (
+                <div class="post-list">
+                  {listPosts.map((post) => (
+                    <a
+                      href={`/rajatjog-website/blog/${post.id}/`}
+                      class="post-row"
+                      data-tags={JSON.stringify(post.data.tags ?? [])}
+                    >
+                      <span class="post-num">{post.num}</span>
+                      <div class="post-title-block">
+                        <h3>{post.data.title}</h3>
+                        {post.data.tags && (
+                          <div class="tag-row compact">
+                            {post.data.tags.map((tag: string) => (
+                              <span class="chip">{tag}</span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <p>{post.data.description}</p>
+                      <div class="post-side">
+                        <time datetime={post.data.pubDate.toISOString()}>
+                          {post.data.pubDate.toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </time>
+                        <span>{post.readTime} min read</span>
+                        <i>-&gt;</i>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <div class="single-note">More articles coming soon.</div>
+              )}
+            </section>
+
+            <section class="follow-strip">
+              <div>
+                <h2>Want to follow along?</h2>
+                <p>
+                  New articles on Django, system design, and building in public.
+                </p>
+              </div>
+              <div class="follow-links">
+                <a
+                  href="https://github.com/RJ-Gamer"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/rajat-jog"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </section>
+          </>
+        )
+      }
     </main>
 
     <Footer />
@@ -333,7 +373,10 @@ const listPosts = posts.slice(1);
     font-style: normal;
     height: 32px;
     justify-content: center;
-    transition: border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    transition:
+      border-color 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease;
     width: 32px;
   }
 
@@ -538,34 +581,34 @@ const listPosts = posts.slice(1);
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll('.tag-filter .chip');
-    const postRows = document.querySelectorAll('.post-row');
-    const archiveCount = document.querySelector('.archive-count');
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterButtons = document.querySelectorAll(".tag-filter .chip");
+    const postRows = document.querySelectorAll(".post-row");
+    const archiveCount = document.querySelector(".archive-count");
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
         const selectedTag = button.dataset.tag;
-        
+
         // Update active state
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
 
         // Filter posts
         let visibleCount = 0;
-        postRows.forEach(row => {
-          const tags = JSON.parse(row.dataset.tags || '[]');
-          if (selectedTag === 'all' || tags.includes(selectedTag)) {
-            row.style.display = '';
+        postRows.forEach((row) => {
+          const tags = JSON.parse(row.dataset.tags || "[]");
+          if (selectedTag === "all" || tags.includes(selectedTag)) {
+            row.style.display = "";
             visibleCount++;
           } else {
-            row.style.display = 'none';
+            row.style.display = "none";
           }
         });
 
         // Update count
         if (archiveCount) {
-          archiveCount.textContent = `${visibleCount} article${visibleCount !== 1 ? 's' : ''}`;
+          archiveCount.textContent = `${visibleCount} article${visibleCount !== 1 ? "s" : ""}`;
         }
       });
     });
