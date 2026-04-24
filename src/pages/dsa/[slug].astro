@@ -69,12 +69,14 @@ const githubUrl = `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${slug}`
       <article class="problem-post">
         <a href="/rajatjog-website/dsa" class="back-link">← All problems</a>
 
-        <header class="problem-header">
-          {number && <span class="problem-number">#{number}</span>}
-          <h1 class="problem-title">{title}</h1>
+        <header class="problem-header page-header">
+          <span class="page-kicker">DSA</span>
+          {number && <div class="problem-number">Problem #{number}</div>}
+          <h1>{title}</h1>
+          <p class="page-subtitle">
+            Worked solution, explanation, and GitHub source for this problem.
+          </p>
         </header>
-
-        <hr />
 
         {fetchFailed ? (
           <div class="fetch-error">
@@ -114,7 +116,7 @@ const githubUrl = `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${slug}`
     color: var(--color-text-secondary) !important;
     text-decoration: none;
     margin-top: 2rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     transition: color 0.15s ease;
   }
 
@@ -122,29 +124,13 @@ const githubUrl = `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${slug}`
     color: var(--color-text) !important;
   }
 
-  .problem-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-  }
-
   .problem-number {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .problem-title {
-    font-size: 2.25rem;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
-    margin: 0;
-    background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
   }
 
   /* Prose */
@@ -309,7 +295,6 @@ const githubUrl = `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${slug}`
   }
 
   @media (max-width: 640px) {
-    .problem-title { font-size: 1.75rem; }
     .back-link { margin-top: 1.5rem; margin-bottom: 2rem; }
   }
 </style>

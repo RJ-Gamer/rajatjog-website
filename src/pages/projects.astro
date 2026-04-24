@@ -167,7 +167,7 @@ const openSourceProjects = [
           hitting in production — correctness over convenience.
         </p>
 
-        <div class="summary-stats">
+        <div class="page-header-stats">
           {
             [
               ["2", "Client projects"],
@@ -355,72 +355,17 @@ const openSourceProjects = [
 </html>
 
 <style>
-  .page-header {
-    padding: 3rem 0 1.5rem;
-  }
-
-  .page-kicker {
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 1rem;
-  }
-
-  .page-header h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-
-  .page-header h1 span {
-    color: var(--color-text-secondary);
-    font-style: italic;
-  }
-
-  .page-subtitle {
-    color: var(--color-text-secondary);
-    font-size: 1rem;
-    max-width: 520px;
-    line-height: 1.7;
-    margin-bottom: 0;
-  }
-
-  .summary-stats {
-    display: grid;
-    gap: 2rem;
+  .page-header-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-border);
   }
 
-  .summary-stats div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .summary-stats strong {
-    color: var(--color-text);
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    font-weight: 300;
-  }
-
-  .summary-stats span,
   .project-type,
   .architecture-panel p,
   .architecture-panel div span,
   .delivery-stat span,
   .section-title > span,
   .oss-table-head span,
-  .pypi-strip p,
-  .page-kicker {
+  .pypi-strip p {
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     font-size: 0.68rem;
@@ -981,7 +926,7 @@ const openSourceProjects = [
   }
 
   @media (max-width: 720px) {
-    .summary-stats {
+    .page-header-stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .section-title.split {

@@ -29,15 +29,16 @@ const topics = [
     <Header />
 
     <main>
-      <section class="contact-hero">
-        <div class="status-line">
-          <span></span>
-          <strong>Replies within 24 hours</strong>
-        </div>
-        <h1>Get in touch.</h1>
-        <p>
-          Whether it is about a role, a collaboration, or just something you are
-          building - I am happy to talk.
+      <section class="page-header">
+        <div class="page-header-note">Replies within 24 hours</div>
+        <span class="page-kicker">Contact</span>
+        <h1>
+          Get in touch,<br />
+          <span>let's build something useful.</span>
+        </h1>
+        <p class="page-subtitle">
+          Whether it is about a role, a collaboration, or just something you
+          are building, I am happy to talk.
         </p>
       </section>
 
@@ -143,39 +144,6 @@ const topics = [
 </html>
 
 <style>
-  .contact-hero {
-    margin-bottom: 4.5rem;
-  }
-
-  .status-line {
-    align-items: center;
-    color: var(--color-accent);
-    display: inline-flex;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    gap: 0.55rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.75rem;
-    text-transform: uppercase;
-  }
-
-  .status-line span {
-    background: var(--color-accent);
-    border-radius: 999px;
-    box-shadow: 0 0 0 4px var(--color-accent-dim), 0 0 16px var(--color-accent);
-    height: 7px;
-    width: 7px;
-  }
-
-  .status-line strong {
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-
-  .contact-hero p {
-    max-width: 520px;
-  }
-
   .contact-layout {
     display: grid;
     gap: 4rem;

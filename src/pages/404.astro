@@ -15,13 +15,13 @@ import Header from "../components/Header.astro";
     <Header />
 
     <main>
-      <section class="not-found">
+      <section class="not-found page-header">
         <span class="page-kicker">404</span>
         <h1>
           Page not found,<br />
           <span>probably a bad link.</span>
         </h1>
-        <p>
+        <p class="page-subtitle">
           This page does not exist or was moved. The useful doors are still
           right here.
         </p>
@@ -47,16 +47,6 @@ import Header from "../components/Header.astro";
 <style>
   .not-found {
     max-width: 680px;
-    padding: 3rem 0;
-  }
-
-  .not-found h1 span {
-    color: var(--color-text-secondary);
-    font-style: italic;
-  }
-
-  .not-found p {
-    max-width: 460px;
   }
 
   .error-actions,
