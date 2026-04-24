@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "last_updated": "2026-04-24",
+    "content_type": "application/json",
+    "note": "You found the API version. If you're reading this, you're probably the kind of engineer I want to work with.",
+    "source": "https://rj-gamer.github.io/rajatjog-website/about"
+  },
+  "candidate": {
+    "name": "Rajat Jog",
+    "title": "Senior Backend Engineer",
+    "tagline": "Systems Over Syntax",
+    "location": "Pune, Maharashtra, India",
+    "timezone": "IST (UTC+5:30)",
+    "email": "rajatjog1294@gmail.com",
+    "available": true,
+    "remote_only": true,
+    "links": {
+      "website": "https://rj-gamer.github.io/rajatjog-website",
+      "linkedin": "https://linkedin.com/in/rajat-jog",
+      "github": "https://github.com/RJ-Gamer",
+      "pypi": "https://pypi.org/user/rajatjog1294"
+    }
+  },
+  "summary": "Senior backend engineer with 7+ years building production systems in healthtech and fintech. Expert in Python, Django, and FastAPI. I care about systems that are correct, not just fast. I think in invariants before tables, explicit logic before clever abstractions, and idempotency before optimism.",
+  "stack": {
+    "expert": [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "FastAPI",
+      "PostgreSQL",
+      "Celery",
+      "Redis"
+    ],
+    "intermediate": ["AWS", "SageMaker", "Lambda", "S3", "Docker"],
+    "domains": ["HIPAA", "SOC2", "HL7", "FHIR", "Healthtech", "Fintech"]
+  },
+  "experience": [
+    {
+      "role": "Senior Software Engineer",
+      "company": "Mindbowser Inc",
+      "period": "Feb 2024 - Present",
+      "location": "Remote",
+      "current": true,
+      "highlights": [
+        "Integrated production ML workflows using AWS SageMaker for predictive healthcare analytics",
+        "Engineered HIPAA and SOC2-compliant platforms using HL7 and FHIR protocols",
+        "Led 5+ engineers, reduced production bugs 25%, accelerated delivery by 6 weeks"
+      ],
+      "stack": ["SageMaker", "HIPAA", "SOC2", "HL7", "FHIR", "Django"]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Mindbowser Inc",
+      "period": "Nov 2022 - Feb 2024",
+      "location": "Remote",
+      "current": false,
+      "highlights": [
+        "Reduced API latency 60% via PostgreSQL indexing and Redis caching",
+        "Architected Django and FastAPI backends for 5k DAU, 300 RPM healthcare platforms"
+      ],
+      "stack": ["Django", "FastAPI", "PostgreSQL", "Redis"]
+    },
+    {
+      "role": "Software Engineer",
+      "company": "KiwiTech",
+      "period": "Apr 2022 - Nov 2022",
+      "location": "Remote",
+      "current": false,
+      "highlights": [
+        "Scaled RESTful APIs for 7+ clients handling 5-7 GB daily data throughput",
+        "Built Celery task queues for 15+ daily background jobs with zero missed deliveries"
+      ],
+      "stack": ["Django", "Celery", "REST APIs"]
+    },
+    {
+      "role": "Python Developer",
+      "company": "KSBS Group Pte Ltd",
+      "period": "Mar 2021 - Apr 2022",
+      "location": "Remote",
+      "current": false,
+      "highlights": [
+        "Led a 3-person team to ship an e-commerce platform for 500 concurrent users",
+        "Maintained a Django attendance system with 99% production uptime"
+      ],
+      "stack": ["Python", "Django", "E-Commerce"]
+    }
+  ],
+  "open_source": [
+    {
+      "name": "django-system-audit",
+      "domain": "Compliance",
+      "tagline": "Signals capture effects. Compliance systems need to capture intent.",
+      "install": "pip install django-system-audit",
+      "pypi": "https://pypi.org/project/django-system-audit/",
+      "github": "https://github.com/RJ-Gamer/django-system-audit"
+    },
+    {
+      "name": "timeblocks",
+      "domain": "Scheduling",
+      "tagline": "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+      "install": "pip install timeblocks",
+      "pypi": "https://pypi.org/project/timeblocks/",
+      "github": "https://github.com/RJ-Gamer/timeblocks"
+    },
+    {
+      "name": "django-ml-audit",
+      "domain": "ML Observability",
+      "tagline": "Debugging a strange ML prediction from last month should not require excavating logs across 5 services.",
+      "install": "pip install django-ml-audit",
+      "pypi": "https://pypi.org/project/django-ml-audit/",
+      "github": "https://github.com/RJ-Gamer/django-ml-audit"
+    },
+    {
+      "name": "session-bridge-ai",
+      "domain": "Developer Tools",
+      "tagline": "Credits die mid-sentence. Context should not.",
+      "install": "ext install RajatJog.session-bridge-ai",
+      "marketplace": "https://marketplace.visualstudio.com/items?itemName=RajatJog.session-bridge-ai",
+      "github": "https://github.com/RJ-Gamer/session-bridge-ai"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Machine Learning Specialty (MLS-C01)",
+      "issuer": "Amazon Web Services",
+      "issued": "January 2026",
+      "expires": "January 2029"
+    },
+    {
+      "name": "AI Agents Fundamentals",
+      "issuer": "Hugging Face",
+      "issued": "March 2026"
+    }
+  ],
+  "looking_for": {
+    "roles": ["Senior Backend Engineer", "Backend Tech Lead", "Staff Engineer"],
+    "engagement": ["Full-time", "Contract"],
+    "work_style": "Remote-first",
+    "domains": ["Healthtech", "Fintech", "Developer Tools", "SaaS"],
+    "not_looking_for": [
+      "Frontend roles",
+      "Service company body-shopping",
+      "Roles without architectural ownership"
+    ]
+  },
+  "philosophy": {
+    "core": "Systems Over Syntax",
+    "principles": [
+      "Database truth over service assumptions",
+      "Explicit state transitions over implicit side effects",
+      "Idempotency at every boundary",
+      "Fail loudly, log clearly, recover deterministically",
+      "Migrations without rewrites"
+    ]
+  }
+}
