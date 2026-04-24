@@ -45,14 +45,15 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
       <a href="/rajatjog-website/blog" class="back-link">&lt;- All posts</a>
 
       <article class="post" id="article">
-        <header class="post-header">
+        <header class="post-header page-header">
+          <span class="page-kicker">Writing</span>
           {tags && tags.length > 0 && (
             <div class="post-tags">
               {tags.map((tag: string) => <span class="chip active">{tag}</span>)}
             </div>
           )}
           <h1>{title}</h1>
-          <p class="post-description">{description}</p>
+          <p class="post-description page-subtitle">{description}</p>
           <div class="post-meta">
             <div class="author-mark">RJ</div>
             <div>
@@ -147,9 +148,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
   }
 
   .post-header {
-    border-bottom: 1px solid var(--color-border);
     margin-bottom: 3rem;
-    padding-bottom: 2.5rem;
   }
 
   .post-tags {

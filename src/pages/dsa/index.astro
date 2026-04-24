@@ -72,6 +72,8 @@ problems = problems.map((p) => ({
 const easy   = problems.filter((p) => p.difficulty === "Easy").length;
 const medium = problems.filter((p) => p.difficulty === "Medium").length;
 const hard   = problems.filter((p) => p.difficulty === "Hard").length;
+const allTopics = [...new Set(problems.flatMap((p) => p.topics))];
+const latestProblem = problems.at(-1);
 ---
 
 <html lang="en">
@@ -86,32 +88,64 @@ const hard   = problems.filter((p) => p.difficulty === "Hard").length;
 
     <main style="flex: 1;">
       <section class="page-header">
-        <h1>DSA Problems</h1>
-        <p class="page-subtitle">
-          Solved in Python · Pattern-first · Production context included
-        </p>
+        <div class="page-header-grid">
+          <div>
+            <span class="page-kicker">DSA</span>
+            <h1>
+              Solved problems,<br />
+              <span>pattern first.</span>
+            </h1>
+            <p class="page-subtitle">
+              Python solutions with explanations, reusable patterns, and
+              production context where it helps.
+            </p>
+          </div>
+
+          <aside class="page-header-side dsa-header-side">
+            <div>
+              <span>Collection</span>
+              <strong>{problems.length} solved problems</strong>
+            </div>
+            <div>
+              <span>Topics</span>
+              <strong>{allTopics.length} recurring patterns</strong>
+            </div>
+            <div>
+              <span>Latest addition</span>
+              <strong>{latestProblem ? latestProblem.title : "Updating soon"}</strong>
+            </div>
+          </aside>
+        </div>
       </section>
 
-      <div class="stats-row">
-        <button class="stat active" data-difficulty="all">
-          <span class="stat-val">{problems.length}</span>
-          <span class="stat-lbl">Total</span>
-        </button>
-        <button class="stat" data-difficulty="easy">
-          <span class="stat-val easy">{easy}</span>
-          <span class="stat-lbl">Easy</span>
-        </button>
-        <button class="stat" data-difficulty="medium">
-          <span class="stat-val medium">{medium}</span>
-          <span class="stat-lbl">Medium</span>
-        </button>
-        <button class="stat" data-difficulty="hard">
-          <span class="stat-val hard">{hard}</span>
-          <span class="stat-lbl">Hard</span>
-        </button>
-      </div>
+      <section class="filter-panel" aria-label="Problem filters">
+        <div class="filter-head">
+          <div>
+            <span class="section-label">Browse by difficulty</span>
+            <p>Filter the collection without changing the page structure.</p>
+          </div>
+          <span class="filter-count">{problems.length} total</span>
+        </div>
 
-      <hr />
+        <div class="page-header-stats stats-row">
+          <button class="stat active" data-difficulty="all">
+            <span class="stat-val">{problems.length}</span>
+            <span class="stat-lbl">Total</span>
+          </button>
+          <button class="stat" data-difficulty="easy">
+            <span class="stat-val easy">{easy}</span>
+            <span class="stat-lbl">Easy</span>
+          </button>
+          <button class="stat" data-difficulty="medium">
+            <span class="stat-val medium">{medium}</span>
+            <span class="stat-lbl">Medium</span>
+          </button>
+          <button class="stat" data-difficulty="hard">
+            <span class="stat-val hard">{hard}</span>
+            <span class="stat-lbl">Hard</span>
+          </button>
+        </div>
+      </section>
 
       {problems.length === 0 ? (
         <div class="empty-state">
@@ -190,42 +224,76 @@ const hard   = problems.filter((p) => p.difficulty === "Hard").length;
 </html>
 
 <style>
-  .page-header {
-    padding: 3rem 0 1.5rem;
+  .dsa-header-side {
+    display: flex;
+    flex-direction: column;
   }
 
-  .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-bottom: 0.5rem;
+  .dsa-header-side div {
+    align-items: baseline;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1rem 0;
   }
 
-  .page-subtitle {
+  .dsa-header-side span,
+  .section-label,
+  .filter-count {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dsa-header-side strong {
     color: var(--color-text-secondary);
-    font-size: 1rem;
-    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 400;
+    max-width: 180px;
+    text-align: right;
+  }
+
+  .filter-panel {
+    border-top: 1px solid var(--color-border);
+    margin-top: 5rem;
+    padding-top: 4rem;
+  }
+
+  .filter-head {
+    align-items: end;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .filter-head p {
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0;
+    max-width: 30rem;
   }
 
   .stats-row {
-    display: flex;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .stat {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-radius: var(--base-radius);
-    padding: 0.75rem 1.5rem;
-    min-width: 80px;
+    padding: 1rem 1.1rem;
+    min-width: 0;
     cursor: pointer;
     transition: all 0.2s ease;
     font-family: inherit;
+    text-align: left;
   }
 
   .stat:hover {
@@ -265,7 +333,6 @@ const hard   = problems.filter((p) => p.difficulty === "Hard").length;
     border: 1px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
-    margin-top: 1.5rem;
   }
 
   .problem-row {
@@ -345,7 +412,18 @@ const hard   = problems.filter((p) => p.difficulty === "Hard").length;
     margin-top: 2rem;
   }
 
+  @media (max-width: 820px) {
+    .filter-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
   @media (max-width: 640px) {
+    .stats-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .problem-topics { display: none; }
     .problem-row { gap: 0.75rem; }
   }

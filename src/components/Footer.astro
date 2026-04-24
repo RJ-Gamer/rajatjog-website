@@ -26,31 +26,83 @@ import { SOCIAL_LINKS } from "../consts";
         <div class="footer-col">
           <span>Connect</span>
           <a href={SOCIAL_LINKS.email}>Email</a>
-          <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener">GitHub</a>
-          <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+          <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener">GitHub</a
+          >
+          <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener"
+            >LinkedIn</a
+          >
           <a href={SOCIAL_LINKS.pypi} target="_blank" rel="noopener">PyPI</a>
         </div>
 
         <div class="footer-col">
           <span>Open Source</span>
-          <a href="https://pypi.org/project/timeblocks/" target="_blank" rel="noopener">timeblocks</a>
-          <a href="https://pypi.org/project/django-system-audit/" target="_blank" rel="noopener">django-system-audit</a>
-          <a href="https://pypi.org/project/django-ml-audit/" target="_blank" rel="noopener">django-ml-audit</a>
+          <a
+            href="https://pypi.org/project/timeblocks/"
+            target="_blank"
+            rel="noopener">timeblocks</a
+          >
+          <a
+            href="https://pypi.org/project/django-system-audit/"
+            target="_blank"
+            rel="noopener">django-system-audit</a
+          >
+          <a
+            href="https://pypi.org/project/django-ml-audit/"
+            target="_blank"
+            rel="noopener">django-ml-audit</a
+          >
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} Rajat Jog / Pune, India</span>
-      <span>Systems Over Syntax / Built with Astro</span>
+      <div class="footer-bottom-right">
+        <span>Systems Over Syntax / Built with Astro</span>
+        <a
+          href="/rajatjog-website/api/resume.json"
+          target="_blank"
+          rel="noopener"
+          class="api-link"
+        >
+          API
+        </a>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
+  .footer-bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .api-link {
+    color: var(--color-text-muted) !important;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 0.2rem 0.5rem;
+    transition: all 0.15s ease;
+  }
+
+  .api-link:hover {
+    color: var(--color-accent) !important;
+    border-color: var(--color-accent-border);
+    background: var(--color-accent-dim);
+  }
   footer {
-    background:
-      linear-gradient(180deg, transparent 0%, var(--color-bg-secondary) 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--color-bg-secondary) 100%
+    );
     border-top: 1px solid var(--color-border);
     display: block;
     margin-top: auto;
@@ -60,7 +112,12 @@ import { SOCIAL_LINKS } from "../consts";
   }
 
   footer::before {
-    background: linear-gradient(90deg, transparent, var(--color-accent-glow), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-accent-glow),
+      transparent
+    );
     content: "";
     height: 1px;
     left: 0;
@@ -84,8 +141,12 @@ import { SOCIAL_LINKS } from "../consts";
   }
 
   .footer-inner::before {
-    background:
-      linear-gradient(90deg, var(--color-accent), var(--color-teal), transparent);
+    background: linear-gradient(
+      90deg,
+      var(--color-accent),
+      var(--color-teal),
+      transparent
+    );
     content: "";
     height: 2px;
     left: 0;

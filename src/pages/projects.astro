@@ -148,14 +148,14 @@ const openSourceProjects = [
 <html lang="en">
   <head>
     <BaseHead
-      title="Projects - Rajat Jog"
+      title="Projects — Rajat Jog"
       description="Open source libraries, SaaS products, and production systems built by Rajat Jog."
     />
   </head>
-  <body>
+  <body style="min-height: 100vh; display: flex; flex-direction: column;">
     <Header />
 
-    <main>
+    <main style="flex: 1;">
       <section class="page-header">
         <span class="page-kicker">Projects</span>
         <h1>
@@ -164,10 +164,10 @@ const openSourceProjects = [
         </h1>
         <p class="page-subtitle">
           Client work at scale, and libraries that solve the problems I kept
-          hitting in production - correctness over convenience.
+          hitting in production — correctness over convenience.
         </p>
 
-        <div class="summary-stats">
+        <div class="page-header-stats">
           {
             [
               ["2", "Client projects"],
@@ -215,7 +215,7 @@ const openSourceProjects = [
                     </div>
                     {project.links.map((link) => (
                       <a href={link.href} target="_blank" rel="noopener">
-                        {link.label} -&gt;
+                        {link.label} →
                       </a>
                     ))}
                   </div>
@@ -312,12 +312,12 @@ const openSourceProjects = [
                         <strong>{link.label}</strong>
                         <small>{link.sub}</small>
                       </span>
-                      <i>-&gt;</i>
+                      <i>→</i>
                     </a>
                   ))}
                   <div class="oss-hover-label">
                     Open source
-                    <span>-&gt;</span>
+                    <span>→</span>
                   </div>
                 </div>
               </article>
@@ -334,11 +334,17 @@ const openSourceProjects = [
             <a
               href="https://pypi.org/user/rajatjog1294"
               target="_blank"
-              rel="noopener">View PyPI profile -&gt;</a
+              rel="noopener"
             >
-            <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener"
-              >All GitHub repos -&gt;</a
+              View PyPI profile →
+            </a>
+            <a
+              href="https://github.com/RJ-Gamer"
+              target="_blank"
+              rel="noopener"
             >
+              All GitHub repos →
+            </a>
           </div>
         </div>
       </section>
@@ -349,37 +355,15 @@ const openSourceProjects = [
 </html>
 
 <style>
-  .page-header h1 span {
-    color: var(--color-text-secondary);
-    font-style: italic;
-  }
-
-  .summary-stats {
-    display: grid;
-    gap: 2rem;
+  .page-header-stats {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    margin-top: 3rem;
   }
 
-  .summary-stats div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .summary-stats strong {
-    color: var(--color-text);
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    font-weight: 300;
-  }
-
-  .summary-stats span,
   .project-type,
   .architecture-panel p,
   .architecture-panel div span,
   .delivery-stat span,
-  .section-title span,
+  .section-title > span,
   .oss-table-head span,
   .pypi-strip p {
     color: var(--color-text-muted);
@@ -418,10 +402,12 @@ const openSourceProjects = [
 
   .section-title p {
     font-size: 0.84rem;
+    color: var(--color-text-secondary);
     margin: 0;
     max-width: 390px;
   }
 
+  /* ── Client cards ── */
   .client-list {
     display: flex;
     flex-direction: column;
@@ -504,6 +490,7 @@ const openSourceProjects = [
     font-size: 2rem;
     font-weight: 400;
     margin-bottom: 0.4rem;
+    color: var(--color-text);
   }
 
   ul {
@@ -512,6 +499,7 @@ const openSourceProjects = [
     gap: 0.75rem;
     list-style: none;
     margin: 1.8rem 0;
+    padding: 0;
   }
 
   li {
@@ -539,6 +527,7 @@ const openSourceProjects = [
   .project-footer {
     align-items: center;
     justify-content: space-between;
+    margin-top: 1rem;
   }
 
   .project-footer a,
@@ -546,6 +535,7 @@ const openSourceProjects = [
     color: var(--color-text-muted);
     font-family: var(--font-mono);
     font-size: 0.75rem;
+    text-decoration: none;
   }
 
   .project-footer a:hover,
@@ -553,6 +543,18 @@ const openSourceProjects = [
     color: var(--color-accent);
   }
 
+  .chip {
+    background: var(--color-badge);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.55rem;
+  }
+
+  /* ── Architecture panel ── */
   .architecture-panel {
     display: flex;
     flex-direction: column;
@@ -592,6 +594,7 @@ const openSourceProjects = [
     color: var(--color-teal);
   }
 
+  /* ── OSS table ── */
   .oss-table-head,
   .oss-row {
     display: grid;
@@ -612,11 +615,9 @@ const openSourceProjects = [
   .oss-table-head span:nth-child(2) {
     padding-left: 1.75rem;
   }
-
   .oss-table-head span:nth-child(3) {
     padding-left: 2.5rem;
   }
-
   .oss-table-head span:nth-child(4) {
     border-right: none;
     padding-left: 2.25rem;
@@ -656,6 +657,9 @@ const openSourceProjects = [
 
   .oss-index {
     padding-top: 2.75rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .oss-index span {
@@ -672,7 +676,6 @@ const openSourceProjects = [
   .oss-row:hover .oss-index span {
     color: var(--color-accent);
   }
-
   .oss-row.teal:hover .oss-index span {
     color: var(--color-teal);
   }
@@ -705,7 +708,6 @@ const openSourceProjects = [
   .tag-row.compact {
     margin-top: 1.5rem;
   }
-
   .tag-row.compact .chip {
     font-size: 0.62rem;
     padding: 0.18rem 0.48rem;
@@ -724,12 +726,13 @@ const openSourceProjects = [
     margin: 0;
     padding: 0;
     transition: color 0.18s ease;
+    background: none;
+    border-radius: 0;
   }
 
   .oss-row:hover .oss-body blockquote {
     color: var(--color-accent);
   }
-
   .oss-row.teal:hover .oss-body blockquote {
     color: var(--color-teal);
   }
@@ -748,7 +751,6 @@ const openSourceProjects = [
   .oss-body ul {
     margin: 0;
   }
-
   .oss-body li {
     font-size: 0.84rem;
   }
@@ -771,12 +773,15 @@ const openSourceProjects = [
     justify-content: space-between;
     margin-bottom: 0.75rem;
     padding: 0.9rem 1rem;
+    text-decoration: none;
+    transition: all 0.15s ease;
   }
 
   .oss-links a:hover {
     background: var(--color-accent-dim);
     border-color: var(--color-accent-border);
     color: inherit;
+    opacity: 1;
   }
 
   .teal .oss-links a:hover {
@@ -836,11 +841,11 @@ const openSourceProjects = [
   .oss-row:hover .oss-hover-label {
     color: var(--color-accent);
   }
-
   .oss-row.teal:hover .oss-hover-label {
     color: var(--color-teal);
   }
 
+  /* ── PyPI strip ── */
   .pypi-strip {
     align-items: center;
     background: var(--color-surface-strong);
@@ -865,6 +870,17 @@ const openSourceProjects = [
     box-shadow: 0 0 12px var(--color-accent);
     height: 8px;
     width: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 6px var(--color-accent);
+    }
+    50% {
+      box-shadow: 0 0 16px var(--color-accent);
+    }
   }
 
   .pypi-strip p {
@@ -876,26 +892,23 @@ const openSourceProjects = [
     font-weight: 500;
   }
 
+  /* ── Responsive ── */
   @media (max-width: 1040px) {
     .oss-table-head {
       display: none;
     }
-
     .oss-row {
       grid-template-columns: 56px minmax(0, 1fr);
     }
-
     .oss-index {
       border-right: 1px solid var(--color-border);
       grid-row: span 3;
     }
-
     .oss-package,
     .oss-body {
       border-right: none;
       border-bottom: 1px solid var(--color-border);
     }
-
     .oss-links {
       grid-column: 2;
       padding: 1.5rem;
@@ -906,7 +919,6 @@ const openSourceProjects = [
     .client-card {
       grid-template-columns: 1fr;
     }
-
     .client-main {
       border-right: none;
       border-bottom: 1px solid var(--color-border);
@@ -914,42 +926,35 @@ const openSourceProjects = [
   }
 
   @media (max-width: 720px) {
-    .summary-stats {
+    .page-header-stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
     .section-title.split {
       align-items: flex-start;
       flex-direction: column;
     }
-
     .client-main,
     .architecture-panel,
     .oss-package,
     .oss-body {
       padding: 1.5rem;
     }
-
     .oss-row {
       grid-template-columns: 1fr;
     }
-
     .oss-index {
       border-bottom: 1px solid var(--color-border);
       border-right: none;
       grid-row: auto;
       padding: 1rem 1.5rem;
     }
-
     .oss-index span {
       transform: none;
       writing-mode: horizontal-tb;
     }
-
     .oss-links {
       grid-column: auto;
     }
-
     .pypi-strip {
       align-items: flex-start;
       flex-direction: column;

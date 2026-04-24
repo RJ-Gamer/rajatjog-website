@@ -12,7 +12,7 @@ function isActive(href: string) {
 }
 ---
 
-<header>
+<header transition:persist>
   <nav aria-label="Primary navigation">
     <a href={homeHref} class="site-mark" aria-label="Rajat Jog home">RJ</a>
 
@@ -468,73 +468,82 @@ function isActive(href: string) {
 </style>
 
 <script>
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
-  const themeToggle = document.getElementById("themeToggle");
-  const accentPicker = document.getElementById("accentPicker");
-  const accentToggle = document.getElementById("accentToggle");
-  const accentChoices = document.querySelectorAll("[data-accent-choice]");
+  function initHeader() {
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const themeToggle = document.getElementById("themeToggle");
+    const accentPicker = document.getElementById("accentPicker");
+    const accentToggle = document.getElementById("accentToggle");
+    const accentChoices = document.querySelectorAll("[data-accent-choice]");
 
-  function setActiveAccentButton(accent: string) {
-    accentChoices.forEach((button) => {
-      button.classList.toggle(
-        "active",
-        button.getAttribute("data-accent-choice") === accent,
-      );
-    });
-  }
-
-  function setAccent(accent: string) {
-    document.documentElement.dataset.accent = accent;
-    localStorage.setItem("accentColor", accent);
-    setActiveAccentButton(accent);
-  }
-
-  function setTheme(theme: string) {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
-  }
-
-  setActiveAccentButton(document.documentElement.dataset.accent || "emerald");
-
-  accentToggle?.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const isOpen = accentPicker?.classList.toggle("open") ?? false;
-    accentToggle.setAttribute("aria-expanded", String(isOpen));
-  });
-
-  accentChoices.forEach((button) => {
-    button.addEventListener("click", () => {
-      const accent = button.getAttribute("data-accent-choice") || "emerald";
-      setAccent(accent);
-      accentPicker?.classList.remove("open");
-      accentToggle?.setAttribute("aria-expanded", "false");
-    });
-  });
-
-  document.addEventListener("click", (event) => {
-    if (!accentPicker?.contains(event.target as Node)) {
-      accentPicker?.classList.remove("open");
-      accentToggle?.setAttribute("aria-expanded", "false");
+    function setActiveAccentButton(accent: string) {
+      accentChoices.forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button.getAttribute("data-accent-choice") === accent,
+        );
+      });
     }
-  });
 
-  themeToggle?.addEventListener("click", () => {
-    const current = document.documentElement.dataset.theme || "dark";
-    setTheme(current === "dark" ? "light" : "dark");
-  });
+    function setAccent(accent: string) {
+      document.documentElement.dataset.accent = accent;
+      localStorage.setItem("accentColor", accent);
+      setActiveAccentButton(accent);
+    }
 
-  menuToggle?.addEventListener("click", () => {
-    const isOpen = navLinks?.classList.toggle("open") ?? false;
-    menuToggle.classList.toggle("open", isOpen);
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-  });
+    function setTheme(theme: string) {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("theme", theme);
+      setActiveAccentButton(document.documentElement.dataset.accent || "emerald");
+    }
 
-  navLinks?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      menuToggle?.classList.remove("open");
-      menuToggle?.setAttribute("aria-expanded", "false");
+    setActiveAccentButton(document.documentElement.dataset.accent || "emerald");
+
+    accentToggle?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isOpen = accentPicker?.classList.toggle("open") ?? false;
+      accentToggle.setAttribute("aria-expanded", String(isOpen));
     });
-  });
+
+    accentChoices.forEach((button) => {
+      button.addEventListener("click", () => {
+        const accent = button.getAttribute("data-accent-choice") || "emerald";
+        setAccent(accent);
+        accentPicker?.classList.remove("open");
+        accentToggle?.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!accentPicker?.contains(event.target as Node)) {
+        accentPicker?.classList.remove("open");
+        accentToggle?.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    themeToggle?.addEventListener("click", () => {
+      const current = document.documentElement.dataset.theme || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = navLinks?.classList.toggle("open") ?? false;
+      menuToggle.classList.toggle("open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle?.classList.remove("open");
+        menuToggle?.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  // Initialize on first load
+  initHeader();
+
+  // Re-initialize after View Transitions swap
+  document.addEventListener("astro:page-load", initHeader);
 </script>

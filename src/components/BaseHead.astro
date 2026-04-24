@@ -1,41 +1,22 @@
 ---
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 import { SITE_TITLE } from "../consts";
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description: string;
-  image?: string;
-  type?: "website" | "article";
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image, type = "website" } = Astro.props;
-const ogImage = image
-  ? new URL(image, Astro.site)
-  : new URL(`/rajatjog-website/og.png`, Astro.site);
+const { title, description } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="color-scheme" content="dark light" />
-<script is:inline>
-  (() => {
-    try {
-      const saved = localStorage.getItem("theme");
-      const accent = localStorage.getItem("accentColor") || "emerald";
-      const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-      document.documentElement.dataset.theme = saved || (prefersLight ? "light" : "dark");
-      document.documentElement.dataset.accent = accent;
-    } catch {
-      document.documentElement.dataset.theme = "dark";
-      document.documentElement.dataset.accent = "emerald";
-    }
-  })();
-</script>
 <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
 <link rel="icon" href={`${base}favicon.ico`} />
 <link rel="sitemap" href={`${base}sitemap-index.xml`} />
@@ -57,14 +38,48 @@ const base = import.meta.env.BASE_URL;
 <meta name="description" content={description} />
 
 <!-- Open Graph -->
-<meta property="og:type" content={type} />
+<meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImage} />
+<meta
+  property="og:image"
+  content={new URL(`/rajatjog-website/og.png`, Astro.site)}
+/>
+
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta
+  name="twitter:image"
+  content={new URL(`/rajatjog-website/og.png`, Astro.site)}
+/>
+
+<script is:inline>
+  (() => {
+    const syncFlag = "__rajatThemeSyncBound";
+
+    const applySavedPreferences = () => {
+      const theme =
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      document.documentElement.dataset.theme = theme;
+
+      const accent = localStorage.getItem("accentColor") || "emerald";
+      document.documentElement.dataset.accent = accent;
+    };
+
+    applySavedPreferences();
+
+    if (!window[syncFlag]) {
+      document.addEventListener("astro:after-swap", applySavedPreferences);
+      window[syncFlag] = true;
+    }
+  })();
+</script>
+
+<ClientRouter />
