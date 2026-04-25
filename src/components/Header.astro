@@ -469,6 +469,7 @@ function isActive(href: string) {
 
 <script>
   function initHeader() {
+    const header = document.querySelector("header");
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
     const themeToggle = document.getElementById("themeToggle");
@@ -494,56 +495,72 @@ function isActive(href: string) {
     function setTheme(theme: string) {
       document.documentElement.dataset.theme = theme;
       localStorage.setItem("theme", theme);
-      setActiveAccentButton(document.documentElement.dataset.accent || "emerald");
+      setActiveAccentButton(
+        document.documentElement.dataset.accent || "emerald",
+      );
     }
 
+    // Always update active links on load/navigation since header is persisted
+    const pathname = window.location.pathname.replace(/\/$/, "");
+    navLinks?.querySelectorAll("a").forEach((link) => {
+      const href = link.getAttribute("href")?.replace(/\/$/, "");
+      const isHome = href === "/rajatjog-website";
+      const active = isHome
+        ? pathname === "/rajatjog-website"
+        : pathname === href || pathname.startsWith(`${href}/`);
+      link.classList.toggle("active", active);
+    });
+
+    // Sync UI state
     setActiveAccentButton(document.documentElement.dataset.accent || "emerald");
 
-    accentToggle?.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const isOpen = accentPicker?.classList.toggle("open") ?? false;
-      accentToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    accentChoices.forEach((button) => {
-      button.addEventListener("click", () => {
-        const accent = button.getAttribute("data-accent-choice") || "emerald";
-        setAccent(accent);
-        accentPicker?.classList.remove("open");
-        accentToggle?.setAttribute("aria-expanded", "false");
+    // Guard against double-binding event listeners on persisted header
+    if (header && !header.dataset.initialized) {
+      accentToggle?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = accentPicker?.classList.toggle("open") ?? false;
+        accentToggle.setAttribute("aria-expanded", String(isOpen));
       });
-    });
 
-    document.addEventListener("click", (event) => {
-      if (!accentPicker?.contains(event.target as Node)) {
-        accentPicker?.classList.remove("open");
-        accentToggle?.setAttribute("aria-expanded", "false");
-      }
-    });
-
-    themeToggle?.addEventListener("click", () => {
-      const current = document.documentElement.dataset.theme || "dark";
-      setTheme(current === "dark" ? "light" : "dark");
-    });
-
-    menuToggle?.addEventListener("click", () => {
-      const isOpen = navLinks?.classList.toggle("open") ?? false;
-      menuToggle.classList.toggle("open", isOpen);
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    navLinks?.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle?.classList.remove("open");
-        menuToggle?.setAttribute("aria-expanded", "false");
+      accentChoices.forEach((button) => {
+        button.addEventListener("click", () => {
+          const accent = button.getAttribute("data-accent-choice") || "emerald";
+          setAccent(accent);
+          accentPicker?.classList.remove("open");
+          accentToggle?.setAttribute("aria-expanded", "false");
+        });
       });
-    });
+
+      document.addEventListener("click", (event) => {
+        if (!accentPicker?.contains(event.target as Node)) {
+          accentPicker?.classList.remove("open");
+          accentToggle?.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      themeToggle?.addEventListener("click", () => {
+        const current = document.documentElement.dataset.theme || "dark";
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+
+      menuToggle?.addEventListener("click", () => {
+        const isOpen = navLinks?.classList.toggle("open") ?? false;
+        menuToggle.classList.toggle("open", isOpen);
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navLinks?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          menuToggle?.classList.remove("open");
+          menuToggle?.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      header.dataset.initialized = "true";
+    }
   }
 
-  // Initialize on first load
-  initHeader();
-
-  // Re-initialize after View Transitions swap
+  // Initialize on page load (handles initial load and view transitions)
   document.addEventListener("astro:page-load", initHeader);
 </script>
