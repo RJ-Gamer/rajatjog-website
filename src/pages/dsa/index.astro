@@ -128,22 +128,36 @@ const latestProblem = problems.at(-1);
         </div>
 
         <div class="page-header-stats stats-row">
-          <button class="stat active" data-difficulty="all">
+          <button class="stat active" type="button" data-difficulty="all" aria-pressed="true">
             <span class="stat-val">{problems.length}</span>
             <span class="stat-lbl">Total</span>
           </button>
-          <button class="stat" data-difficulty="easy">
+          <button class="stat" type="button" data-difficulty="easy" aria-pressed="false">
             <span class="stat-val easy">{easy}</span>
             <span class="stat-lbl">Easy</span>
           </button>
-          <button class="stat" data-difficulty="medium">
+          <button class="stat" type="button" data-difficulty="medium" aria-pressed="false">
             <span class="stat-val medium">{medium}</span>
             <span class="stat-lbl">Medium</span>
           </button>
-          <button class="stat" data-difficulty="hard">
+          <button class="stat" type="button" data-difficulty="hard" aria-pressed="false">
             <span class="stat-val hard">{hard}</span>
             <span class="stat-lbl">Hard</span>
           </button>
+        </div>
+
+        <div class="topic-filter-wrap">
+          <span class="section-label">Browse by topic</span>
+          <div class="topic-filter" aria-label="Problem topics">
+            <button class="chip active" type="button" data-topic="all" aria-pressed="true">
+              All topics
+            </button>
+            {allTopics.map((topic) => (
+              <button class="chip" type="button" data-topic={topic} aria-pressed="false">
+                {topic}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -162,6 +176,7 @@ const latestProblem = problems.at(-1);
               href={problem.href}
               class="problem-row"
               data-difficulty={problem.difficulty.toLowerCase()}
+              data-topics={JSON.stringify(problem.topics)}
             >
               <span class="problem-number">#{problem.number}</span>
               <span class="problem-title">{problem.title}</span>
@@ -194,32 +209,7 @@ const latestProblem = problems.at(-1);
 
     <Footer />
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const filterButtons = document.querySelectorAll(".stats-row .stat");
-        const problemRows = document.querySelectorAll(".problem-row") as NodeListOf<HTMLElement>;
-
-        filterButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const selectedDifficulty = (button as HTMLElement).dataset.difficulty;
-
-            // Update active state
-            filterButtons.forEach((btn) => btn.classList.remove("active"));
-            button.classList.add("active");
-
-            // Filter problems
-            problemRows.forEach((row) => {
-              const difficulty = row.dataset.difficulty;
-              if (selectedDifficulty === "all" || difficulty === selectedDifficulty) {
-                row.style.display = "flex";
-              } else {
-                row.style.display = "none";
-              }
-            });
-          });
-        });
-      });
-    </script>
+    <script>import "../../scripts/dsa-filters";</script>
   </body>
 </html>
 
@@ -279,6 +269,33 @@ const latestProblem = problems.at(-1);
 
   .stats-row {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .topic-filter-wrap {
+    margin-top: 1.5rem;
+  }
+
+  .topic-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .topic-filter .chip {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .topic-filter .chip:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-text);
+  }
+
+  .topic-filter .chip.active {
+    background: var(--color-accent-dim);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
   }
 
   .stat {

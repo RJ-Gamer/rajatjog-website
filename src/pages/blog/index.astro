@@ -125,11 +125,11 @@ const listPosts = posts.slice(1);
             <section class="archive-section">
               <div class="archive-head">
                 <div class="tag-filter" aria-label="Writing topics">
-                  <button class="chip active" data-tag="all">
+                  <button class="chip active" type="button" data-tag="all" aria-pressed="true">
                     All ({posts.length})
                   </button>
                   {allTags.map((tag) => (
-                    <button class="chip" data-tag={tag}>
+                    <button class="chip" type="button" data-tag={tag} aria-pressed="false">
                       {tag}
                     </button>
                   ))}
@@ -580,37 +580,4 @@ const listPosts = posts.slice(1);
   }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const filterButtons = document.querySelectorAll(".tag-filter .chip");
-    const postRows = document.querySelectorAll(".post-row");
-    const archiveCount = document.querySelector(".archive-count");
-
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const selectedTag = button.dataset.tag;
-
-        // Update active state
-        filterButtons.forEach((btn) => btn.classList.remove("active"));
-        button.classList.add("active");
-
-        // Filter posts
-        let visibleCount = 0;
-        postRows.forEach((row) => {
-          const tags = JSON.parse(row.dataset.tags || "[]");
-          if (selectedTag === "all" || tags.includes(selectedTag)) {
-            row.style.display = "";
-            visibleCount++;
-          } else {
-            row.style.display = "none";
-          }
-        });
-
-        // Update count
-        if (archiveCount) {
-          archiveCount.textContent = `${visibleCount} article${visibleCount !== 1 ? "s" : ""}`;
-        }
-      });
-    });
-  });
-</script>
+<script>import "../../scripts/blog-tag-filters";</script>

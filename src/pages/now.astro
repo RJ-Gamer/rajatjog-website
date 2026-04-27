@@ -2,15 +2,8 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-
-const nowItems = [
-  ["Building", "Working on open source Django libraries and exploring new side project ideas."],
-  ["Working", "Senior Backend Engineer at Mindbowser, building HIPAA and SOC2-compliant healthcare platforms in Python and Django."],
-  ["Learning", "System design depth, DSA patterns for interviews, and Celery internals from production work."],
-  ["Reading", "System Design Interview Vol 2 by Alex Xu."],
-  ["Writing", "Publishing weekly on LinkedIn about Django system design, backend engineering, and building in public."],
-  ["Looking for", "Senior Backend Engineer, Backend Tech Lead, or Staff Engineer roles. Remote-first. Open to international remote."],
-];
+import { nowItems } from "../data/pages/now";
+import "../styles/pages/now.css";
 ---
 
 <html lang="en">
@@ -64,62 +57,3 @@ const nowItems = [
     <Footer />
   </body>
 </html>
-
-<style>
-  .page-header h1 span {
-    color: var(--color-text-secondary);
-    font-style: italic;
-  }
-
-  .now-list {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .now-item {
-    border-bottom: 1px solid var(--color-border);
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 150px minmax(0, 1fr);
-    padding: 1.45rem 0;
-  }
-
-  .now-item h2 {
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    padding-top: 0.25rem;
-    text-transform: uppercase;
-  }
-
-  .now-item p {
-    font-size: 0.95rem;
-    margin: 0;
-    max-width: 640px;
-  }
-
-  .now-item a,
-  .now-footer a {
-    border-bottom: 1px solid var(--color-accent-border);
-  }
-
-  .now-footer {
-    border-top: 1px solid var(--color-border);
-    margin-top: 4rem;
-    padding-top: 2rem;
-  }
-
-  .now-footer p {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    margin: 0;
-  }
-
-  @media (max-width: 640px) {
-    .now-item {
-      gap: 0.5rem;
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

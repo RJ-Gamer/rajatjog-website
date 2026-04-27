@@ -1,0 +1,29 @@
+.not-found {
+  max-width: 680px;
+}
+
+.error-actions,
+.error-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.error-actions {
+  margin: 2rem 0 3rem;
+}
+
+.error-links {
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem;
+}
+
+.error-links a {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.error-links a:hover {
+  color: var(--color-accent);
+}
