@@ -5,15 +5,15 @@ export const SITE_TITLE = "Rajat Jog";
 export const SITE_DESCRIPTION =
   "Senior Backend Engineer · Python / Django / FastAPI · Building systems that last.";
 export const SITE_AUTHOR = "Rajat Jog";
-export const SITE_URL = "https://RJ-Gamer.github.io/rajatjog-website";
+export const SITE_URL = "https://project-4ir8l.vercel.app";
 
 export const NAV_LINKS = [
-  { label: "About", href: "/rajatjog-website/about" },
-  { label: "Projects", href: "/rajatjog-website/projects" },
-  { label: "Blog", href: "/rajatjog-website/blog" },
-  { label: "DSA", href: "/rajatjog-website/dsa" },
-  { label: "Now", href: "/rajatjog-website/now" },
-  { label: "Contact", href: "/rajatjog-website/contact" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Blog", href: "/blog" },
+  { label: "DSA", href: "/dsa" },
+  { label: "Now", href: "/now" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const SOCIAL_LINKS = {

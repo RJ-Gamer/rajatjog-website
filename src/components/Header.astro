@@ -2,12 +2,11 @@
 import { NAV_LINKS } from "../consts";
 
 const pathname = Astro.url.pathname.replace(/\/$/, "");
-const homeHref = "/rajatjog-website/";
+const homeHref = "/";
 
 function isActive(href: string) {
   const normalized = href.replace(/\/$/, "");
-  if (normalized === "/rajatjog-website")
-    return pathname === "/rajatjog-website";
+  if (normalized === "") return pathname === "";
   return pathname === normalized || pathname.startsWith(`${normalized}/`);
 }
 ---
@@ -504,9 +503,9 @@ function isActive(href: string) {
     const pathname = window.location.pathname.replace(/\/$/, "");
     navLinks?.querySelectorAll("a").forEach((link) => {
       const href = link.getAttribute("href")?.replace(/\/$/, "");
-      const isHome = href === "/rajatjog-website";
+      const isHome = href === "";
       const active = isHome
-        ? pathname === "/rajatjog-website"
+        ? pathname === ""
         : pathname === href || pathname.startsWith(`${href}/`);
       link.classList.toggle("active", active);
     });

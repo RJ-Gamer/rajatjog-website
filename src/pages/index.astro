@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SOCIAL_LINKS } from "../consts";
+import { SITE_DESCRIPTION, SOCIAL_LINKS, SITE_URL } from "../consts";
 import { homeCoreStack, homeProjects as projects, homeSkills as skills, homeStats as stats } from "../data/pages/home";
 import "../styles/pages/home.css";
 
@@ -23,7 +23,7 @@ const posts = (await getCollection("blog"))
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Rajat Jog",
-      url: "https://RJ-Gamer.github.io/rajatjog-website",
+      url: SITE_URL,
       jobTitle: "Senior Backend Engineer",
       sameAs: [
         "https://github.com/RJ-Gamer",
@@ -59,8 +59,8 @@ const posts = (await getCollection("blog"))
         </div>
 
         <div class="hero-actions">
-          <a href="/rajatjog-website/projects" class="btn-primary">View my work</a>
-          <a href="/rajatjog-website/contact" class="btn-secondary">Get in touch</a>
+          <a href="/projects" class="btn-primary">View my work</a>
+          <a href="/contact" class="btn-secondary">Get in touch</a>
           <div class="hero-social">
             <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener">GitHub</a>
             <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener">LinkedIn</a>
@@ -124,7 +124,7 @@ const posts = (await getCollection("blog"))
             </article>
           ))}
         </div>
-        <a href="/rajatjog-website/projects" class="text-link">All projects -></a>
+        <a href="/projects" class="text-link">All projects -></a>
       </section>
 
       <section class="panel-section" id="blog">
@@ -133,7 +133,7 @@ const posts = (await getCollection("blog"))
             <span>04 / Writing</span>
             <h2>Blog</h2>
           </div>
-          <a href="/rajatjog-website/blog">All posts -></a>
+          <a href="/blog">All posts -></a>
         </div>
         <p class="section-intro">System design, Django internals, and lessons from production.</p>
 
@@ -143,7 +143,7 @@ const posts = (await getCollection("blog"))
           <div class="writing-grid">
             {posts.map((post, index) => (
               <a
-                href={`/rajatjog-website/blog/${post.id}/`}
+                href={`/blog/${post.id}/`}
                 class:list={["post-card", { featured: index === 0 }]}
               >
                 <div class="post-meta">

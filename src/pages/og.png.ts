@@ -152,7 +152,7 @@ export async function GET() {
                       fontSize: "16px",
                       color: "#555555",
                     },
-                    children: "RJ-Gamer.github.io",
+                    children: "project-4ir8l.vercel.app",
                   },
                 },
               ],

@@ -86,7 +86,7 @@ const listPosts = posts.slice(1);
           <>
             <section class="featured-hero">
               <a
-                href={`/rajatjog-website/blog/${featured.id}/`}
+                href={`/blog/${featured.id}/`}
                 class="featured-link"
               >
                 <div class="featured-title">
@@ -141,7 +141,7 @@ const listPosts = posts.slice(1);
                 <div class="post-list">
                   {listPosts.map((post) => (
                     <a
-                      href={`/rajatjog-website/blog/${post.id}/`}
+                      href={`/blog/${post.id}/`}
                       class="post-row"
                       data-tags={JSON.stringify(post.data.tags ?? [])}
                     >
