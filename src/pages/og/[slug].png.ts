@@ -150,7 +150,7 @@ export async function GET({ props }: { props: any }) {
                       fontSize: "14px",
                       color: "#555555",
                     },
-                    children: "RJ-Gamer.github.io/rajatjog-website",
+                    children: "rajat-jog-dev.vercel.app",
                   },
                 },
               ],

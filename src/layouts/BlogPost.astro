@@ -3,12 +3,13 @@ import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { SITE_URL } from "../consts";
 import "../styles/pages/blog-post.css";
 
 type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, tags } = Astro.props;
 const slug = Astro.url.pathname.split("/").filter(Boolean).pop();
-const ogImage = `/rajatjog-website/og/${slug}.png`;
+const ogImage = `/og/${slug}.png`;
 
 const formattedDate = pubDate.toLocaleDateString("en-US", {
   month: "long",
@@ -33,7 +34,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
       description,
       datePublished: pubDate.toISOString(),
       dateModified: (updatedDate ?? pubDate).toISOString(),
-      author: { "@type": "Person", name: "Rajat Jog", url: "https://RJ-Gamer.github.io/rajatjog-website" },
+      author: { "@type": "Person", name: "Rajat Jog", url: SITE_URL },
       image: new URL(ogImage, Astro.site).toString(),
       url: Astro.url.toString(),
     })} />
@@ -43,7 +44,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
     <div class="reading-progress" id="readingProgress"></div>
 
     <main class="article-shell">
-      <a href="/rajatjog-website/blog" class="back-link">&lt;- All posts</a>
+      <a href="/blog" class="back-link">&lt;- All posts</a>
 
       <article class="post" id="article">
         <header class="post-header page-header">
@@ -89,7 +90,7 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
         </footer>
 
         <div class="post-nav">
-          <a href="/rajatjog-website/blog" class="btn-secondary">&lt;- Back to writing</a>
+          <a href="/blog" class="btn-secondary">&lt;- Back to writing</a>
         </div>
       </article>
     </main>

@@ -160,4 +160,4 @@ PRs are welcome.
 
 ---
 
-*Find more of my work at [rj-gamer.github.io/rajatjog-website](https://rj-gamer.github.io/rajatjog-website)*
+*Find more of my work at [rajat-jog-dev.vercel.app](https://rajat-jog-dev.vercel.app)*

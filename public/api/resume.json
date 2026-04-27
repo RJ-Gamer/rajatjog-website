@@ -4,7 +4,7 @@
     "last_updated": "2026-04-24",
     "content_type": "application/json",
     "note": "You found the API version. If you're reading this, you're probably the kind of engineer I want to work with.",
-    "source": "https://rj-gamer.github.io/rajatjog-website/about"
+    "source": "https://rajat-jog-dev.vercel.app/about"
   },
   "candidate": {
     "name": "Rajat Jog",
@@ -16,7 +16,7 @@
     "available": true,
     "remote_only": true,
     "links": {
-      "website": "https://rj-gamer.github.io/rajatjog-website",
+      "website": "https://rajat-jog-dev.vercel.app",
       "linkedin": "https://linkedin.com/in/rajat-jog",
       "github": "https://github.com/RJ-Gamer",
       "pypi": "https://pypi.org/user/rajatjog1294"
