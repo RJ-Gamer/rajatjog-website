@@ -578,10 +578,11 @@ textarea:focus {
 
 .page-header-note {
   color: var(--color-accent);
-  display: inline-flex;
+  display: flex;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   gap: 0.55rem;
+  width: fit-content;
   letter-spacing: 0.1em;
   margin-bottom: 1rem;
   text-transform: uppercase;

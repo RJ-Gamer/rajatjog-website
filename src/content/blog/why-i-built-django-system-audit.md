@@ -10,7 +10,7 @@ Most Django audit libraries rely heavily on signals.
 
 Signals are great for detecting that something happened. But they struggle to answer a more important question: **why did it happen?**
 
-While working on compliance-heavy systems — healthcare platforms with HIPAA requirements, fintech systems with SOC2 obligations — this caused real problems:
+While working on compliance-heavy systems — regulated platforms with strict audit requirements, fintech systems with SOC2 obligations — this caused real problems:
 
 - Duplicate audit logs from multiple signals firing on the same event
 - Confusing actor attribution — was this the API, the Admin panel, or a background job?
@@ -76,4 +76,4 @@ pip install django-system-audit
 
 GitHub: [django-system-audit](https://github.com/RJ-Gamer/django-system-audit)
 
-If you are building in healthtech, fintech, or any compliance-sensitive domain — I would love to hear how you handle audit logging and whether this approach resonates.
+If you are building in fintech, SaaS, or any compliance-sensitive domain — I would love to hear how you handle audit logging and whether this approach resonates.
