@@ -22,7 +22,7 @@
       "pypi": "https://pypi.org/user/rajatjog1294"
     }
   },
-  "summary": "Senior backend engineer with 7+ years building production systems in healthtech and fintech. Expert in Python, Django, and FastAPI. I care about systems that are correct, not just fast. I think in invariants before tables, explicit logic before clever abstractions, and idempotency before optimism.",
+  "summary": "Senior backend engineer with 7+ years building production systems across fintech, SaaS, and internal platforms. Expert in Python, Django, and FastAPI. I care about systems that are correct, not just fast. I think in invariants before tables, explicit logic before clever abstractions, and idempotency before optimism.",
   "stack": {
     "expert": [
       "Python",
@@ -34,7 +34,7 @@
       "Redis"
     ],
     "intermediate": ["AWS", "SageMaker", "Lambda", "S3", "Docker"],
-    "domains": ["HIPAA", "SOC2", "HL7", "FHIR", "Healthtech", "Fintech"]
+    "domains": ["SOC2", "Fintech", "SaaS", "Developer Tools", "AI Products"]
   },
   "experience": [
     {
@@ -44,11 +44,11 @@
       "location": "Remote",
       "current": true,
       "highlights": [
-        "Integrated production ML workflows using AWS SageMaker for predictive healthcare analytics",
-        "Engineered HIPAA and SOC2-compliant platforms using HL7 and FHIR protocols",
+        "Integrated production ML workflows using AWS SageMaker for model-driven product features",
+        "Engineered compliance-ready platforms with secure API integrations and reliable delivery workflows",
         "Led 5+ engineers, reduced production bugs 25%, accelerated delivery by 6 weeks"
       ],
-      "stack": ["SageMaker", "HIPAA", "SOC2", "HL7", "FHIR", "Django"]
+      "stack": ["SageMaker", "AWS", "SOC2", "APIs", "Delivery", "Django"]
     },
     {
       "role": "Software Engineer",
@@ -58,7 +58,7 @@
       "current": false,
       "highlights": [
         "Reduced API latency 60% via PostgreSQL indexing and Redis caching",
-        "Architected Django and FastAPI backends for 5k DAU, 300 RPM healthcare platforms"
+        "Architected Django and FastAPI backends for 5k DAU, 300 RPM production platforms"
       ],
       "stack": ["Django", "FastAPI", "PostgreSQL", "Redis"]
     },
@@ -99,7 +99,7 @@
     {
       "name": "timeblocks",
       "domain": "Scheduling",
-      "tagline": "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+      "tagline": "Scheduling breaks when availability is modelled as mutable state, not invariants.",
       "install": "pip install timeblocks",
       "pypi": "https://pypi.org/project/timeblocks/",
       "github": "https://github.com/RJ-Gamer/timeblocks"
@@ -138,7 +138,7 @@
     "roles": ["Senior Backend Engineer", "Backend Tech Lead", "Staff Engineer"],
     "engagement": ["Full-time", "Contract"],
     "work_style": "Remote-first",
-    "domains": ["Healthtech", "Fintech", "Developer Tools", "SaaS"],
+    "domains": ["Fintech", "Developer Tools", "SaaS", "Internal Platforms"],
     "not_looking_for": [
       "Frontend roles",
       "Service company body-shopping",

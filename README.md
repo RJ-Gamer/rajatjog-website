@@ -12,7 +12,7 @@ The personal website and technical portfolio of **Rajat Jog**, a Senior Backend 
 ## 🏛️ Project Sections
 
 ### ✍️ [Engineering Journal](/src/pages/blog)
-A technical blog focusing on Django internals, system design patterns, and the realities of shipping production software in regulated environments (HIPAA/SOC2).
+A technical blog focusing on Django internals, system design patterns, and the realities of shipping production software in regulated environments.
 
 ### 🛠️ [Projects](/src/pages/projects.astro)
 A showcase of both client-led production systems and independent open-source contributions, including:

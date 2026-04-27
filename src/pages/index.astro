@@ -13,7 +13,7 @@ const posts = (await getCollection("blog"))
 const stats = [
   { label: "Experience", value: "7+", unit: "years" },
   { label: "PyPI Packages", value: "3", unit: "published" },
-  { label: "Compliance", value: "HIPAA", unit: "and SOC2" },
+  { label: "Production", value: "High-stakes", unit: "systems", stacked: true },
   { label: "Certified", value: "AWS", unit: "ML Specialty" },
 ];
 
@@ -21,7 +21,7 @@ const skills = [
   { category: "Backend", tags: ["Python", "Django", "FastAPI", "Django REST Framework", "Celery", "Redis"] },
   { category: "Database", tags: ["PostgreSQL", "Query Optimisation", "Database Indexing", "Schema Design"] },
   { category: "Cloud & Infra", tags: ["AWS SageMaker", "Lambda", "S3", "Docker", "Railway"] },
-  { category: "Domains", tags: ["HIPAA", "SOC2", "HL7/FHIR", "Healthtech", "Fintech"] },
+  { category: "Domains", tags: ["SOC2", "Fintech", "SaaS", "Developer Tools", "AI Products"] },
   { category: "Focus", tags: ["System Design", "DSA", "AI Agents"] },
 ];
 
@@ -39,7 +39,7 @@ const projects = [
     name: "Allday | Dayo",
     meta: "Client / Mobile App / Mindbowser Inc / Jan 2023 - Feb 2024",
     description:
-      "Built the backend for a wellness rewards app, including Shopify marketplace integration, LLM-based insights, and real-time data sync.",
+      "Built the backend for a consumer rewards app, including Shopify marketplace integration, LLM-based insights, and real-time data sync.",
     tags: ["Django", "DRF", "Shopify", "LLMs"],
     links: [],
     accent: "teal",
@@ -61,7 +61,7 @@ const projects = [
   {
     name: "timeblocks",
     meta: "Open Source / PyPI",
-    quote: "Healthcare scheduling fails because availability is modelled as mutable state, not invariants.",
+    quote: "Scheduling breaks when availability is modelled as mutable state, not invariants.",
     description:
       "Recurring availability scheduling for Django. Concurrency-safe, so changing availability never corrupts booked records.",
     tags: ["Python", "Django"],
@@ -109,8 +109,8 @@ const projects = [
 
         <p class="hero-copy">
           I'm <strong>Rajat Jog</strong> - a Senior Backend Engineer specialising
-          in scalable, resilient, HIPAA/SOC2-compliant architectures. Correctness
-          and performance are non-negotiable.
+          in scalable, resilient backend architectures. Correctness and
+          performance are non-negotiable.
         </p>
 
         <div class="stack-list" aria-label="Core stack">
@@ -132,7 +132,7 @@ const projects = [
         <div class="stats-grid">
           {stats.map((stat) => (
             <div class="stat">
-              <div class="stat-value">
+              <div class:list={["stat-value", { stacked: stat.stacked }]}>
                 {stat.value}
                 <span>{stat.unit}</span>
               </div>
@@ -239,9 +239,9 @@ const projects = [
           </div>
           <p>
             Senior backend engineer from Pune, India specialising in Python,
-            Django, and FastAPI. 7+ years building production systems in
-            healthtech and fintech - the kind that need to be correct, not just
-            fast.
+            Django, and FastAPI. 7+ years building production systems across
+            fintech, SaaS, and internal platforms - the kind that need to be
+            correct, not just fast.
           </p>
           <p>
             I open-source the hard parts. timeblocks, django-system-audit, and
@@ -376,15 +376,32 @@ const projects = [
 
   .stat-value {
     color: var(--color-text);
+    display: flex;
     font-family: var(--font-mono);
     font-size: 2rem;
     font-weight: 300;
+    gap: 0.25rem;
+    line-height: 1.05;
+    text-wrap: balance;
+    align-items: baseline;
+    flex-wrap: wrap;
   }
 
   .stat-value span {
     color: var(--color-text-secondary);
     font-size: 0.875rem;
     margin-left: 0.25rem;
+  }
+
+  .stat-value.stacked {
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 1.85rem;
+    gap: 0.2rem;
+  }
+
+  .stat-value.stacked span {
+    margin-left: 0;
   }
 
   .stat-label,

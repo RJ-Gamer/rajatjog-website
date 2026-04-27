@@ -6,9 +6,9 @@
 
 | Page | Route | Purpose |
 |------|-------|---------|
-| **Home / Index** | `/` | Hero section with status indicator, intro copy, tech stack chips, call-to-action buttons, stats grid (7+ years experience, 3 PyPI packages, HIPAA/SOC2, AWS ML Specialty), Skills & Tooling section, Project showcase, Recent blog posts |
+| **Home / Index** | `/` | Hero section with status indicator, intro copy, tech stack chips, call-to-action buttons, stats grid (7+ years experience, 3 PyPI packages, high-stakes systems, AWS ML Specialty), Skills & Tooling section, Project showcase, Recent blog posts |
 | **About** | `/about` | Professional background with facts table, experience timeline (4 roles listed), certifications (AWS ML Specialty, Hugging Face AI Agents), open source projects list |
-| **Projects** | `/projects` | Portfolio showcase: 2 client projects (OppVenuz e-commerce, Allday/Dayo wellness app) and 3 open source packages (django-system-audit, timeblocks, django-ml-audit) with detailed descriptions, tech stacks, links |
+| **Projects** | `/projects` | Portfolio showcase: 2 client projects (OppVenuz e-commerce, Allday/Dayo rewards app) and 3 open source packages (django-system-audit, timeblocks, django-ml-audit) with detailed descriptions, tech stacks, links |
 | **Blog/Writing** | `/blog` | Blog index with featured post, article list with metadata (read time, tags), publication stats. Individual blog posts in `/blog/[...slug].astro` |
 | **Now** | `/now` | /now page format showing current focus (6 categories: Building, Working, Learning, Reading, Writing, Looking for) |
 | **Contact** | `/contact` | Contact form that opens mail client, contact info cards (Email, LinkedIn, GitHub, PyPI), topic suggestions, timezone/availability info |
