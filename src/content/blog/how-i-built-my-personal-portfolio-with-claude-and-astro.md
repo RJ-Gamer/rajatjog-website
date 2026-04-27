@@ -181,7 +181,7 @@ environment differences immediately instead of at the end.
 ---
 
 The site is live at
-[project-4ir8l.vercel.app](https://project-4ir8l.vercel.app).
+[rajat-jog-dev.vercel.app](https://rajat-jog-dev.vercel.app).
 
 If you're building something similar — or if you're a backend
 engineer who has been avoiding frontend for years — I'd genuinely

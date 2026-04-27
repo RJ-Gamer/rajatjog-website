@@ -150,7 +150,7 @@ export async function GET({ props }: { props: any }) {
                       fontSize: "14px",
                       color: "#555555",
                     },
-                    children: "project-4ir8l.vercel.app",
+                    children: "rajat-jog-dev.vercel.app",
                   },
                 },
               ],

@@ -5,7 +5,7 @@ export const SITE_TITLE = "Rajat Jog";
 export const SITE_DESCRIPTION =
   "Senior Backend Engineer · Python / Django / FastAPI · Building systems that last.";
 export const SITE_AUTHOR = "Rajat Jog";
-export const SITE_URL = "https://project-4ir8l.vercel.app";
+export const SITE_URL = "https://rajat-jog-dev.vercel.app";
 
 export const NAV_LINKS = [
   { label: "About", href: "/about" },
