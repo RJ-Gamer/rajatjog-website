@@ -6,8 +6,11 @@ import Header from "../components/Header.astro";
 import { SITE_URL } from "../consts";
 import "../styles/pages/blog-post.css";
 
-type Props = CollectionEntry<"blog">["data"];
-const { title, description, pubDate, updatedDate, tags } = Astro.props;
+type SuggestedPost = CollectionEntry<"blog">;
+type Props = CollectionEntry<"blog">["data"] & {
+  suggestedPosts?: SuggestedPost[];
+};
+const { title, description, pubDate, updatedDate, tags, suggestedPosts = [] } = Astro.props;
 const slug = Astro.url.pathname.split("/").filter(Boolean).pop();
 const ogImage = `/og/${slug}.png`;
 
@@ -88,6 +91,42 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
             </div>
           </div>
         </footer>
+
+        {suggestedPosts.length > 0 && (
+          <section class="suggested-posts" aria-labelledby="suggested-posts-heading">
+            <div class="suggested-head">
+              <span class="page-kicker">More Writing</span>
+              <h2 id="suggested-posts-heading">Suggested blogs</h2>
+            </div>
+            <div class="suggested-grid">
+              {suggestedPosts.map((post) => (
+                <a href={`/blog/${post.id}/`} class="suggested-card">
+                  <div class="suggested-copy">
+                    <h3>{post.data.title}</h3>
+                    <p>{post.data.description}</p>
+                    {post.data.tags && post.data.tags.length > 0 && (
+                      <div class="tag-row">
+                        {post.data.tags.slice(0, 3).map((tag: string) => <span class="chip">{tag}</span>)}
+                      </div>
+                    )}
+                  </div>
+                  <div class="suggested-side">
+                    <div class="suggested-meta">
+                      <time datetime={post.data.pubDate.toISOString()}>
+                        {post.data.pubDate.toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                    </div>
+                    <span class="suggested-link">Read post -&gt;</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
         <div class="post-nav">
           <a href="/blog" class="btn-secondary">&lt;- Back to writing</a>

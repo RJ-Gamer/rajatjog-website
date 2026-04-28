@@ -38,8 +38,8 @@ const listPosts = posts.slice(1);
         <div class="masthead-copy">
           <span class="page-kicker">Writing</span>
           <h1>
-            The<br />
-            <span>journal.</span>
+            Lessons from<br />
+            <span>Production.</span>
           </h1>
         </div>
 
@@ -85,10 +85,7 @@ const listPosts = posts.slice(1);
         ) : (
           <>
             <section class="featured-hero">
-              <a
-                href={`/blog/${featured.id}/`}
-                class="featured-link"
-              >
+              <a href={`/blog/${featured.id}/`} class="featured-link">
                 <div class="featured-title">
                   <div class="article-meta">
                     <span class="latest-label">Latest</span>
@@ -125,11 +122,21 @@ const listPosts = posts.slice(1);
             <section class="archive-section">
               <div class="archive-head">
                 <div class="tag-filter" aria-label="Writing topics">
-                  <button class="chip active" type="button" data-tag="all" aria-pressed="true">
+                  <button
+                    class="chip active"
+                    type="button"
+                    data-tag="all"
+                    aria-pressed="true"
+                  >
                     All ({posts.length})
                   </button>
                   {allTags.map((tag) => (
-                    <button class="chip" type="button" data-tag={tag} aria-pressed="false">
+                    <button
+                      class="chip"
+                      type="button"
+                      data-tag={tag}
+                      aria-pressed="false"
+                    >
                       {tag}
                     </button>
                   ))}
@@ -580,4 +587,6 @@ const listPosts = posts.slice(1);
   }
 </style>
 
-<script>import "../../scripts/blog-tag-filters";</script>
+<script>
+  import "../../scripts/blog-tag-filters";
+</script>

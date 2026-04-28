@@ -151,6 +151,80 @@
   color: var(--color-accent);
 }
 
+.suggested-posts {
+  border-top: 1px solid var(--color-border);
+  margin-top: 4rem;
+  padding-top: 3rem;
+}
+
+.suggested-head {
+  margin-bottom: 1.75rem;
+}
+
+.suggested-head h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 0.35rem;
+}
+
+.suggested-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.suggested-card {
+  align-items: start;
+  border: 1px solid var(--color-border);
+  color: inherit;
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 1.5rem;
+}
+
+.suggested-card:hover {
+  background: var(--color-bg-secondary);
+  color: inherit;
+}
+
+.suggested-copy {
+  min-width: 0;
+}
+
+.suggested-side {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: right;
+}
+
+.suggested-meta,
+.suggested-link {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.suggested-card h3 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-bottom: 0.45rem;
+}
+
+.suggested-card p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.suggested-card:hover .suggested-link {
+  color: var(--color-accent);
+}
+
 .post-nav {
   border-top: 1px solid var(--color-border);
   margin-top: 4rem;
@@ -158,6 +232,15 @@
 }
 
 @media (max-width: 640px) {
+  .suggested-card {
+    grid-template-columns: 1fr;
+  }
+
+  .suggested-side {
+    align-items: flex-start;
+    text-align: left;
+  }
+
   .post-meta i {
     display: none;
   }
