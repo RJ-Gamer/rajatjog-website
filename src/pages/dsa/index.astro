@@ -5,12 +5,40 @@ import Footer from "../../components/Footer.astro";
 
 // Fetch the DSA repo tree from GitHub API at build time
 const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN; // optional, increases rate limit
-const headers = GITHUB_TOKEN
+const headers: HeadersInit = GITHUB_TOKEN
   ? { Authorization: `token ${GITHUB_TOKEN}` }
   : {};
 
+// Fallback metadata for problems that don't have a metadata.json in DSA-SOLVED yet
+const fallbackMetadata: Record<string, { difficulty: string; topics: string[] }> = {
+  "01_two_sum":                         { difficulty: "Easy",   topics: ["Array", "Hash Map"] },
+  "53_maximum_subarray":                { difficulty: "Medium", topics: ["Array", "Dynamic Programming"] },
+  "62_unique_paths":                    { difficulty: "Medium", topics: ["Dynamic Programming", "Math"] },
+  "63_unique_paths_II":                 { difficulty: "Medium", topics: ["Dynamic Programming"] },
+  "70_climbing_stairs":                 { difficulty: "Easy",   topics: ["Dynamic Programming"] },
+  "72_min_distance":                    { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "121_best_time_to_buy_and_sell":      { difficulty: "Easy",   topics: ["Array", "Greedy"] },
+  "125_valid_palindrome":               { difficulty: "Easy",   topics: ["String", "Two Pointers"] },
+  "217_contains_duplicate":             { difficulty: "Easy",   topics: ["Array", "Hash Map"] },
+  "242_valid_anagram":                  { difficulty: "Easy",   topics: ["String", "Hash Map"] },
+  "516_longest_palindrome_subsequence": { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "647_palindrome_substrings":          { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "746_min_cost_climbing_stairs":       { difficulty: "Easy",   topics: ["Dynamic Programming"] },
+  "1143_longest_common_subsequence":    { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
+  "1299_replace_with_greatest_on_right":{ difficulty: "Easy",   topics: ["Array"] },
+};
+
 // Fetch repo contents
-let problems = [];
+type Problem = {
+  number: number;
+  title: string;
+  slug: string;
+  githubUrl: string;
+  href: string;
+  difficulty: string;
+  topics: string[];
+};
+let problems: Problem[] = [];
 try {
   const res = await fetch(
     "https://api.github.com/repos/RJ-Gamer/DSA-SOLVED/contents/DSA",
@@ -18,56 +46,57 @@ try {
   );
   const folders = await res.json();
 
-  // For each folder, fetch its README to get frontmatter-like data
-  problems = folders
-    .filter((item) => item.type === "dir")
-    .map((folder) => {
-      // Parse number and name from folder name like "01_two_sum"
-      const match = folder.name.match(/^(\d+)_(.+)$/);
-      const number = match ? match[1] : folder.name;
-      const slug = match ? match[2] : folder.name;
-      const title = slug
-        .split("_")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" ");
+  problems = (
+    await Promise.all(
+      (folders as { name: string; type: string }[])
+        .filter((item) => item.type === "dir")
+        .map(async (folder) => {
+          const match = folder.name.match(/^(\d+)_(.+)$/);
+          const number = match ? match[1] : folder.name;
+          const slug = match ? match[2] : folder.name;
+          const title = slug
+            .split("_")
+            .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ");
 
-      return {
-        number: parseInt(number),
-        title,
-        slug: folder.name,
-        githubUrl: `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${folder.name}`,
-        href: `/dsa/${folder.name}`,
-      };
-    })
-    .sort((a, b) => a.number - b.number);
+          const base = {
+            number: parseInt(number),
+            title,
+            slug: folder.name,
+            githubUrl: `https://github.com/RJ-Gamer/DSA-SOLVED/tree/main/DSA/${folder.name}`,
+            href: `/dsa/${folder.name}`,
+          };
+
+          // Try metadata.json inside the problem folder first
+          try {
+            const metaRes = await fetch(
+              `https://api.github.com/repos/RJ-Gamer/DSA-SOLVED/contents/DSA/${folder.name}/metadata.json`,
+              { headers }
+            );
+            if (metaRes.ok) {
+              const metaFile = await metaRes.json();
+              const meta = JSON.parse(
+                Buffer.from(metaFile.content, "base64").toString("utf-8")
+              );
+              return {
+                ...base,
+                difficulty: meta.difficulty ?? "—",
+                topics: meta.topics ?? [],
+              };
+            }
+          } catch {}
+
+          // Fall back to hardcoded map for existing problems
+          return {
+            ...base,
+            ...(fallbackMetadata[folder.name] ?? { difficulty: "—", topics: [] }),
+          };
+        })
+    )
+  ).sort((a, b) => a.number - b.number);
 } catch (e) {
   console.error("Failed to fetch DSA problems from GitHub", e);
 }
-
-// Manually add difficulty and topics since GitHub API can't infer these
-// Update this map as you add problems
-const metadata = {
-  "01_two_sum":                      { difficulty: "Easy",   topics: ["Array", "Hash Map"] },
-  "53_maximum_subarray":             { difficulty: "Medium", topics: ["Array", "Dynamic Programming"] },
-  "62_unique_paths":                 { difficulty: "Medium", topics: ["Dynamic Programming", "Math"] },
-  "63_unique_paths_II":              { difficulty: "Medium", topics: ["Dynamic Programming"] },
-  "70_climbing_stairs":              { difficulty: "Easy",   topics: ["Dynamic Programming"] },
-  "72_min_distance":                 { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
-  "121_best_time_to_buy_and_sell":   { difficulty: "Easy",   topics: ["Array", "Greedy"] },
-  "125_valid_palindrome":            { difficulty: "Easy",   topics: ["String", "Two Pointers"] },
-  "217_contains_duplicate":          { difficulty: "Easy",   topics: ["Array", "Hash Map"] },
-  "242_valid_anagram":               { difficulty: "Easy",   topics: ["String", "Hash Map"] },
-  "516_longest_palindrome_subsequence": { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
-  "647_palindrome_substrings":       { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
-  "746_min_cost_climbing_stairs":    { difficulty: "Easy",   topics: ["Dynamic Programming"] },
-  "1143_longest_common_subsequence": { difficulty: "Medium", topics: ["String", "Dynamic Programming"] },
-};
-
-// Merge metadata
-problems = problems.map((p) => ({
-  ...p,
-  ...(metadata[p.slug] || { difficulty: "—", topics: [] }),
-}));
 
 const easy   = problems.filter((p) => p.difficulty === "Easy").length;
 const medium = problems.filter((p) => p.difficulty === "Medium").length;
