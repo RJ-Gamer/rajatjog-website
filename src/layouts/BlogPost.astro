@@ -10,7 +10,8 @@ type SuggestedPost = CollectionEntry<"blog">;
 type Props = CollectionEntry<"blog">["data"] & {
   suggestedPosts?: SuggestedPost[];
 };
-const { title, description, pubDate, updatedDate, tags, suggestedPosts = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, suggestedPosts = [] } =
+  Astro.props;
 const slug = Astro.url.pathname.split("/").filter(Boolean).pop();
 const ogImage = `/og/${slug}.png`;
 
@@ -29,45 +30,80 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={ogImage} type="article" />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      headline: title,
-      description,
-      datePublished: pubDate.toISOString(),
-      dateModified: (updatedDate ?? pubDate).toISOString(),
-      author: { "@type": "Person", name: "Rajat Jog", url: SITE_URL },
-      image: new URL(ogImage, Astro.site).toString(),
-      url: Astro.url.toString(),
-    })} />
+    <BaseHead title={title} description={description} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description,
+        datePublished: pubDate.toISOString(),
+        dateModified: (updatedDate ?? pubDate).toISOString(),
+        author: { "@type": "Person", name: "Rajat Jog", url: SITE_URL },
+        image: new URL(ogImage, Astro.site).toString(),
+        url: Astro.url.toString(),
+      })}
+    />
   </head>
   <body>
     <Header />
     <div class="reading-progress" id="readingProgress"></div>
 
+    <!-- ambient orbs for detail page -->
+    <div class="post-orb-field" aria-hidden="true">
+      <div class="post-orb post-orb-1"></div>
+      <div class="post-orb post-orb-2"></div>
+    </div>
+
     <main class="article-shell">
-      <a href="/blog" class="back-link">&lt;- All posts</a>
+      <a href="/blog" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="M10 12L6 8l4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        All posts
+      </a>
 
       <article class="post" id="article">
-        <header class="post-header page-header">
-          <span class="page-kicker">Writing</span>
-          {tags && tags.length > 0 && (
-            <div class="post-tags">
-              {tags.map((tag: string) => <span class="chip active">{tag}</span>)}
+        <!-- cinematic post hero -->
+        <header class="post-hero" id="postHero">
+          <div class="hero-glow" aria-hidden="true"></div>
+
+          <div class="hero-content">
+            <span class="page-kicker">Writing</span>
+
+            {tags && tags.length > 0 && (
+              <div class="post-tags">
+                {tags.map((tag: string) => (
+                  <span class="chip active">{tag}</span>
+                ))}
+              </div>
+            )}
+
+            <h1 class="post-title" id="postTitle">{title}</h1>
+            <p class="post-description">{description}</p>
+
+            <div class="post-meta">
+              <div class="author-mark" aria-label="Rajat Jog">RJ</div>
+              <div class="author-info">
+                <strong>Rajat Jog</strong>
+                <span>Senior Backend Engineer</span>
+              </div>
+              <div class="meta-sep" aria-hidden="true"></div>
+              <div class="meta-dates">
+                <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+                {formattedUpdated && (
+                  <span class="updated-label">Updated {formattedUpdated}</span>
+                )}
+              </div>
             </div>
-          )}
-          <h1>{title}</h1>
-          <p class="post-description page-subtitle">{description}</p>
-          <div class="post-meta">
-            <div class="author-mark">RJ</div>
-            <div>
-              <strong>Rajat Jog</strong>
-              <span>Senior Backend Engineer</span>
-            </div>
-            <i></i>
-            <time datetime={pubDate.toISOString()}>{formattedDate}</time>
-            {formattedUpdated && <span>Updated {formattedUpdated}</span>}
           </div>
         </header>
 
@@ -75,9 +111,10 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
           <slot />
         </div>
 
-        <footer class="author-card">
-          <div class="author-mark large">RJ</div>
-          <div>
+        <!-- author card -->
+        <footer class="author-card" id="authorCard">
+          <div class="author-avatar" aria-label="Rajat Jog">RJ</div>
+          <div class="author-body">
             <h2>Rajat Jog</h2>
             <p>
               Senior Backend Engineer from Pune, India. Specialises in Python,
@@ -85,34 +122,43 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
               open-sources the hard parts.
             </p>
             <div class="author-links">
-              <a href="https://linkedin.com/in/rajat-jog" target="_blank" rel="noopener">LinkedIn -></a>
-              <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener">GitHub -></a>
-              <a href="https://pypi.org/user/rajatjog1294" target="_blank" rel="noopener">PyPI -></a>
+              <a href="https://linkedin.com/in/rajat-jog" target="_blank" rel="noopener">
+                LinkedIn
+              </a>
+              <a href="https://github.com/RJ-Gamer" target="_blank" rel="noopener">
+                GitHub
+              </a>
+              <a href="https://pypi.org/user/rajatjog1294" target="_blank" rel="noopener">
+                PyPI
+              </a>
             </div>
           </div>
         </footer>
 
+        <!-- suggested posts with 3D tilt -->
         {suggestedPosts.length > 0 && (
-          <section class="suggested-posts" aria-labelledby="suggested-posts-heading">
+          <section
+            class="suggested-posts"
+            aria-labelledby="suggested-posts-heading"
+          >
             <div class="suggested-head">
               <span class="page-kicker">More Writing</span>
-              <h2 id="suggested-posts-heading">Suggested blogs</h2>
+              <h2 id="suggested-posts-heading">You might also like</h2>
             </div>
             <div class="suggested-grid">
               {suggestedPosts.map((post) => (
-                <a href={`/blog/${post.id}/`} class="suggested-card">
-                  <div class="suggested-copy">
-                    <h3>{post.data.title}</h3>
-                    <p>{post.data.description}</p>
-                    {post.data.tags && post.data.tags.length > 0 && (
-                      <div class="tag-row">
-                        {post.data.tags.slice(0, 3).map((tag: string) => <span class="chip">{tag}</span>)}
-                      </div>
-                    )}
-                  </div>
-                  <div class="suggested-side">
-                    <div class="suggested-meta">
-                      <time datetime={post.data.pubDate.toISOString()}>
+                <a
+                  href={`/blog/${post.id}/`}
+                  class="suggested-card"
+                  data-tilt
+                >
+                  <div class="suggested-card-glow" aria-hidden="true"></div>
+                  <div class="suggested-inner">
+                    <div class="suggested-top">
+                      <time
+                        class="suggested-date"
+                        datetime={post.data.pubDate.toISOString()}
+                      >
                         {post.data.pubDate.toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -120,7 +166,35 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
                         })}
                       </time>
                     </div>
-                    <span class="suggested-link">Read post -&gt;</span>
+                    <h3>{post.data.title}</h3>
+                    <p>{post.data.description}</p>
+                    <div class="suggested-footer">
+                      {post.data.tags && post.data.tags.length > 0 && (
+                        <div class="tag-row">
+                          {post.data.tags.slice(0, 2).map((tag: string) => (
+                            <span class="chip">{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      <span class="suggested-cta">
+                        Read
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M3 7h8M7 3l4 4-4 4"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </a>
               ))}
@@ -129,13 +203,101 @@ const formattedUpdated = updatedDate?.toLocaleDateString("en-US", {
         )}
 
         <div class="post-nav">
-          <a href="/blog" class="btn-secondary">&lt;- Back to writing</a>
+          <a href="/blog" class="btn-secondary">← Back to writing</a>
         </div>
       </article>
     </main>
 
     <Footer />
 
-    <script>import "../scripts/blog-reading-progress";</script>
+    <script>
+      import "../scripts/blog-reading-progress";
+
+      // parallax title on scroll
+      const hero = document.getElementById("postHero") as HTMLElement | null;
+      const title = document.getElementById("postTitle") as HTMLElement | null;
+
+      if (hero && title) {
+        let ticking = false;
+        window.addEventListener("scroll", () => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const y = window.scrollY;
+              const maxShift = hero.offsetHeight * 0.25;
+              const shift = Math.min(y * 0.3, maxShift);
+              title.style.transform = `translateY(${shift}px)`;
+              title.style.opacity = String(Math.max(0, 1 - y / (hero.offsetHeight * 0.8)));
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      // 3D tilt on suggested cards
+      const tiltCards = document.querySelectorAll<HTMLElement>("[data-tilt]");
+
+      tiltCards.forEach((card) => {
+        const glow = card.querySelector<HTMLElement>(".suggested-card-glow");
+        let raf = 0;
+        let targetRx = 0, targetRy = 0;
+        let currentRx = 0, currentRy = 0;
+        let active = false;
+
+        const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+        const tick = () => {
+          currentRx = lerp(currentRx, targetRx, 0.1);
+          currentRy = lerp(currentRy, targetRy, 0.1);
+          card.style.transform = `perspective(800px) rotateX(${currentRx.toFixed(3)}deg) rotateY(${currentRy.toFixed(3)}deg) translateZ(${active ? 8 : 0}px)`;
+          const still =
+            Math.abs(currentRx - targetRx) < 0.004 &&
+            Math.abs(currentRy - targetRy) < 0.004;
+          if (still && !active) return;
+          raf = requestAnimationFrame(tick);
+        };
+
+        card.addEventListener("mousemove", (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          targetRx = -y * 10;
+          targetRy = x * 12;
+          if (glow) {
+            glow.style.left = `${e.clientX - rect.left}px`;
+            glow.style.top = `${e.clientY - rect.top}px`;
+          }
+        });
+
+        card.addEventListener("mouseenter", () => {
+          active = true;
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(tick);
+        });
+
+        card.addEventListener("mouseleave", () => {
+          active = false;
+          targetRx = 0;
+          targetRy = 0;
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(tick);
+        });
+      });
+
+      // author card reveal on scroll
+      const authorCard = document.getElementById("authorCard");
+      if (authorCard) {
+        const obs = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              authorCard.classList.add("revealed");
+              obs.disconnect();
+            }
+          },
+          { threshold: 0.15 }
+        );
+        obs.observe(authorCard);
+      }
+    </script>
   </body>
 </html>
