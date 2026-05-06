@@ -1,5 +1,42 @@
 export const clientProjects = [
   {
+    title: "UrgiDoctor",
+    type: "Telemedicine Platform",
+    period: "Oct 2023 - Nov 2025",
+    association: "Mindbowser Inc",
+    accent: "blue",
+    stat: "25 months",
+    bullets: [
+      "Architected and maintained the complete backend infrastructure for a HIPAA-compliant telemedicine platform serving patients and on-call physicians across iOS and Android.",
+      "Built APIs supporting real-time video/tele-conference scheduling, e-prescription workflows, and secure medical history storage.",
+      "Implemented FHIR-compatible data exchange and compliance controls to meet HIPAA standards across all patient-provider interactions.",
+      "Optimized PostgreSQL schemas and query performance to handle concurrent patient booking, provider availability, and appointment management at scale.",
+    ],
+    stack: ["Django", "DRF", "PostgreSQL", "HIPAA", "FHIR"],
+    links: [{ label: "Visit website", href: "https://www.urgidoctor.com/" }],
+  },
+  {
+    title: "Cascada",
+    type: "IoT Mobile App Backend",
+    period: "Sep 2024 - Present",
+    association: "Mindbowser Inc",
+    accent: "teal",
+    stat: "8 months",
+    bullets: [
+      "Architected and maintained the complete backend for an IoT-connected equine hydration tracking platform, processing real-time water consumption data from physical Cascada waterer devices.",
+      "Built data ingestion pipelines to capture, store, and analyze continuous sensor readings, enabling historical trend analysis and behavioral comparison across time.",
+      "Engineered a push notification system delivering real-time hydration alerts and health updates to horse owners monitoring remotely from anywhere in the world.",
+      "Designed REST APIs supporting live device sync, user account management, and location-aware data retrieval for the iOS and Android mobile clients.",
+    ],
+    stack: ["Django", "DRF", "PostgreSQL", "IoT", "Push Notifications"],
+    links: [
+      {
+        label: "View on Play Store",
+        href: "https://play.google.com/store/apps/details?id=com.root.cascadaapp&hl=en_IN",
+      },
+    ],
+  },
+  {
     title: "OppVenuz",
     type: "E-Commerce Platform",
     period: "Jun 2023 - Nov 2024",
