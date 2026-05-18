@@ -46,6 +46,10 @@ try {
   );
   const folders = await res.json();
 
+  if (!Array.isArray(folders)) {
+    throw new Error("Unexpected response while fetching DSA folders");
+  }
+
   problems = (
     await Promise.all(
       (folders as { name: string; type: string }[])

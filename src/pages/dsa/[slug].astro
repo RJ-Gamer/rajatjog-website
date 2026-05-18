@@ -21,6 +21,10 @@ export async function getStaticPaths() {
   );
   const folders = await res.json();
 
+  if (!Array.isArray(folders)) {
+    return [];
+  }
+
   return folders
     .filter((item: any) => item.type === "dir")
     .map((folder: any) => ({ params: { slug: folder.name } }));

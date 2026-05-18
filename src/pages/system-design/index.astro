@@ -1,0 +1,901 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+
+const rawDesigns = (await getCollection("system-design"))
+  .filter((d) => !d.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const designs = rawDesigns.map((d, index) => ({
+  ...d,
+  num: String(index + 1).padStart(2, "0"),
+}));
+
+const allTags = [...new Set(designs.flatMap((d) => d.data.tags ?? []))];
+const featured = designs[0];
+const listDesigns = designs.length > 1 ? designs.slice(1) : designs;
+
+const difficultyColor: Record<string, string> = {
+  Low: "var(--color-teal)",
+  Medium: "oklch(0.78 0.15 72)",
+  High: "oklch(0.72 0.17 18)",
+};
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="System Design - Rajat Jog"
+      description="Architecture breakdowns, trade-off analyses, and deep dives into building systems at scale."
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main class="sd-main">
+      <div class="orb-field" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+
+      <section class="masthead">
+        <div class="masthead-left">
+          <span class="page-kicker">System Design</span>
+          <h1 class="masthead-title">
+            <span class="reveal-word">Think&nbsp;Before</span><br />
+            <span class="reveal-word italic-word">You Build.</span>
+          </h1>
+        </div>
+        <div class="masthead-right">
+          <p>
+            Architecture breakdowns, trade-off analyses, and deep dives into
+            building systems that scale — written from production experience.
+          </p>
+          <div class="masthead-stats">
+            {
+              [
+                [designs.length, "Designs"],
+                [allTags.length, "Topics"],
+              ].map(([value, label]) => (
+                <div class="stat-item">
+                  <strong>{value}</strong>
+                  <span>{label}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      {
+        designs.length === 0 ? (
+          <div class="empty-state">
+            <p>System design breakdowns coming soon.</p>
+          </div>
+        ) : (
+          <>
+            <section class="featured-section">
+              <a
+                href={`/system-design/${featured.id}/`}
+                class="featured-card"
+                id="featuredCard"
+              >
+                <div class="card-glow" id="cardGlow" aria-hidden="true" />
+                <div class="featured-inner">
+                  <div class="featured-left">
+                    <div class="article-meta">
+                      <span class="latest-label">Latest</span>
+                      {featured.data.difficulty && (
+                        <span
+                          class="difficulty-badge"
+                          style={`color: ${difficultyColor[featured.data.difficulty] ?? "var(--color-text-muted)"}`}
+                        >
+                          {featured.data.difficulty}
+                        </span>
+                      )}
+                      <time datetime={featured.data.pubDate.toISOString()}>
+                        {featured.data.pubDate.toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                    </div>
+                    <h2 class="featured-title">{featured.data.title}</h2>
+                    <div class="featured-bar" />
+                  </div>
+                  <div class="featured-right">
+                    <p>{featured.data.description}</p>
+                    {featured.data.tags && (
+                      <div class="tag-row">
+                        {featured.data.tags.map((tag: string) => (
+                          <span class="chip">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                    <span class="article-cta">
+                      Read design
+                      <svg
+                        width="32"
+                        height="32"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        class="cta-icon"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="16"
+                          cy="16"
+                          r="15.5"
+                          stroke="currentColor"
+                          stroke-opacity="0.3"
+                        />
+                        <path
+                          d="M11 16h10M17 12l4 4-4 4"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </section>
+
+            {listDesigns.length > 0 && (
+              <section class="archive-section">
+                <div class="archive-head">
+                  <div class="tag-filter" role="group" aria-label="Filter by topic">
+                    <button
+                      class="chip active"
+                      type="button"
+                      data-tag="all"
+                      aria-pressed="true"
+                    >
+                      All ({designs.length})
+                    </button>
+                    {allTags.map((tag) => (
+                      <button
+                        class="chip"
+                        type="button"
+                        data-tag={tag}
+                        aria-pressed="false"
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                  <span class="archive-count">{designs.length} designs</span>
+                </div>
+
+                <div class="post-list">
+                  {listDesigns.map((design, i) => (
+                    <a
+                      href={`/system-design/${design.id}/`}
+                      class="post-row"
+                      data-tags={JSON.stringify(design.data.tags ?? [])}
+                      style={`--i: ${i}`}
+                    >
+                      <span class="post-num">{design.num}</span>
+                      <div class="post-title-block">
+                        <h3>{design.data.title}</h3>
+                        {design.data.tags && (
+                          <div class="tag-row compact">
+                            {design.data.tags.map((tag: string) => (
+                              <span class="chip">{tag}</span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <p class="post-desc">{design.data.description}</p>
+                      <div class="post-side">
+                        {design.data.difficulty && (
+                          <span
+                            class="diff-pill"
+                            style={`color: ${difficultyColor[design.data.difficulty] ?? "var(--color-text-muted)"}`}
+                          >
+                            {design.data.difficulty}
+                          </span>
+                        )}
+                        <time datetime={design.data.pubDate.toISOString()}>
+                          {design.data.pubDate.toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </time>
+                        <svg
+                          width="30"
+                          height="30"
+                          viewBox="0 0 32 32"
+                          fill="none"
+                          class="row-arrow"
+                          aria-hidden="true"
+                        >
+                          <circle
+                            cx="16"
+                            cy="16"
+                            r="15.5"
+                            stroke="currentColor"
+                            stroke-opacity="0.3"
+                          />
+                          <path
+                            d="M11 16h10M17 12l4 4-4 4"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <section class="follow-strip">
+              <div class="follow-copy">
+                <h2>Want to follow along?</h2>
+                <p>New system design breakdowns and backend deep-dives.</p>
+              </div>
+              <div class="follow-links">
+                <a
+                  href="https://github.com/RJ-Gamer"
+                  target="_blank"
+                  rel="noopener"
+                  class="follow-link"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/rajat-jog"
+                  target="_blank"
+                  rel="noopener"
+                  class="follow-link"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </section>
+          </>
+        )
+      }
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .sd-main {
+    max-width: 1200px;
+    position: relative;
+  }
+
+  .orb-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    animation: orb-drift linear infinite;
+  }
+
+  .orb-1 {
+    width: 520px;
+    height: 520px;
+    background: var(--color-accent-glow);
+    top: -160px;
+    right: -80px;
+    animation-duration: 22s;
+    opacity: 0.55;
+  }
+
+  .orb-2 {
+    width: 340px;
+    height: 340px;
+    background: var(--color-teal-dim);
+    top: 35%;
+    left: -100px;
+    animation-duration: 28s;
+    animation-delay: -10s;
+    opacity: 0.45;
+  }
+
+  .orb-3 {
+    width: 260px;
+    height: 260px;
+    background: var(--color-accent-glow);
+    bottom: 18%;
+    right: 18%;
+    animation-duration: 17s;
+    animation-delay: -6s;
+    opacity: 0.3;
+  }
+
+  @keyframes orb-drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(24px, -18px) scale(1.04); }
+    50%  { transform: translate(8px, 22px) scale(0.97); }
+    75%  { transform: translate(-20px, 6px) scale(1.02); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .masthead {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 4rem;
+    align-items: end;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 4rem;
+  }
+
+  .masthead-title {
+    font-size: clamp(3.8rem, 9vw, 7.2rem);
+    letter-spacing: -0.02em;
+    line-height: 0.94;
+    margin: 0.75rem 0 0;
+    perspective: 900px;
+  }
+
+  .reveal-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(52px) rotateX(22deg);
+    transform-origin: 50% 0%;
+    animation: word-reveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .reveal-word:nth-child(1) { animation-delay: 0.08s; }
+  .reveal-word:nth-child(3) { animation-delay: 0.28s; }
+
+  .italic-word {
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  @keyframes word-reveal {
+    to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+  }
+
+  .masthead-right {
+    padding-bottom: 0.5rem;
+    animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+  }
+
+  .masthead-right p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 2.2rem;
+  }
+
+  .masthead-stats {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .stat-item strong {
+    color: var(--color-text);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.45rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-item span {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .featured-section {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--color-border);
+    padding: 4.5rem 0;
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  }
+
+  .featured-card {
+    position: relative;
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+    color: inherit;
+    cursor: pointer;
+    will-change: transform;
+    transition:
+      transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+      border-color 0.3s ease,
+      box-shadow 0.5s ease;
+  }
+
+  .featured-card:hover {
+    border-color: var(--color-border-hover);
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.45),
+      0 0 0 1px var(--color-border-hover),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    color: inherit;
+  }
+
+  .card-glow {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  .featured-card:hover .card-glow { opacity: 1; }
+
+  .featured-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 5rem;
+    padding: 4rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.75rem;
+  }
+
+  .latest-label {
+    background: var(--color-accent-dim);
+    border: 1px solid var(--color-accent-border);
+    border-radius: 3px;
+    color: var(--color-accent);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    padding: 0.25rem 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .difficulty-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .featured-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 0 1.5rem;
+    max-width: 580px;
+    transition: color 0.2s ease;
+  }
+
+  .featured-bar {
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-teal), transparent);
+    width: 0;
+    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .featured-card:hover .featured-bar { width: 100%; }
+
+  .featured-right { align-self: end; }
+
+  .featured-right > p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-row.compact .chip {
+    font-size: 0.62rem;
+    padding: 0.18rem 0.48rem;
+  }
+
+  .article-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .featured-card:hover .article-cta { color: var(--color-accent); }
+
+  .cta-icon {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.2s ease;
+  }
+
+  .featured-card:hover .cta-icon {
+    transform: translate(4px, -4px);
+    color: var(--color-accent);
+  }
+
+  .archive-section {
+    position: relative;
+    z-index: 1;
+    padding-top: 3rem;
+  }
+
+  .archive-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag-filter .chip { cursor: pointer; transition: all 0.2s ease; }
+
+  .tag-filter .chip:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-text);
+  }
+
+  .tag-filter .chip.active {
+    background: var(--color-accent-dim);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
+  }
+
+  .archive-count {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .post-list { border-top: 1px solid var(--color-border); }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 72px minmax(220px, 1fr) minmax(200px, 300px) 130px;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.25rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    color: inherit;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 65ms),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 65ms);
+  }
+
+  .post-row.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .post-row:hover {
+    background: var(--color-bg-secondary);
+    color: inherit;
+  }
+
+  .post-num {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    transition: color 0.18s ease;
+  }
+
+  .post-row:hover .post-num { color: var(--color-accent); }
+
+  .post-title-block h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+    transition: color 0.18s ease;
+  }
+
+  .post-row:hover .post-title-block h3 { color: var(--color-text); }
+
+  .post-desc {
+    display: -webkit-box;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    margin: 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .post-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .diff-pill {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .row-arrow {
+    color: var(--color-text-muted);
+    margin-top: 0.4rem;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.2s ease;
+  }
+
+  .post-row:hover .row-arrow {
+    transform: translate(4px, -4px);
+    color: var(--color-accent);
+  }
+
+  .follow-strip {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    border-top: 1px solid var(--color-border);
+    margin-top: 1rem;
+    padding: 4.5rem 0 2rem;
+  }
+
+  .follow-copy h2 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .follow-copy p { font-size: 0.9rem; margin: 0; }
+
+  .follow-links { display: flex; gap: 0.75rem; }
+
+  .follow-link {
+    border: 1px solid var(--color-border);
+    border-radius: var(--base-radius);
+    color: var(--color-text-secondary) !important;
+    font-size: 0.85rem;
+    padding: 0.7rem 1.35rem;
+    transition: all 0.2s ease;
+  }
+
+  .follow-link:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-border-hover);
+    color: var(--color-text) !important;
+  }
+
+  .chip.active {
+    background: var(--color-accent-dim);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
+  }
+
+  .empty-state {
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 1080px) {
+    .featured-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 3rem;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .masthead {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .post-row {
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 0.75rem;
+      padding: 1.75rem 0;
+    }
+
+    .post-side {
+      align-items: flex-start;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .row-arrow { margin-top: 0; }
+  }
+
+  @media (max-width: 640px) {
+    .masthead-title { font-size: 3.6rem; }
+    .masthead-stats { gap: 1.75rem; }
+
+    .follow-strip,
+    .follow-links {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .featured-inner { padding: 2rem 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-word,
+    .masthead-right,
+    .featured-section {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .post-row {
+      opacity: 1;
+      transform: none;
+    }
+
+    .orb { animation: none; }
+  }
+</style>
+
+<script>
+  // smooth lerp 3D tilt on featured card
+  const card = document.getElementById("featuredCard") as HTMLElement | null;
+  const glow = document.getElementById("cardGlow") as HTMLElement | null;
+
+  if (card && glow) {
+    let raf = 0;
+    let targetRx = 0, targetRy = 0;
+    let currentRx = 0, currentRy = 0;
+    let isHovered = false;
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    const tick = () => {
+      currentRx = lerp(currentRx, targetRx, 0.1);
+      currentRy = lerp(currentRy, targetRy, 0.1);
+      card.style.transform =
+        `perspective(1200px) rotateX(${currentRx.toFixed(3)}deg) rotateY(${currentRy.toFixed(3)}deg) translateZ(${isHovered ? 6 : 0}px)`;
+      const still =
+        Math.abs(currentRx - targetRx) < 0.005 &&
+        Math.abs(currentRy - targetRy) < 0.005;
+      if (still && !isHovered) return;
+      raf = requestAnimationFrame(tick);
+    };
+
+    card.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      targetRx = -y * 8;
+      targetRy = x * 10;
+      glow.style.left = `${e.clientX - rect.left}px`;
+      glow.style.top = `${e.clientY - rect.top}px`;
+    });
+
+    card.addEventListener("mouseenter", () => {
+      isHovered = true;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(tick);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      isHovered = false;
+      targetRx = 0;
+      targetRy = 0;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(tick);
+    });
+  }
+
+  // stagger-reveal list rows on scroll
+  const rows = document.querySelectorAll<HTMLElement>(".post-row");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).classList.add("revealed");
+          observer.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.06 }
+  );
+  rows.forEach((r) => observer.observe(r));
+
+  // tag filter
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".tag-filter .chip");
+  const postRows = document.querySelectorAll<HTMLElement>(".post-row");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+
+      const tag = btn.dataset.tag ?? "all";
+      postRows.forEach((row) => {
+        if (tag === "all") {
+          row.style.display = "";
+        } else {
+          const tags: string[] = JSON.parse(row.dataset.tags ?? "[]");
+          row.style.display = tags.includes(tag) ? "" : "none";
+        }
+      });
+    });
+  });
+</script>

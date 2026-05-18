@@ -1,0 +1,42 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import SystemDesignPost from "../../layouts/SystemDesignPost.astro";
+
+export async function getStaticPaths() {
+  const designs = await getCollection("system-design");
+  return designs
+    .filter((d) => !d.data.draft)
+    .map((design) => ({
+      params: { slug: design.id },
+      props: design,
+    }));
+}
+
+type Props = CollectionEntry<"system-design">;
+
+const design = Astro.props;
+const allDesigns = (await getCollection("system-design")).filter(
+  (entry) => !entry.data.draft && entry.id !== design.id
+);
+
+const currentTags = new Set(design.data.tags ?? []);
+const suggestedDesigns = allDesigns
+  .map((entry) => {
+    const sharedTags = (entry.data.tags ?? []).filter((tag) =>
+      currentTags.has(tag)
+    ).length;
+    return { entry, sharedTags };
+  })
+  .sort((a, b) => {
+    if (b.sharedTags !== a.sharedTags) return b.sharedTags - a.sharedTags;
+    return b.entry.data.pubDate.valueOf() - a.entry.data.pubDate.valueOf();
+  })
+  .slice(0, 3)
+  .map(({ entry }) => entry);
+
+const { Content } = await render(design);
+---
+
+<SystemDesignPost {...design.data} suggestedDesigns={suggestedDesigns}>
+  <Content />
+</SystemDesignPost>

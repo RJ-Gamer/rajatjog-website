@@ -16,4 +16,17 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const systemDesign = defineCollection({
+  loader: glob({ base: "./src/content/system-design", pattern: "**/*.{md,mdx}" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    tags: z.array(z.string()).optional(),
+    difficulty: z.enum(["Low", "Medium", "High"]).optional(),
+    draft: z.boolean().optional().default(false),
+  }),
+});
+
+export const collections = { blog, "system-design": systemDesign };
